@@ -4,12 +4,12 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'dnsmasq_domain'
 
   environment:
@@ -17,14 +17,14 @@
 
   tasks:
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn_pre1
       failed_when: >
         'data' not in opn_pre1 or
         opn_pre1.data | length != 0
 
     - name: Removing - does not exist
-      oxlorg.opnsense.dnsmasq_domain:
+      fyrastack.opnsense.dnsmasq_domain:
         domain: 'test1.oxlorg'
         state: 'absent'
       register: opn_pre2
@@ -33,20 +33,20 @@
         opn_pre2.changed
 
 #    - name: Adding 1 - failing because of invalid value
-#      oxlorg.opnsense.dnsmasq_domain:
+#      fyrastack.opnsense.dnsmasq_domain:
 #        field1: 'INVALID-IP'
 #      register: opn_fail1
 #      failed_when: not opn_fail1.failed
 #
 #    - name: Adding 1 - failing because of invalid domain
-#      oxlorg.opnsense.dnsmasq_domain:
+#      fyrastack.opnsense.dnsmasq_domain:
 #        field1: '!INVALID-DOMAIN!'
 #        field2: 'INVALID-IP'
 #      register: opn_fail2
 #      failed_when: not opn_fail2.failed
 
     - name: Adding 1
-      oxlorg.opnsense.dnsmasq_domain:
+      fyrastack.opnsense.dnsmasq_domain:
         domain: 'test1.oxlorg'
       register: opn1
       failed_when: >
@@ -54,7 +54,7 @@
         not opn1.changed
 
     - name: Changing 1
-      oxlorg.opnsense.dnsmasq_domain:
+      fyrastack.opnsense.dnsmasq_domain:
         domain: 'test1.oxlorg'
         ip: 192.168.100.100
         port: 5353
@@ -64,7 +64,7 @@
         not opn2.changed
 
     - name: Adding 2
-      oxlorg.opnsense.dnsmasq_domain:
+      fyrastack.opnsense.dnsmasq_domain:
         domain: 'test2.oxlorg'
         ip: 192.168.100.101
         port: 5353
@@ -74,7 +74,7 @@
         not opn3.changed
 
     - name: Adding 2 - nothing changed
-      oxlorg.opnsense.dnsmasq_domain:
+      fyrastack.opnsense.dnsmasq_domain:
         domain: 'test2.oxlorg'
         ip: 192.168.100.101
         port: 5353
@@ -85,7 +85,7 @@
       when: not ansible_check_mode
 
     - name: Removing 2
-      oxlorg.opnsense.dnsmasq_domain:
+      fyrastack.opnsense.dnsmasq_domain:
         domain: 'test2.oxlorg'
         state: 'absent'
       register: opn5
@@ -95,7 +95,7 @@
       when: not ansible_check_mode
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn6
       failed_when: >
         'data' not in opn6 or
@@ -103,7 +103,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.dnsmasq_domain:
+      fyrastack.opnsense.dnsmasq_domain:
         domain: '{{ item }}'
         state: 'absent'
       loop:
@@ -112,7 +112,7 @@
       when: not ansible_check_mode
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn_clean1
       failed_when: >
         'data' not in opn_clean1 or

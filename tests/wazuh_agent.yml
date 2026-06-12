@@ -4,12 +4,12 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'wazuh_agent'
 
   environment:
@@ -17,14 +17,14 @@
 
   tasks:
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn_pre1
       failed_when: >
         opn_pre1.failed or
         'data' not in opn_pre1
 
     - name: Configuring - failing because of invalid server address
-      oxlorg.opnsense.wazuh_agent:
+      fyrastack.opnsense.wazuh_agent:
         server_address: 'invalid..server'
         reload: false
       register: opn_fail1
@@ -32,7 +32,7 @@
       when: not ansible_check_mode
 
     - name: Configuring - failing because of invalid port
-      oxlorg.opnsense.wazuh_agent:
+      fyrastack.opnsense.wazuh_agent:
         server_address: '192.168.1.100'
         port: 99999
         reload: false
@@ -41,7 +41,7 @@
       when: not ansible_check_mode
 
     - name: Configuring - failing because of invalid debug level
-      oxlorg.opnsense.wazuh_agent:
+      fyrastack.opnsense.wazuh_agent:
         server_address: '192.168.1.100'
         debug_level: 5
         reload: false
@@ -50,7 +50,7 @@
       when: not ansible_check_mode
 
     - name: Configuring
-      oxlorg.opnsense.wazuh_agent:
+      fyrastack.opnsense.wazuh_agent:
         server_address: '192.168.1.100'
         agent_name: 'test-agent'
         protocol: 'tcp'
@@ -63,7 +63,7 @@
         not opn1.changed
 
     - name: Configuring - nothing changed
-      oxlorg.opnsense.wazuh_agent:
+      fyrastack.opnsense.wazuh_agent:
         server_address: '192.168.1.100'
         agent_name: 'test-agent'
         protocol: 'tcp'
@@ -77,7 +77,7 @@
       when: not ansible_check_mode
 
     - name: Configuring - changing server
-      oxlorg.opnsense.wazuh_agent:
+      fyrastack.opnsense.wazuh_agent:
         server_address: '10.0.0.100'
         agent_name: 'test-agent-2'
         protocol: 'udp'
@@ -92,7 +92,7 @@
       when: not ansible_check_mode
 
     - name: Configuring - with authentication
-      oxlorg.opnsense.wazuh_agent:
+      fyrastack.opnsense.wazuh_agent:
         server_address: '10.0.0.100'
         agent_name: 'test-agent-auth'
         protocol: 'tcp'
@@ -118,7 +118,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.wazuh_agent:
+      fyrastack.opnsense.wazuh_agent:
         server_address: '127.0.0.1'
         enabled: false
         reload: false

@@ -30,7 +30,7 @@ You need to install the following plugin:
 
     os-nginx
 
-You can also install it using the :ref:`oxlorg.opnsense.package <modules_package>` module.
+You can also install it using the :ref:`fyrastack.opnsense.package <modules_package>` module.
 
 
 Definition
@@ -38,7 +38,7 @@ Definition
 
 .. include:: ../_include/param_basic.rst
 
-oxlorg.opnsense.nginx_general
+fyrastack.opnsense.nginx_general
 =================================
 
 ..  csv-table:: Definition
@@ -49,7 +49,7 @@ oxlorg.opnsense.nginx_general
     "ban_ttl","integer","false","0","\-","Set autoblock lifetime in minutes. Set to 0 for infinite."
 
 
-oxlorg.opnsense.nginx_upstream_server
+fyrastack.opnsense.nginx_upstream_server
 =========================================
 
 ..  csv-table:: Definition
@@ -79,7 +79,7 @@ Enabling the nginx configured services.
 Examples
 ********
 
-oxlorg.opnsense.nginx_upstream_server
+fyrastack.opnsense.nginx_upstream_server
 =========================================
 
 .. code-block:: yaml
@@ -88,16 +88,16 @@ oxlorg.opnsense.nginx_upstream_server
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'nginx_upstream_server'
 
       tasks:
         - name: Add an upstream server
-          oxlorg.opnsense.nginx_upstream_server:
+          fyrastack.opnsense.nginx_upstream_server:
             name: 'upstream1'
             server: '192.168.1.1'
             port: 80
@@ -110,12 +110,12 @@ oxlorg.opnsense.nginx_upstream_server
             # reload: true
 
         - name: Changing the server
-          oxlorg.opnsense.nginx_upstream_server:
+          fyrastack.opnsense.nginx_upstream_server:
             name: 'upstream1'
             server: '192.168.1.100'
 
         - name: Listing upstream servers
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'nginx_upstream_server'
           register: existing_servers
 

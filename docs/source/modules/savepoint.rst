@@ -32,9 +32,9 @@ Here is the basic process:
 
 It currently just works with the 'Firewall' plugin:
 
-- :ref:`oxlorg.opnsense.rule <modules_rule>`
-- :ref:`oxlorg.opnsense.nat_source <modules_nat_source>`
-- :ref:`oxlorg.opnsense.nat_one_to_one <modules_nat_one_to_one>`
+- :ref:`fyrastack.opnsense.rule <modules_rule>`
+- :ref:`fyrastack.opnsense.nat_source <modules_nat_source>`
+- :ref:`fyrastack.opnsense.nat_one_to_one <modules_nat_one_to_one>`
 
 ----
 
@@ -63,35 +63,35 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
       tasks:
         - name: Create a savepoint for firewall filters
-          oxlorg.opnsense.savepoint:
+          fyrastack.opnsense.savepoint:
             action: 'create'
             controller: 'filter'  # default
           register: filter_savepoint
 
         - name: Apply savepoint
-          oxlorg.opnsense.savepoint:
+          fyrastack.opnsense.savepoint:
             action: 'apply'
             revision: "{{ filter_savepoint.revision }}"
 
         - name: Revert savepoint
-          oxlorg.opnsense.savepoint:
+          fyrastack.opnsense.savepoint:
             action: 'revert'
             revision: "{{ filter_savepoint.revision }}"
 
         - name: Create a savepoint for firewall source-nat
-          oxlorg.opnsense.savepoint:
+          fyrastack.opnsense.savepoint:
             action: 'create'
             controller: 'source_nat'
           register: snat_savepoint
 
         - name: Remove source-nat savepoint (else it will be reverted automatically)
-          oxlorg.opnsense.savepoint:
+          fyrastack.opnsense.savepoint:
             action: 'cancel_rollback'
             controller: 'source_nat'
             revision: "{{ snat_savepoint.revision }}"

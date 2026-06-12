@@ -6,20 +6,20 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.unbound_host:
+    fyrastack.opnsense.unbound_host:
       match_fields: ['description']
       timeout: 60
 
-    oxlorg.opnsense.unbound_host_alias:
+    fyrastack.opnsense.unbound_host_alias:
       match_fields: ['description']
       timeout: 60
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'unbound_host_alias'
 
   environment:
@@ -27,14 +27,14 @@
 
   tasks:
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn10
       failed_when: >
         'data' not in opn10 or
         opn10.data | length != 0
 
     - name: Adding alias to link
-      oxlorg.opnsense.unbound_host:
+      fyrastack.opnsense.unbound_host:
         hostname: 'host'
         domain: 'opnsense.test.oxlorg.net'
         value: '192.168.0.1'
@@ -42,7 +42,7 @@
         reload: false  # speed
 
     - name: Removing - does not exist
-      oxlorg.opnsense.unbound_host_alias:
+      fyrastack.opnsense.unbound_host_alias:
         alias: 'e'
         domain: 'opnsense.test.oxlorg.net'
         target: 'host.opnsense.test.oxlorg.net'
@@ -56,7 +56,7 @@
       when: not ansible_check_mode
 
     - name: Adding 1 - failing because of invalid target
-      oxlorg.opnsense.unbound_host_alias:
+      fyrastack.opnsense.unbound_host_alias:
         alias: 'a'
         domain: 'opnsense.test.oxlorg.net'
         target: 'does.not.exist'
@@ -65,7 +65,7 @@
       failed_when: not opn11.failed
 
     - name: Adding 1 - failing because of invalid domain
-      oxlorg.opnsense.unbound_host_alias:
+      fyrastack.opnsense.unbound_host_alias:
         alias: 'b'
         domain: '!INVALID-DOMAIN!'
         target: 'host.opnsense.test.oxlorg.net'
@@ -74,7 +74,7 @@
       failed_when: not opn12.failed
 
     - name: Adding 1
-      oxlorg.opnsense.unbound_host_alias:
+      fyrastack.opnsense.unbound_host_alias:
         alias: 'c'
         domain: 'opnsense.test.oxlorg.net'
         target: 'host.opnsense.test.oxlorg.net'
@@ -87,7 +87,7 @@
       when: not ansible_check_mode
 
     - name: Disabling 1
-      oxlorg.opnsense.unbound_host_alias:
+      fyrastack.opnsense.unbound_host_alias:
         alias: 'c'
         domain: 'opnsense.test.oxlorg.net'
         target: 'host.opnsense.test.oxlorg.net'
@@ -101,7 +101,7 @@
       when: not ansible_check_mode
 
     - name: Disabling 1 - nothing changed
-      oxlorg.opnsense.unbound_host_alias:
+      fyrastack.opnsense.unbound_host_alias:
         alias: 'c'
         domain: 'opnsense.test.oxlorg.net'
         target: 'host.opnsense.test.oxlorg.net'
@@ -115,7 +115,7 @@
       when: not ansible_check_mode
 
     - name: Enabling 1
-      oxlorg.opnsense.unbound_host_alias:
+      fyrastack.opnsense.unbound_host_alias:
         alias: 'c'
         domain: 'opnsense.test.oxlorg.net'
         target: 'host.opnsense.test.oxlorg.net'
@@ -128,7 +128,7 @@
       when: not ansible_check_mode
 
     - name: Adding 2
-      oxlorg.opnsense.unbound_host_alias:
+      fyrastack.opnsense.unbound_host_alias:
         alias: 'd'
         domain: 'opnsense.test.oxlorg.net'
         target: 'host.opnsense.test.oxlorg.net'
@@ -141,7 +141,7 @@
       when: not ansible_check_mode
 
     - name: Adding 2 - nothing changed
-      oxlorg.opnsense.unbound_host_alias:
+      fyrastack.opnsense.unbound_host_alias:
         alias: 'd'
         domain: 'opnsense.test.oxlorg.net'
         target: 'host.opnsense.test.oxlorg.net'
@@ -154,7 +154,7 @@
       when: not ansible_check_mode
 
     - name: Removing 2
-      oxlorg.opnsense.unbound_host_alias:
+      fyrastack.opnsense.unbound_host_alias:
         description: 'ANSIBLE_TEST_1_2'
         alias: 'd'
         domain: 'opnsense.test.oxlorg.net'
@@ -167,7 +167,7 @@
       when: not ansible_check_mode
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn3
       failed_when: >
         'data' not in opn3 or
@@ -175,7 +175,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.unbound_host_alias:
+      fyrastack.opnsense.unbound_host_alias:
         description: "{{ item }}"
         alias: 'dummy'
         domain: 'dummy'
@@ -187,7 +187,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup host
-      oxlorg.opnsense.unbound_host:
+      fyrastack.opnsense.unbound_host:
         hostname: 'host'
         domain: 'opnsense.test.oxlorg.net'
         description: 'ANSIBLE_TEST_2_1'
@@ -195,7 +195,7 @@
         reload: false
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn2
       failed_when: >
         'data' not in opn2 or

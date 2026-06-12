@@ -88,19 +88,19 @@ Examples
 
       gather_facts: no
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.unbound_host:
+        fyrastack.opnsense.unbound_host:
           match_fields: ['description']
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'unbound_host'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.unbound_host:
+          fyrastack.opnsense.unbound_host:
             hostname: 'host'
             domain: 'opnsense.template.opnsense.oxl.app'
             value: '192.168.0.1'
@@ -114,7 +114,7 @@ Examples
             # debug: false
 
         - name: Adding
-          oxlorg.opnsense.unbound_host:
+          fyrastack.opnsense.unbound_host:
             hostname: 'host'
             domain: 'opnsense.template.opnsense.oxl.app'
             value: '192.168.0.1'
@@ -122,7 +122,7 @@ Examples
             # match_fields: ['description']
 
         - name: Removing
-          oxlorg.opnsense.unbound_host:
+          fyrastack.opnsense.unbound_host:
             hostname: 'host'
             domain: 'opnsense.template.opnsense.oxl.app'
             value: '192.168.0.1'
@@ -131,7 +131,7 @@ Examples
             # match_fields: ['description']
 
         - name: Adding MX record
-          oxlorg.opnsense.unbound_host:
+          fyrastack.opnsense.unbound_host:
             hostname: 'mx'
             domain: 'opnsense.template.opnsense.oxl.app'
             value: 'host.opnsense.template.opnsense.oxl.app'
@@ -140,7 +140,7 @@ Examples
             # match_fields: ['description']
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'unbound_host'
           register: existing_entries
 

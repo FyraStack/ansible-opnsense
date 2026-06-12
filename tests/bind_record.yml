@@ -4,12 +4,12 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'bind_record'
 
   environment:
@@ -17,7 +17,7 @@
 
   tasks:
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn_pre1
       failed_when: >
         opn_pre1.failed or
@@ -25,7 +25,7 @@
         opn_pre1.data | length > 0
 
     - name: Adding - failing because of non-existing domain
-      oxlorg.opnsense.bind_record:
+      fyrastack.opnsense.bind_record:
         domain: 'test60.oxlorg'
         name: 'test1'
         value: '192.168.1.1'
@@ -33,12 +33,12 @@
       failed_when: not opn_fail1.failed
 
     - name: Adding dummy domain
-      oxlorg.opnsense.bind_domain:
+      fyrastack.opnsense.bind_domain:
         name: 'test4.oxlorg'
       when: not ansible_check_mode
 
     - name: Adding - failing because of invalid values
-      oxlorg.opnsense.bind_record:
+      fyrastack.opnsense.bind_record:
         domain: 'test4.oxlorg'
         name: 'test1'
         value: "{{ item.v }}"
@@ -53,7 +53,7 @@
         - {t: 'AAAA', v: '192.168.0.1'}
 
     - name: Adding 1
-      oxlorg.opnsense.bind_record:
+      fyrastack.opnsense.bind_record:
         domain: 'test4.oxlorg'
         name: 'test1'
         value: '192.168.1.1'
@@ -64,7 +64,7 @@
       when: not ansible_check_mode
 
     - name: Changing 1
-      oxlorg.opnsense.bind_record:
+      fyrastack.opnsense.bind_record:
         domain: 'test4.oxlorg'
         name: 'test1'
         value: '192.168.3.1'
@@ -75,7 +75,7 @@
       when: not ansible_check_mode
 
     - name: Disabling 1
-      oxlorg.opnsense.bind_record:
+      fyrastack.opnsense.bind_record:
         domain: 'test4.oxlorg'
         name: 'test1'
         value: '192.168.3.1'
@@ -87,7 +87,7 @@
       when: not ansible_check_mode
 
     - name: Disabling 1 - nothing changed
-      oxlorg.opnsense.bind_record:
+      fyrastack.opnsense.bind_record:
         domain: 'test4.oxlorg'
         name: 'test1'
         value: '192.168.3.1'
@@ -99,7 +99,7 @@
       when: not ansible_check_mode
 
     - name: Enabling 1
-      oxlorg.opnsense.bind_record:
+      fyrastack.opnsense.bind_record:
         domain: 'test4.oxlorg'
         name: 'test1'
         value: '192.168.3.1'
@@ -110,7 +110,7 @@
       when: not ansible_check_mode
 
     - name: Adding 2
-      oxlorg.opnsense.bind_record:
+      fyrastack.opnsense.bind_record:
         domain: 'test4.oxlorg'
         name: 'test2'
         value: 'someRandomText'
@@ -122,7 +122,7 @@
       when: not ansible_check_mode
 
     - name: Adding 2 - Nothing changed
-      oxlorg.opnsense.bind_record:
+      fyrastack.opnsense.bind_record:
         domain: 'test4.oxlorg'
         name: 'test2'
         value: 'someRandomText'
@@ -134,7 +134,7 @@
       when: not ansible_check_mode
 
     - name: Adding 3 (round robin)
-      oxlorg.opnsense.bind_record:
+      fyrastack.opnsense.bind_record:
         domain: 'test4.oxlorg'
         name: 'test3'
         value: '192.168.4.1'
@@ -146,7 +146,7 @@
       when: not ansible_check_mode
 
     - name: Adding 3 - Nothing changed (round robin)
-      oxlorg.opnsense.bind_record:
+      fyrastack.opnsense.bind_record:
         domain: 'test4.oxlorg'
         name: 'test3'
         value: '192.168.4.1'
@@ -158,7 +158,7 @@
       when: not ansible_check_mode
 
     - name: Changing 3 (round robin)
-      oxlorg.opnsense.bind_record:
+      fyrastack.opnsense.bind_record:
         domain: 'test4.oxlorg'
         name: 'test3'
         value: '192.168.4.2'
@@ -170,7 +170,7 @@
       when: not ansible_check_mode
 
     - name: Adding - failing because of unconfigured round-robin
-      oxlorg.opnsense.bind_record:
+      fyrastack.opnsense.bind_record:
         domain: 'test4.oxlorg'
         name: 'test3'
         value: '192.168.2.1'
@@ -179,7 +179,7 @@
       when: not ansible_check_mode
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn14
       failed_when: >
         'data' not in opn14 or
@@ -187,7 +187,7 @@
       when: not ansible_check_mode
 
     - name: Removing round robin
-      oxlorg.opnsense.bind_record:
+      fyrastack.opnsense.bind_record:
         domain: 'test4.oxlorg'
         name: 'test3'
         state: 'absent'
@@ -199,7 +199,7 @@
       when: not ansible_check_mode
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn8
       failed_when: >
         'data' not in opn8 or
@@ -207,7 +207,7 @@
       when: not ansible_check_mode
 
     - name: Fail to cleanup domain with active records (would leave orphaned config)
-      oxlorg.opnsense.bind_domain:
+      fyrastack.opnsense.bind_domain:
         name: 'test4.oxlorg'
         state: 'absent'
       register: opn14
@@ -215,7 +215,7 @@
       when: not ansible_check_mode
 
     - name: Adding 4 (mx)
-      oxlorg.opnsense.bind_record:
+      fyrastack.opnsense.bind_record:
         domain: 'test4.oxlorg'
         name: ''
         type: 'MX'
@@ -227,7 +227,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.bind_record:
+      fyrastack.opnsense.bind_record:
         domain: 'test4.oxlorg'
         name: "{{ item.n }}"
         type: "{{ item.t | default(omit) }}"
@@ -239,12 +239,12 @@
       when: not ansible_check_mode
 
     - name: Cleanup domain
-      oxlorg.opnsense.bind_domain:
+      fyrastack.opnsense.bind_domain:
         name: 'test4.oxlorg'
         state: 'absent'
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn_clean1
       failed_when: >
         'data' not in opn_clean1 or

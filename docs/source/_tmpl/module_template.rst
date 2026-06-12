@@ -44,11 +44,11 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: '<module>'
 
       tasks:
@@ -56,20 +56,20 @@ Examples
         # required ones normally
         # add their default values to get a brief overview of how the module works
         - name: Example
-          oxlorg.opnsense.<module>:
+          fyrastack.opnsense.<module>:
             description: 'test1'
             command: 'system remote backup'
             # state: 'absent'
             # debug: false
 
         - name: Adding something
-          oxlorg.opnsense.<module>:
+          fyrastack.opnsense.<module>:
 
         - name: Changing something
-          oxlorg.opnsense.<module>:
+          fyrastack.opnsense.<module>:
 
         - name: Listing jobs
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: '<module>'
           register: existing_jobs
 

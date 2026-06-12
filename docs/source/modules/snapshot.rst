@@ -56,11 +56,11 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'snapshot'
 
       tasks:
@@ -68,18 +68,18 @@ Examples
         # required ones normally
         # add their default values to get a brief overview of how the module works
         - name: Example
-          oxlorg.opnsense.snapshot:
+          fyrastack.opnsense.snapshot:
             name: 'known-good'
             # activate: false
             # state: 'absent'
             # debug: false
 
         - name: Create known-good snapshot
-          oxlorg.opnsense.snapshot:
+          fyrastack.opnsense.snapshot:
             name: 'known-good'
 
         - name: Listing snapshots
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'snapshot'
           register: existing_snapshots
 

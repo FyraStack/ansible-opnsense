@@ -4,7 +4,7 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    oxlorg.opnsense.rule:
+    fyrastack.opnsense.rule:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
@@ -15,7 +15,7 @@
 
   tasks:
     - name: Deleting - does not exist
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.0.0/24'
         destination_net: '192.168.1.0/24'
         destination_port: 443
@@ -28,7 +28,7 @@
         opn1.changed
 
     - name: Creating
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.0.0/24'
         destination_net: '192.168.1.0/24'
         destination_port: 443
@@ -36,7 +36,7 @@
         description: 'ANSIBLE_TEST_1_1'
 
     - name: Updating - nothing changed
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.0.0/24'
         destination_net: '192.168.1.0/24'
         destination_port: 443
@@ -49,7 +49,7 @@
       when: not ansible_check_mode
 
     - name: Updating
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.0.0/24'
         destination_net: '192.168.2.0/24'
         destination_port: 443
@@ -62,7 +62,7 @@
       when: not ansible_check_mode
 
     - name: Updating more
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.0.0/24'
         destination_net: '192.168.2.0/24'
         destination_port: 8443
@@ -77,7 +77,7 @@
       when: not ansible_check_mode
 
     - name: Disabling
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.0.0/24'
         destination_net: '192.168.2.0/24'
         destination_port: 8443
@@ -93,7 +93,7 @@
       when: not ansible_check_mode
 
     - name: Disabling - nothing changed
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.0.0/24'
         destination_net: '192.168.2.0/24'
         destination_port: 8443
@@ -109,7 +109,7 @@
       when: not ansible_check_mode
 
     - name: Enabling
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.0.0/24'
         destination_net: '192.168.2.0/24'
         destination_port: 8443
@@ -125,7 +125,7 @@
       when: not ansible_check_mode
 
     - name: Creating IPv6
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         destination_port: 443
         protocol: 'TCP'
         description: 'ANSIBLE_TEST_1_10'
@@ -136,7 +136,7 @@
         not opn17.changed
 
     - name: Updating IPv4
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         destination_port: 443
         protocol: 'TCP'
         description: 'ANSIBLE_TEST_1_10'
@@ -147,7 +147,7 @@
       when: not ansible_check_mode
 
     - name: Triggering server-side validation error for interfaces
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.0.0/24'
         destination_net: '192.168.2.0/24'
         destination_port: 443
@@ -159,7 +159,7 @@
       when: not ansible_check_mode
 
     - name: Triggering server-side validation error for ports
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.0.0/24'
         destination_net: '192.168.2.0/24'
         destination_port: 'XYZ'
@@ -170,7 +170,7 @@
       when: not ansible_check_mode
 
     - name: Creating block rule
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.1.0/24'
         destination_invert: true
         destination_net: '10.0.0.0/8'
@@ -178,7 +178,7 @@
         action: 'block'
 
     - name: Test port-range
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.0.0/24'
         destination_net: '192.168.2.0/24'
         destination_port: '50000-51000'
@@ -186,7 +186,7 @@
         description: 'ANSIBLE_TEST_1_12'
 
     - name: Test self (this firewall)
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         destination_net: '(self)'
         destination_port: 69
         protocol: 'UDP'
@@ -197,7 +197,7 @@
         not opn21.changed
 
     - name: Test TCP/UDP inet46
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         destination_port: 69
         ip_protocol: 'inet46'
         protocol: 'TCP/UDP'
@@ -208,7 +208,7 @@
         not opn22.changed
 
     - name: Test ICMP-type
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         ip_protocol: 'inet46'
         protocol: 'ICMP'
         icmp_type: ['echoreq', 'echorep']
@@ -219,7 +219,7 @@
         not opn23.changed
 
     - name: Test ICMP-type - Nothing changed
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         ip_protocol: 'inet46'
         protocol: 'ICMP'
         icmp_type: ['echoreq', 'echorep']
@@ -231,7 +231,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         description: "{{ item }}"
         state: 'absent'
       diff: false
@@ -249,12 +249,12 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.rule:
+    fyrastack.opnsense.rule:
       match_fields: ['description']
 
   environment:
@@ -262,26 +262,26 @@
 
   tasks:
     - name: Adding alias
-      oxlorg.opnsense.alias:
+      fyrastack.opnsense.alias:
         name: 'ANSIBLE_TEST_3_1'
         type: 'urltable'
         content: 'https://www.spamhaus.org/drop/drop.txt'
 
     - name: Adding port alias
-      oxlorg.opnsense.alias:
+      fyrastack.opnsense.alias:
         name: 'ANSIBLE_TEST_3_2'
         type: 'port'
         content: 80
 
     - name: Adding rule using alias-destination
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         destination_invert: true
         destination_net: 'ANSIBLE_TEST_3_1'
         description: 'ANSIBLE_TEST_1_3'
         action: 'block'
 
     - name: Adding rule using alias-port
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.0.0/24'
         destination_net: '192.168.1.0/24'
         destination_port: 'ANSIBLE_TEST_3_2'
@@ -289,7 +289,7 @@
         description: 'ANSIBLE_TEST_1_4'
 
     - name: Cleanup rules
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         description: "{{ item }}"
         state: 'absent'
       diff: false
@@ -298,7 +298,7 @@
         - 'ANSIBLE_TEST_1_4'
 
     - name: Cleanup aliases
-      oxlorg.opnsense.alias:
+      fyrastack.opnsense.alias:
         name: "{{ item }}"
         state: 'absent'
       diff: false
@@ -310,15 +310,15 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'rule'
 
-    oxlorg.opnsense.rule:
+    fyrastack.opnsense.rule:
       match_fields: ['description']
 
   environment:
@@ -326,14 +326,14 @@
 
   tasks:
     - name: Listing rules (none)
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn7
       failed_when: >
         'data' not in opn7 or
         opn7.data | length != 0
 
     - name: Creating dummy rule
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.1.0/24'
         destination_invert: true
         destination_net: '10.0.0.0/8'
@@ -342,7 +342,7 @@
       when: not ansible_check_mode
 
     - name: Listing rules
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn8
       failed_when: >
         'data' not in opn8 or
@@ -350,7 +350,7 @@
       when: not ansible_check_mode
 
     - name: Modifying dummy rule 1 by uuid
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.1.0/24'
         destination_invert: true
         destination_net: '10.1.0.0/8'
@@ -361,7 +361,7 @@
       when: not ansible_check_mode
 
     - name: Creating dummy rule 2
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.1.0/24'
         destination_invert: true
         destination_net: '10.0.0.0/8'
@@ -371,7 +371,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         description: "{{ item }}"
         state: 'absent'
       diff: false
@@ -380,7 +380,7 @@
         - 'ANSIBLE_TEST_1_8'
 
     - name: Checking cleanup
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn14
       failed_when: >
         'data' not in opn14 or
@@ -390,15 +390,15 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'rule'
 
-    oxlorg.opnsense.rule:
+    fyrastack.opnsense.rule:
       match_fields: ['source_net', 'description']
 
   environment:
@@ -406,7 +406,7 @@
 
   tasks:
     - name: Listing rules - before
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn10
       failed_when: >
         'data' not in opn10 or
@@ -414,7 +414,7 @@
       when: not ansible_check_mode
 
     - name: Creating rule 1
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.0.0/24'
         description: 'ANSIBLE_TEST_1_6'
 
@@ -423,7 +423,7 @@
         protocol: 'TCP'
 
     - name: Modifying rule 1
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.0.0/24'
         description: 'ANSIBLE_TEST_1_6'
 
@@ -437,7 +437,7 @@
       when: not ansible_check_mode
 
     - name: Creating rule 2
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.0.0/24'
         description: 'ANSIBLE_TEST_1_7'
 
@@ -446,7 +446,7 @@
         protocol: 'TCP'
 
     - name: Creating rule 3
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.1.0/24'
         description: 'ANSIBLE_TEST_1_7'
 
@@ -455,7 +455,7 @@
         protocol: 'TCP'
 
     - name: Modifying rule 3
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: '192.168.1.0/24'
         description: 'ANSIBLE_TEST_1_7'
 
@@ -465,7 +465,7 @@
       when: not ansible_check_mode
 
     - name: Listing rules - after
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn11
       failed_when: >
         'data' not in opn11 or
@@ -473,7 +473,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         description: "{{ item }}"
         state: 'absent'
         match_fields: ['description']
@@ -484,7 +484,7 @@
         - 'ANSIBLE_TEST_1_7'
 
     - name: Checking cleanup
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn15
       failed_when: >
         'data' not in opn15 or
@@ -496,15 +496,15 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.rule:
+    fyrastack.opnsense.rule:
       match_fields: ['description']
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'rule'
 
   environment:
@@ -512,20 +512,20 @@
 
   tasks:
     - name: Creating alias
-      oxlorg.opnsense.alias:
+      fyrastack.opnsense.alias:
         name: 'ANSIBLE_TEST_3_3'
         content: '192.168.0.1'
       when: not ansible_check_mode
 
     - name: Creating rule
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         source_net: 'ANSIBLE_TEST_3_3'
         description: 'ANSIBLE_TEST_1_9'
         protocol: 'TCP'
       when: not ansible_check_mode
 
     - name: Deleting alias - should fail
-      oxlorg.opnsense.alias:
+      fyrastack.opnsense.alias:
         name: 'ANSIBLE_TEST_3_3'
         state: 'absent'
       register: opn13
@@ -533,21 +533,21 @@
       when: not ansible_check_mode
 
     - name: Cleanup rule
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         description: 'ANSIBLE_TEST_1_9'
         state: 'absent'
       diff: false
       when: not ansible_check_mode
 
     - name: Cleanup alias
-      oxlorg.opnsense.alias:
+      fyrastack.opnsense.alias:
         name: 'ANSIBLE_TEST_3_3'
         state: 'absent'
       diff: false
       when: not ansible_check_mode
 
     - name: Checking cleanup
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn16
       failed_when: >
         'data' not in opn16 or
@@ -557,7 +557,7 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    oxlorg.opnsense.rule:
+    fyrastack.opnsense.rule:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
@@ -568,7 +568,7 @@
 
   tasks:
     - name: Adding 1 - failing because of invalid value
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         tcp_flags: syn
         description: 'ANSIBLE_TEST_4_1'
       register: opn_fail1
@@ -576,7 +576,7 @@
       ignore_errors: true
 
     - name: Adding Filter
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         protocol: TCP
         allow_opts: true
         tcp_flags: syn
@@ -584,7 +584,7 @@
         description: 'ANSIBLE_TEST_4_1'
 
     - name: Updating Filter - nothing changed
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         protocol: TCP
         allow_opts: true
         tcp_flags: syn
@@ -597,7 +597,7 @@
       when: not ansible_check_mode
 
     - name: Updating Stateful firewall
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         protocol: TCP
         state_type: sloppy
         state_policy: floating
@@ -617,7 +617,7 @@
         not opn2.changed
 
     - name: Updating Stateful firewall - nothing changed
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         protocol: TCP
         state_type: sloppy
         state_policy: floating
@@ -638,7 +638,7 @@
       when: not ansible_check_mode
 
     - name: Updating Source Routing firewall
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         gateway: TEST-GW
         replyto: TEST-GW
         disable_replyto: true
@@ -649,7 +649,7 @@
         not opn4.changed
 
     - name: Updating Source Routing - nothing changed
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         gateway: TEST-GW
         replyto: TEST-GW
         disable_replyto: true
@@ -661,7 +661,7 @@
       when: not ansible_check_mode
 
     - name: Updating Internal tagging
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         tagged: ansible
         tag: ansible
         description: 'ANSIBLE_TEST_4_1'
@@ -671,7 +671,7 @@
         not opn6.changed
 
     - name: Updating Internal tagging - nothing changed
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         tagged: ansible
         tag: ansible
         description: 'ANSIBLE_TEST_4_1'
@@ -682,7 +682,7 @@
       when: not ansible_check_mode
 
     - name: Updating Priority
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         prio: 1
         set_prio: 2
         set_prio_low: 3
@@ -694,7 +694,7 @@
         not opn8.changed
 
     - name: Updating Priority - nothing changed
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         prio: 1
         set_prio: 2
         set_prio_low: 3
@@ -707,7 +707,7 @@
       when: not ansible_check_mode
 
     - name: Updating Internal tagging
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         tagged: ansible
         tag: ansible
         description: 'ANSIBLE_TEST_4_1'
@@ -717,7 +717,7 @@
         not opn10.changed
 
     - name: Updating Internal tagging - nothing changed
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         tagged: ansible
         tag: ansible
         description: 'ANSIBLE_TEST_4_1'
@@ -728,7 +728,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.rule:
+      fyrastack.opnsense.rule:
         description: "{{ item }}"
         state: 'absent'
       diff: false

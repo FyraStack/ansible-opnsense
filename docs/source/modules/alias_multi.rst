@@ -34,7 +34,7 @@ For more detailed information on what alias types are supported - see the `OPNse
 Multi
 *****
 
-- Each alias has the attributes as defined in the :ref:`oxlorg.opnsense.alias <modules_alias>` module
+- Each alias has the attributes as defined in the :ref:`fyrastack.opnsense.alias <modules_alias>` module
 
 - To ensure valid configuration - the attributes of each alias get verified using ansible's built-in verifier
 
@@ -55,13 +55,13 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
       tasks:
         - name: Creation
-          oxlorg.opnsense.alias_multi:
+          fyrastack.opnsense.alias_multi:
             aliases:
               - name: 'test1'
                 content: '1.1.1.1'
@@ -81,7 +81,7 @@ Examples
               # output_info: false
 
         - name: Changes
-          oxlorg.opnsense.alias_multi:
+          fyrastack.opnsense.alias_multi:
             aliases:
               - name: 'test1'
                 content: ['1.1.1.3']
@@ -93,7 +93,7 @@ Examples
                 enabled: false
 
         - name: Change state of all
-          oxlorg.opnsense.alias_multi:
+          fyrastack.opnsense.alias_multi:
             aliases:
               - name: 'test1'
               - name: 'test3'
@@ -103,7 +103,7 @@ Examples
               # enabled: true
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
             target: 'alias'
           register: existing_entries
 
@@ -112,7 +112,7 @@ Examples
             var: existing_entries.data
 
         - name: Purging all non-configured aliases
-          oxlorg.opnsense.alias_multi:
+          fyrastack.opnsense.alias_multi:
             aliases: {...}
 
             multi_control:
@@ -120,7 +120,7 @@ Examples
               # action: 'disable'  # default = delete
 
         - name: Purging all port aliases
-          oxlorg.opnsense.alias_multi:
+          fyrastack.opnsense.alias_multi:
             multi_control:
               purge_all: true
               filters:  # filtering aliases to purge by alias-parameters

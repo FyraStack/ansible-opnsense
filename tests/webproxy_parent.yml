@@ -4,12 +4,12 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'webproxy_parent'
 
   environment:
@@ -17,28 +17,28 @@
 
   tasks:
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn_pre1
       failed_when: >
         opn_pre1.failed or
         'data' not in opn_pre1
 
     - name: Configuring - failing because of missing host
-      oxlorg.opnsense.webproxy_parent:
+      fyrastack.opnsense.webproxy_parent:
         enabled: true
         port: 1000
       register: opn_fail1
       failed_when: not opn_fail1.failed
 
     - name: Configuring - failing because of missing port
-      oxlorg.opnsense.webproxy_parent:
+      fyrastack.opnsense.webproxy_parent:
         enabled: true
         host: '192.168.0.1'
       register: opn_fail2
       failed_when: not opn_fail2.failed
 
     - name: Configuring - failing because of invalid host
-      oxlorg.opnsense.webproxy_parent:
+      fyrastack.opnsense.webproxy_parent:
         enabled: true
         host: '192.168.0.1000'
         port: 1000
@@ -46,7 +46,7 @@
       failed_when: not opn_fail3.failed
 
     - name: Configuring
-      oxlorg.opnsense.webproxy_parent:
+      fyrastack.opnsense.webproxy_parent:
         auth: true
         host: '192.168.0.1'
         port: 1000
@@ -60,7 +60,7 @@
         not opn1.changed
 
     - name: Changing 1
-      oxlorg.opnsense.webproxy_parent:
+      fyrastack.opnsense.webproxy_parent:
         auth: true
         host: '192.168.0.10'
         port: 1500
@@ -75,7 +75,7 @@
       when: not ansible_check_mode
 
     - name: Disabling 1
-      oxlorg.opnsense.webproxy_parent:
+      fyrastack.opnsense.webproxy_parent:
         auth: true
         host: '192.168.0.10'
         port: 1500
@@ -91,7 +91,7 @@
       when: not ansible_check_mode
 
     - name: Disabling 1 - nothing changed
-      oxlorg.opnsense.webproxy_parent:
+      fyrastack.opnsense.webproxy_parent:
         auth: true
         host: '192.168.0.10'
         port: 1500
@@ -107,7 +107,7 @@
       when: not ansible_check_mode
 
     - name: Enabling 1
-      oxlorg.opnsense.webproxy_parent:
+      fyrastack.opnsense.webproxy_parent:
         auth: true
         host: '192.168.0.10'
         port: 1500
@@ -122,6 +122,6 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.webproxy_parent:
+      fyrastack.opnsense.webproxy_parent:
         enabled: false
       when: not ansible_check_mode

@@ -44,7 +44,7 @@ You need to install the following plugin:
 
     os-squid
 
-You can also install it using the :ref:`oxlorg.opnsense.package <modules_package>` module.
+You can also install it using the :ref:`fyrastack.opnsense.package <modules_package>` module.
 
 ----
 
@@ -54,22 +54,22 @@ Info
 General
 =======
 
-oxlorg.opnsense.webproxy_general
+fyrastack.opnsense.webproxy_general
 ------------------------------------
 
 This module manages the basic Web-Proxy settings that can be found in the WEB-UI menu: 'Services - Web Proxy - Administration - General Proxy Settings' (*URL 'ui/proxy'*)
 
-oxlorg.opnsense.webproxy_cache
+fyrastack.opnsense.webproxy_cache
 ----------------------------------
 
 This module manages the Web-Proxy caching-settings that can be found in the WEB-UI menu: 'Services - Web Proxy - Administration - General Proxy Settings - Local Cache Settings (*DropDown*)' (*URL 'ui/proxy#subtab_proxy-general-cache-local'*)
 
-oxlorg.opnsense.webproxy_parent
+fyrastack.opnsense.webproxy_parent
 -----------------------------------
 
 This module manages the Web-Proxy parent-proxy settings that can be found in the WEB-UI menu: 'Services - Web Proxy - Administration - General Proxy Settings - Parent Proxy Settings (*DropDown*)' (*URL 'ui/proxy#subtab_proxy-general-parentproxy'*)
 
-oxlorg.opnsense.webproxy_traffic
+fyrastack.opnsense.webproxy_traffic
 ------------------------------------
 
 This module manages the Web-Proxy traffic-management settings that can be found in the WEB-UI menu: 'Services - Web Proxy - Administration - General Proxy Settings - Traffic Management Settings (*DropDown*)' (*URL 'ui/proxy#subtab_proxy-general-traffic'*)
@@ -77,7 +77,7 @@ This module manages the Web-Proxy traffic-management settings that can be found 
 Forward
 =======
 
-oxlorg.opnsense.webproxy_forward
+fyrastack.opnsense.webproxy_forward
 ------------------------------------
 
 This module manages the Web-Proxy forwarding settings that can be found in the WEB-UI menu: 'Services - Web Proxy - Administration - Forward Proxy
@@ -86,17 +86,17 @@ This module manages the Web-Proxy forwarding settings that can be found in the W
 * FTP Proxy Settings (*DropDown*)' (*URL 'ui/proxy#subtab_proxy-forward-ftp'*)
 * SNMP Agent Settings (*DropDown*)' (*URL 'ui/proxy#subtab_proxy-forward-snmp'*)
 
-oxlorg.opnsense.webproxy_acl
+fyrastack.opnsense.webproxy_acl
 --------------------------------
 
 This module manages the Web-Proxy forwarding ACLs that can be found in the WEB-UI menu: 'Services - Web Proxy - Administration - General Proxy Settings - Access Control List (*DropDown*)' (*URL 'ui/proxy#subtab_proxy-forward-acl'*)
 
-oxlorg.opnsense.webproxy_icap
+fyrastack.opnsense.webproxy_icap
 ---------------------------------
 
 This module manages the Web-Proxy ICAP settings that can be found in the WEB-UI menu: 'Services - Web Proxy - Administration - General Proxy Settings - ICAP Settings (*DropDown*)' (*URL 'ui/proxy#subtab_proxy-icap'*)
 
-oxlorg.opnsense.webproxy_auth
+fyrastack.opnsense.webproxy_auth
 ---------------------------------
 
 This module manages the Web-Proxy authentication settings that can be found in the WEB-UI menu: 'Services - Web Proxy - Administration - General Proxy Settings - Authentication Settings (*DropDown*)' (*URL 'ui/proxy#subtab_proxy-general-authentication'*)
@@ -104,7 +104,7 @@ This module manages the Web-Proxy authentication settings that can be found in t
 Remote ACL
 ==========
 
-oxlorg.opnsense.webproxy_remote_acl
+fyrastack.opnsense.webproxy_remote_acl
 ---------------------------------------
 
 This module manages the Remote ACL entries that can be found in the WEB-UI menu: 'Services - Web Proxy - Administration - Remote Access Control Lists
@@ -114,12 +114,12 @@ The configured lists are matched by its unique file-name.
 Proxy Auto-Config
 =================
 
-oxlorg.opnsense.webproxy_pac_proxy
+fyrastack.opnsense.webproxy_pac_proxy
 --------------------------------------
 
 This module manages the Proxy-Auto-Config Proxy entries that can be found in the WEB-UI menu: 'Services - Web Proxy - Administration - Proxy Auto-Config - Proxies (*DropDown*)' (*URL 'ui/proxy#subtab_pac_proxies'*)
 
-oxlorg.opnsense.webproxy_pac_match
+fyrastack.opnsense.webproxy_pac_match
 --------------------------------------
 
 This module manages the Proxy-Auto-Config Match entries that can be found in the WEB-UI menu: 'Services - Web Proxy - Administration - Proxy Auto-Config - Matches (*DropDown*)' (*URL 'ui/proxy#subtab_pac_matches'*)
@@ -134,7 +134,7 @@ You need to **provide arguments** for different **match-types**:
 * 'weekday_range' needs 'weekday_from' and 'weekday_to' to be provided
 * 'dns_domain_levels' needs 'domain_level_from' and 'domain_level_to' to be provided
 
-oxlorg.opnsense.webproxy_pac_rule
+fyrastack.opnsense.webproxy_pac_rule
 -------------------------------------
 
 This module manages the Proxy-Auto-Config Rule entries that can be found in the WEB-UI menu: 'Services - Web Proxy - Administration - Proxy Auto-Config - Rules (*DropDown*)' (*URL 'ui/proxy#subtab_pac_rules'*)
@@ -149,7 +149,7 @@ Definition
 General
 =======
 
-oxlorg.opnsense.webproxy_general
+fyrastack.opnsense.webproxy_general
 ------------------------------------
 
 ..  csv-table:: Definition
@@ -174,7 +174,7 @@ oxlorg.opnsense.webproxy_general
     "connect_timeout","integer","false","\-","","Between 1 and 120 seconds. This can help you when having connection issues with IPv6 enabled servers. "
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.webproxy_cache
+fyrastack.opnsense.webproxy_cache
 ----------------------------------
 
 ..  csv-table:: Definition
@@ -194,7 +194,7 @@ oxlorg.opnsense.webproxy_cache
     "max_swap_rate","integer","false","0","swap_rate","Limits disk access by setting a maximum I/O rate in swaps per second"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.webproxy_parent
+fyrastack.opnsense.webproxy_parent
 -----------------------------------
 
 ..  csv-table:: Definition
@@ -211,7 +211,7 @@ oxlorg.opnsense.webproxy_parent
     "local_ips","list","false","\-","ips","IP addresses not to be sent via parent proxy"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.webproxy_traffic
+fyrastack.opnsense.webproxy_traffic
 ------------------------------------
 
 ..  csv-table:: Definition
@@ -228,7 +228,7 @@ oxlorg.opnsense.webproxy_traffic
 Forward
 =======
 
-oxlorg.opnsense.webproxy_forward
+fyrastack.opnsense.webproxy_forward
 ------------------------------------
 
 ..  csv-table:: Definition
@@ -254,7 +254,7 @@ oxlorg.opnsense.webproxy_forward
     "transparent_ftp","boolean","false","false","\-","Enable transparent ftp proxy mode to forward all requests or destination port 21 to the proxy server without any additional configuration"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.webproxy_acl
+fyrastack.opnsense.webproxy_acl
 --------------------------------
 
 ..  csv-table:: Definition
@@ -274,7 +274,7 @@ oxlorg.opnsense.webproxy_acl
     "ports_ssl","list","false","['443:https']","p_ssl","Allowed destination SSL ports, you may use ranges (ex. 222-226) and add comments with colon (ex. 22:ssh)"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.webproxy_icap
+fyrastack.opnsense.webproxy_icap
 ---------------------------------
 
 ..  csv-table:: Definition
@@ -294,7 +294,7 @@ oxlorg.opnsense.webproxy_icap
     "exclude","list","false","\-","\-","Exclusion list destination domains.You may use a regular expression, use a comma or press Enter for new item. Examples: 'mydomain.com' matches on '\*.mydomain.com'; 'https://([a-zA-Z]+)\\.mydomain\\.' matches on 'http(s)://textONLY.mydomain.\*'; '\\.gif$' matches on '\\*.gif' but not on '\\*.gif\\test'; '\\[0-9]+\\.gif$' matches on '\\123.gif' but not on '\\test.gif'"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.webproxy_auth
+fyrastack.opnsense.webproxy_auth
 ---------------------------------
 
 ..  csv-table:: Definition
@@ -312,7 +312,7 @@ oxlorg.opnsense.webproxy_auth
 Remote ACL
 ==========
 
-oxlorg.opnsense.webproxy_remote_acl
+fyrastack.opnsense.webproxy_remote_acl
 ---------------------------------------
 
 ..  csv-table:: Definition
@@ -331,7 +331,7 @@ oxlorg.opnsense.webproxy_remote_acl
 Proxy Auto-Config
 =================
 
-oxlorg.opnsense.webproxy_pac_proxy
+fyrastack.opnsense.webproxy_pac_proxy
 --------------------------------------
 
 ..  csv-table:: Definition
@@ -344,7 +344,7 @@ oxlorg.opnsense.webproxy_pac_proxy
     "description","string","false","\-","desc","\-"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.webproxy_pac_match
+fyrastack.opnsense.webproxy_pac_match
 --------------------------------------
 
 ..  csv-table:: Definition
@@ -368,7 +368,7 @@ oxlorg.opnsense.webproxy_pac_match
     "weekday_to","integer","false","1","day_to","End hour weekday match-period. 1 = monday, 7 = sunday"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.webproxy_pac_rule
+fyrastack.opnsense.webproxy_pac_rule
 -------------------------------------
 
 ..  csv-table:: Definition
@@ -391,7 +391,7 @@ Examples
 General
 =======
 
-oxlorg.opnsense.webproxy_general
+fyrastack.opnsense.webproxy_general
 ------------------------------------
 
 .. code-block:: yaml
@@ -400,16 +400,16 @@ oxlorg.opnsense.webproxy_general
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'webproxy_general'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.webproxy_general:
+          fyrastack.opnsense.webproxy_general:
             # errors: 'opnsense'
             # icp_port: ''
             # log: true
@@ -431,7 +431,7 @@ oxlorg.opnsense.webproxy_general
             # debug: false
 
         - name: Pulling settings
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'webproxy_general'
           register: current_config
 
@@ -439,7 +439,7 @@ oxlorg.opnsense.webproxy_general
           ansible.builtin.debug:
             var: current_config.data
 
-oxlorg.opnsense.webproxy_cache
+fyrastack.opnsense.webproxy_cache
 ----------------------------------
 
 .. code-block:: yaml
@@ -448,16 +448,16 @@ oxlorg.opnsense.webproxy_cache
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'webproxy_cache'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.webproxy_cache:
+          fyrastack.opnsense.webproxy_cache:
             # memory_mb: 256
             # size_mb: 100
             # directory: '/var/squid/cache'
@@ -473,7 +473,7 @@ oxlorg.opnsense.webproxy_cache
             # debug: false
 
         - name: Pulling settings
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'webproxy_cache'
           register: current_config
 
@@ -481,7 +481,7 @@ oxlorg.opnsense.webproxy_cache
           ansible.builtin.debug:
             var: current_config.data
 
-oxlorg.opnsense.webproxy_parent
+fyrastack.opnsense.webproxy_parent
 -----------------------------------
 
 .. code-block:: yaml
@@ -490,16 +490,16 @@ oxlorg.opnsense.webproxy_parent
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'webproxy_parent'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.webproxy_parent:
+          fyrastack.opnsense.webproxy_parent:
             # host: ''
             # auth: false
             # user: ''
@@ -512,7 +512,7 @@ oxlorg.opnsense.webproxy_parent
             # debug: false
 
         - name: Pulling settings
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'webproxy_parent'
           register: current_config
 
@@ -520,7 +520,7 @@ oxlorg.opnsense.webproxy_parent
           ansible.builtin.debug:
             var: current_config.data
 
-oxlorg.opnsense.webproxy_traffic
+fyrastack.opnsense.webproxy_traffic
 ------------------------------------
 
 .. code-block:: yaml
@@ -529,16 +529,16 @@ oxlorg.opnsense.webproxy_traffic
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'webproxy_traffic'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.webproxy_traffic:
+          fyrastack.opnsense.webproxy_traffic:
             # download_kb_max: 2048
             # upload_kb_max: 1024
             # throttle_kb_bandwidth: 1024
@@ -548,7 +548,7 @@ oxlorg.opnsense.webproxy_traffic
             # debug: false
 
         - name: Pulling settings
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'webproxy_traffic'
           register: current_config
 
@@ -559,7 +559,7 @@ oxlorg.opnsense.webproxy_traffic
 Forward
 =======
 
-oxlorg.opnsense.webproxy_forward
+fyrastack.opnsense.webproxy_forward
 ------------------------------------
 
 .. code-block:: yaml
@@ -568,16 +568,16 @@ oxlorg.opnsense.webproxy_forward
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'webproxy_forward'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.webproxy_forward:
+          fyrastack.opnsense.webproxy_forward:
             # interfaces: ['lan']
             # port: 3238
             # port_ssl: 3239
@@ -598,7 +598,7 @@ oxlorg.opnsense.webproxy_forward
             # reload: true
             # debug: false
 
-oxlorg.opnsense.webproxy_acl
+fyrastack.opnsense.webproxy_acl
 --------------------------------
 
 .. code-block:: yaml
@@ -607,16 +607,16 @@ oxlorg.opnsense.webproxy_acl
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'webproxy_acl'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.webproxy_acl:
+          fyrastack.opnsense.webproxy_acl:
             # allow: []
             # exclude: []
             # banned: []
@@ -632,7 +632,7 @@ oxlorg.opnsense.webproxy_acl
             # debug: false
 
         - name: Configuring
-          oxlorg.opnsense.webproxy_acl:
+          fyrastack.opnsense.webproxy_acl:
             allow: ['192.168.0.0/24', '172.16.1.0/29', '172.16.0.5']
             exclude: ['192.168.2.0/28', '172.16.1.5']
             banned: ['172.16.3.0/24', '172.16.2.5']
@@ -645,7 +645,7 @@ oxlorg.opnsense.webproxy_acl
             youtube_filter: 'moderate'
 
         - name: Pulling settings
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'webproxy_acl'
           register: current_config
 
@@ -653,7 +653,7 @@ oxlorg.opnsense.webproxy_acl
           ansible.builtin.debug:
             var: current_config.data
 
-oxlorg.opnsense.webproxy_icap
+fyrastack.opnsense.webproxy_icap
 ---------------------------------
 
 .. code-block:: yaml
@@ -662,16 +662,16 @@ oxlorg.opnsense.webproxy_icap
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'webproxy_icap'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.webproxy_icap:
+          fyrastack.opnsense.webproxy_icap:
             # request_url: 'icap://[::1]:1344/avscan'
             # response_url: 'icap://[::1]:1344/avscan'
             # ttl: 60
@@ -687,7 +687,7 @@ oxlorg.opnsense.webproxy_icap
             # debug: false
 
         - name: Pulling settings
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'webproxy_icap'
           register: current_config
 
@@ -695,7 +695,7 @@ oxlorg.opnsense.webproxy_icap
           ansible.builtin.debug:
             var: current_config.data
 
-oxlorg.opnsense.webproxy_auth
+fyrastack.opnsense.webproxy_auth
 ---------------------------------
 
 .. code-block:: yaml
@@ -704,16 +704,16 @@ oxlorg.opnsense.webproxy_auth
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'webproxy_auth'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.webproxy_auth:
+          fyrastack.opnsense.webproxy_auth:
             # method: ''
             # group: ''
             # prompt: 'OPNsense proxy authentication'
@@ -723,7 +723,7 @@ oxlorg.opnsense.webproxy_auth
             # debug: false
 
         - name: Pulling settings
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'webproxy_auth'
           register: current_config
 
@@ -734,7 +734,7 @@ oxlorg.opnsense.webproxy_auth
 Remote ACL
 ==========
 
-oxlorg.opnsense.webproxy_remote_acl
+fyrastack.opnsense.webproxy_remote_acl
 ---------------------------------------
 
 .. code-block:: yaml
@@ -743,16 +743,16 @@ oxlorg.opnsense.webproxy_remote_acl
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'webproxy_remote_acl'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.webproxy_remote_acl:
+          fyrastack.opnsense.webproxy_remote_acl:
             file: 'example'
             url: 'https://example.opnsense.oxl.app/rac1'
             description: 'example ACL'
@@ -765,7 +765,7 @@ oxlorg.opnsense.webproxy_remote_acl
             # debug: false
 
         - name: Adding
-          oxlorg.opnsense.webproxy_remote_acl:
+          fyrastack.opnsense.webproxy_remote_acl:
             file: 'test1'
             url: 'https://test.lan/rac1'
             username: 'random'
@@ -774,7 +774,7 @@ oxlorg.opnsense.webproxy_remote_acl
             description: 'test'
 
         - name: Disabling
-          oxlorg.opnsense.webproxy_remote_acl:
+          fyrastack.opnsense.webproxy_remote_acl:
             file: 'test1'
             url: 'https://test.lan/rac2'
             username: 'random'
@@ -783,7 +783,7 @@ oxlorg.opnsense.webproxy_remote_acl
             enabled: false
 
         - name: Pulling settings
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'webproxy_remote_acl'
           register: existing_entries
 
@@ -792,14 +792,14 @@ oxlorg.opnsense.webproxy_remote_acl
             var: existing_entries.data
 
         - name: Removing
-          oxlorg.opnsense.webproxy_remote_acl:
+          fyrastack.opnsense.webproxy_remote_acl:
             file: 'test1'
             state: 'absent'
 
 Proxy Auto-Config
 =================
 
-oxlorg.opnsense.webproxy_pac_proxy
+fyrastack.opnsense.webproxy_pac_proxy
 --------------------------------------
 
 .. code-block:: yaml
@@ -808,16 +808,16 @@ oxlorg.opnsense.webproxy_pac_proxy
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'webproxy_pac_proxy'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.webproxy_pac_proxy:
+          fyrastack.opnsense.webproxy_pac_proxy:
             name: 'example'
             url: 'example.opnsense.oxl.app:3128'
             # type: 'proxy'
@@ -826,13 +826,13 @@ oxlorg.opnsense.webproxy_pac_proxy
             # debug: false
 
         - name: Adding
-          oxlorg.opnsense.webproxy_pac_proxy:
+          fyrastack.opnsense.webproxy_pac_proxy:
             name: 'test1'
             url: 'test.lan:3128'
             description: 'test'
 
         - name: Pulling settings
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'webproxy_pac_proxy'
           register: existing_entries
 
@@ -841,11 +841,11 @@ oxlorg.opnsense.webproxy_pac_proxy
             var: existing_entries.data
 
         - name: Removing
-          oxlorg.opnsense.webproxy_pac_proxy:
+          fyrastack.opnsense.webproxy_pac_proxy:
             file: 'test1'
             state: 'absent'
 
-oxlorg.opnsense.webproxy_pac_match
+fyrastack.opnsense.webproxy_pac_match
 --------------------------------------
 
 .. code-block:: yaml
@@ -854,16 +854,16 @@ oxlorg.opnsense.webproxy_pac_match
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'webproxy_pac_match'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.webproxy_pac_match:
+          fyrastack.opnsense.webproxy_pac_match:
             name: 'example'
             # type: 'url_matches'
             # description: ''
@@ -883,13 +883,13 @@ oxlorg.opnsense.webproxy_pac_match
             # debug: false
 
         - name: Adding hostname match
-          oxlorg.opnsense.webproxy_pac_match:
+          fyrastack.opnsense.webproxy_pac_match:
             hostname: 'test.opnsense.oxl.app'
             type: 'hostname_matches'
             description: 'test'
 
         - name: Adding time match
-          oxlorg.opnsense.webproxy_pac_match:
+          fyrastack.opnsense.webproxy_pac_match:
             hostname: 'test.opnsense.oxl.app'
             description: 'working hours'
             type: 'time_range'
@@ -897,7 +897,7 @@ oxlorg.opnsense.webproxy_pac_match
             hour_to: 18
 
         - name: Pulling settings
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'webproxy_pac_match'
           register: existing_entries
 
@@ -906,11 +906,11 @@ oxlorg.opnsense.webproxy_pac_match
             var: existing_entries.data
 
         - name: Removing
-          oxlorg.opnsense.webproxy_pac_match:
+          fyrastack.opnsense.webproxy_pac_match:
             file: 'test1'
             state: 'absent'
 
-oxlorg.opnsense.webproxy_pac_rule
+fyrastack.opnsense.webproxy_pac_rule
 -------------------------------------
 
 .. code-block:: yaml
@@ -919,16 +919,16 @@ oxlorg.opnsense.webproxy_pac_rule
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'webproxy_pac_rule'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.webproxy_pac_rule:
+          fyrastack.opnsense.webproxy_pac_rule:
             description: 'example'
             matches: []
             proxies: []
@@ -938,7 +938,7 @@ oxlorg.opnsense.webproxy_pac_rule
             # debug: false
 
         - name: Adding - linking to existing match & proxy
-          oxlorg.opnsense.webproxy_pac_rule:
+          fyrastack.opnsense.webproxy_pac_rule:
             description: 'test_rule'
             matches: ['test_match']
             proxies: ['test_proxy']
@@ -946,7 +946,7 @@ oxlorg.opnsense.webproxy_pac_rule
             match_type: 'unless'
 
         - name: Pulling settings
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'webproxy_pac_rule'
           register: existing_entries
 
@@ -955,6 +955,6 @@ oxlorg.opnsense.webproxy_pac_rule
             var: existing_entries.data
 
         - name: Removing
-          oxlorg.opnsense.webproxy_pac_rule:
+          fyrastack.opnsense.webproxy_pac_rule:
             file: 'test_rule'
             state: 'absent'

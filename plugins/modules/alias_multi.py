@@ -8,21 +8,21 @@
 
 from ansible.module_utils.basic import AnsibleModule
 
-from ansible_collections.oxlorg.opnsense.plugins.module_utils.base.handler import \
+from ansible_collections.fyrastack.opnsense.plugins.module_utils.base.handler import \
     module_dependency_error, MODULE_EXCEPTIONS
 
 try:
-    from ansible_collections.oxlorg.opnsense.plugins.module_utils.base.wrapper import \
+    from ansible_collections.fyrastack.opnsense.plugins.module_utils.base.wrapper import \
         module_multi_wrapper
-    from ansible_collections.oxlorg.opnsense.plugins.module_utils.base.multi import \
+    from ansible_collections.fyrastack.opnsense.plugins.module_utils.base.multi import \
         build_multi_mod_args, MultiModuleCallbacks
-    from ansible_collections.oxlorg.opnsense.plugins.module_utils.defaults.main import \
+    from ansible_collections.fyrastack.opnsense.plugins.module_utils.defaults.main import \
         RELOAD_MOD_ARG_DEF_FALSE, OPN_MOD_ARGS
-    from ansible_collections.oxlorg.opnsense.plugins.module_utils.defaults.alias import \
+    from ansible_collections.fyrastack.opnsense.plugins.module_utils.defaults.alias import \
         ALIAS_MOD_ARGS
-    from ansible_collections.oxlorg.opnsense.plugins.module_utils.main.alias import Alias
-    from ansible_collections.oxlorg.opnsense.plugins.module_utils.helper.main import ensure_list
-    from ansible_collections.oxlorg.opnsense.plugins.module_utils.helper.alias import \
+    from ansible_collections.fyrastack.opnsense.plugins.module_utils.main.alias import Alias
+    from ansible_collections.fyrastack.opnsense.plugins.module_utils.helper.main import ensure_list
+    from ansible_collections.fyrastack.opnsense.plugins.module_utils.helper.alias import \
         builtin_alias, build_updatefreq
 
 except MODULE_EXCEPTIONS:

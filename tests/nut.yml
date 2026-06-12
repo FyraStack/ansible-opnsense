@@ -4,7 +4,7 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
@@ -14,7 +14,7 @@
 
   tasks:
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
         target: nut
       register: opn_pre1
       failed_when: >
@@ -23,7 +23,7 @@
         opn_pre1.data | length == 0
 
     - name: Configure - failing because of invalid listen address
-      oxlorg.opnsense.nut:
+      fyrastack.opnsense.nut:
         listen: abc
         reload: false
       register: opn_fail1
@@ -31,7 +31,7 @@
       when: not ansible_check_mode
 
     - name: Configure - failing because of invalid listen address (on of many)
-      oxlorg.opnsense.nut:
+      fyrastack.opnsense.nut:
         listen:
           - 127.0.0.1
           - abs
@@ -42,7 +42,7 @@
       when: not ansible_check_mode
 
     - name: Configure - failing because of invalid apcupsd_host
-      oxlorg.opnsense.nut:
+      fyrastack.opnsense.nut:
         apcupsd_host: abc
         reload: false
       register: opn_fail3
@@ -50,7 +50,7 @@
       when: not ansible_check_mode
 
     - name: Configure - failing because of invalid netclient_address
-      oxlorg.opnsense.nut:
+      fyrastack.opnsense.nut:
         netclient_address: abc
         reload: false
       register: opn_fail4
@@ -58,7 +58,7 @@
       when: not ansible_check_mode
 
     - name: Configuring - standalone USBHID driver
-      oxlorg.opnsense.nut:
+      fyrastack.opnsense.nut:
         enabled: true
         mode: standalone
         usbhid_enable: true
@@ -70,7 +70,7 @@
       failed_when: opn1.failed or not opn1.changed
 
     - name: Configuring - standalone APCSMART driver
-      oxlorg.opnsense.nut:
+      fyrastack.opnsense.nut:
         enabled: true
         mode: standalone
         apcsmart_enable: true
@@ -82,7 +82,7 @@
       failed_when: opn2.failed or not opn2.changed
 
     - name: Configuring - standalone APCUPSD driver
-      oxlorg.opnsense.nut:
+      fyrastack.opnsense.nut:
         enabled: true
         mode: standalone
         apcupsd_enable: true
@@ -93,7 +93,7 @@
       failed_when: opn3.failed or not opn3.changed
 
     - name: Configuring - standalone BCMXCPUSB driver
-      oxlorg.opnsense.nut:
+      fyrastack.opnsense.nut:
         enabled: true
         mode: standalone
         bcmxcpusb_enable: true
@@ -104,7 +104,7 @@
       failed_when: opn4.failed or not opn4.changed
 
     - name: Configuring - standalone BlazerUSB driver
-      oxlorg.opnsense.nut:
+      fyrastack.opnsense.nut:
         enabled: true
         mode: standalone
         blazerusb_enable: true
@@ -117,7 +117,7 @@
       failed_when: opn5.failed or not opn5.changed
 
     - name: Configuring - standalone BlazerSerial driver
-      oxlorg.opnsense.nut:
+      fyrastack.opnsense.nut:
         enabled: true
         mode: standalone
         blazerser_enable: true
@@ -130,7 +130,7 @@
       failed_when: opn6.failed or not opn6.changed
 
     - name: Configuring - Netclient driver
-      oxlorg.opnsense.nut:
+      fyrastack.opnsense.nut:
         enabled: true
         mode: netclient
         netclient_address: 192.168.1.200
@@ -142,7 +142,7 @@
       failed_when: opn7.failed or not opn7.changed
 
     - name: Configuring - standalone QX driver
-      oxlorg.opnsense.nut:
+      fyrastack.opnsense.nut:
         enabled: true
         mode: standalone
         qx_enable: true
@@ -154,7 +154,7 @@
       failed_when: opn8.failed or not opn8.changed
 
     - name: Configuring - standalone Riello driver
-      oxlorg.opnsense.nut:
+      fyrastack.opnsense.nut:
         enabled: true
         mode: standalone
         riello_enable: true
@@ -166,7 +166,7 @@
       failed_when: opn9.failed or not opn9.changed
 
     - name: Configuring - standalone SNMP driver
-      oxlorg.opnsense.nut:
+      fyrastack.opnsense.nut:
         enabled: true
         mode: standalone
         snmp_enable: true
@@ -179,7 +179,7 @@
       failed_when: opn10.failed or not opn10.changed
 
     - name: Configuring - remote access
-      oxlorg.opnsense.nut:
+      fyrastack.opnsense.nut:
         enabled: true
         mode: standalone
         listen:
@@ -196,7 +196,7 @@
       failed_when: opn11.failed or not opn11.changed
 
     - name: Configuring - nothing changed
-      oxlorg.opnsense.nut:
+      fyrastack.opnsense.nut:
         enabled: true
         mode: standalone
         listen:
@@ -214,5 +214,5 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.nut:
+      fyrastack.opnsense.nut:
         enabled: false

@@ -56,12 +56,12 @@ Savepoint
 
 You can prevent lockout-situations using the savepoint systems:
 
-- :ref:`oxlorg.opnsense.savepoint <modules_savepoint>`
+- :ref:`fyrastack.opnsense.savepoint <modules_savepoint>`
 
 Mass-Manage
 ===========
 
-If you want to mass-manage rules - take a look at the :ref:`oxlorg.opnsense.rule_multi <modules_rule_multi>` module. It scales better for that use-case!
+If you want to mass-manage rules - take a look at the :ref:`fyrastack.opnsense.rule_multi <modules_rule_multi>` module. It scales better for that use-case!
 
 Web-UI
 ======
@@ -156,16 +156,16 @@ Basic
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'rule'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.rule:
+          fyrastack.opnsense.rule:
             source_net: '192.168.0.0/24'  # host, network, alias or 'any'
             destination_net: '192.168.10.0/24'
             destination_port: 443  # alias not supported, leave unset for 'any'
@@ -216,7 +216,7 @@ Basic
             # reload: true
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'rule'
           register: existing_entries
 
@@ -233,11 +233,11 @@ With inventory config
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.rule:
+        fyrastack.opnsense.rule:
           match_fields: ['description']  # setting description as unique-id field
 
       # you may want to configure your rules inside the inventory
@@ -273,7 +273,7 @@ With inventory config
 
       tasks:
         - name: Test
-          oxlorg.opnsense.rule:
+          fyrastack.opnsense.rule:
             description: "{{ rule_id }}"
 
             action: "{{ rule.action | default(omit) }}"
@@ -310,7 +310,7 @@ Purging
 
 If you want to delete all existing rules that are **NOT CONFIGURED**.
 
-You can also use the :ref:`oxlorg.opnsense.rule_purge <modules_rule_multi>` module to do this in a cleaner way.
+You can also use the :ref:`fyrastack.opnsense.rule_purge <modules_rule_multi>` module to do this in a cleaner way.
 
 .. code-block:: yaml
 
@@ -318,14 +318,14 @@ You can also use the :ref:`oxlorg.opnsense.rule_purge <modules_rule_multi>` modu
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'rule'
 
-        oxlorg.opnsense.rule:
+        fyrastack.opnsense.rule:
           match_fields: ['description']
 
       vars:
@@ -333,12 +333,12 @@ You can also use the :ref:`oxlorg.opnsense.rule_purge <modules_rule_multi>` modu
 
       tasks:
         - name: Pulling existing rules
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'rule'
           register: existing_entries
 
         - name: Purging unconfigured rules
-          oxlorg.opnsense.rule:
+          fyrastack.opnsense.rule:
             state: 'absent'
             description: "{{ existing_rule_id }}"
 

@@ -47,16 +47,16 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'rule_interface_group'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.rule_interface_group:
+          fyrastack.opnsense.rule_interface_group:
             name: Internal
             members: ['vtnet0', 'vtnet1']
             # gui_group: true
@@ -64,18 +64,18 @@ Examples
             # description: 'Optional description'
 
         - name: Adding 1
-          oxlorg.opnsense.rule_interface_group:
+          fyrastack.opnsense.rule_interface_group:
             name: Internal
             members: ['vtnet0', 'vtnet1']
 
         # note: you can also use the module alias-name
         - name: Adding 2
-          oxlorg.opnsense.rule_if_group:
+          fyrastack.opnsense.rule_if_group:
             name: DMZ
             members: ['vtnet3', 'vtnet4']
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'rule_interface_group'
           register: existing_entries
 

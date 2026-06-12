@@ -41,14 +41,14 @@ You need to install the BIND plugin:
 
     os-bind
 
-You can also install it using the :ref:`oxlorg.opnsense.package <modules_package>` module.
+You can also install it using the :ref:`fyrastack.opnsense.package <modules_package>` module.
 
 Definition
 **********
 
 .. include:: ../_include/param_basic.rst
 
-oxlorg.opnsense.bind_general
+fyrastack.opnsense.bind_general
 ================================
 
 ..  csv-table:: Definition
@@ -82,7 +82,7 @@ oxlorg.opnsense.bind_general
     "ratelimit_except","list","false","['127.0.0.1', '::1']","\-","Except a list of IPs from rate-limiting"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.bind_blocklist
+fyrastack.opnsense.bind_blocklist
 ==================================
 
 ..  csv-table:: Definition
@@ -98,7 +98,7 @@ oxlorg.opnsense.bind_blocklist
     "safe_bing","boolean","false","\-","safe_search_bing","\-"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.bind_acl
+fyrastack.opnsense.bind_acl
 ============================
 
 ..  csv-table:: Definition
@@ -109,7 +109,7 @@ oxlorg.opnsense.bind_acl
     "networks","list","false for state changes, else true","\-","nets","List of networks to add to the ACL"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.bind_domain
+fyrastack.opnsense.bind_domain
 ===============================
 
 ..  csv-table:: Definition
@@ -143,7 +143,7 @@ Else it will leave the configuration in a state where you'll have to edit the ba
 It seems the plugin lacks validation in that case.
 
 
-oxlorg.opnsense.bind_record
+fyrastack.opnsense.bind_record
 ===============================
 
 ..  csv-table:: Definition
@@ -158,7 +158,7 @@ oxlorg.opnsense.bind_record
     "round_robin","boolean","false","false","\-","If multiple records with the same domain/name/type combination exist - the module will only execute 'state=absent' if set to 'false'. To create multiple ones set this to 'true'. Records will only be created, NOT UPDATED! (no matching is done)"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.bind_record (multi)
+fyrastack.opnsense.bind_record (multi)
 =======================================
 
 See: :ref:`Mass Management Arguments <modules_multi>`
@@ -171,7 +171,7 @@ Info
 Mass-Manage
 ===========
 
-If you want to mass-manage DNS records - use the oxlorg.opnsense.bind_record module. It scales better for that use-case!
+If you want to mass-manage DNS records - use the fyrastack.opnsense.bind_record module. It scales better for that use-case!
 
 For other modules:
 
@@ -179,7 +179,7 @@ For other modules:
 
 * This takes a long time, as the service gets reloaded every time!
 
-* You might want to reload it 'manually' after all changes are done => using the :ref:`oxlorg.opnsense.reload <modules_reload>` module.
+* You might want to reload it 'manually' after all changes are done => using the :ref:`fyrastack.opnsense.reload <modules_reload>` module.
 
 Round-Robin
 ===========
@@ -217,7 +217,7 @@ If a change is needed, you will have to run the module using 'state=absent' firs
 Examples
 ********
 
-oxlorg.opnsense.bind_general
+fyrastack.opnsense.bind_general
 ================================
 
 .. code-block:: yaml
@@ -226,16 +226,16 @@ oxlorg.opnsense.bind_general
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'bind_general'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.bind_general:
+          fyrastack.opnsense.bind_general:
             # enabled: true
             # ipv6: true
             # response_policy_zones: true
@@ -265,7 +265,7 @@ oxlorg.opnsense.bind_general
             # reload: true
 
         - name: Configuring BIND
-          oxlorg.opnsense.bind_general:
+          fyrastack.opnsense.bind_general:
             enabled: true
             listen_ipv4: ['127.0.0.1', '192.168.0.1']
             query_source_ipv4: '192.168.0.1'
@@ -283,7 +283,7 @@ oxlorg.opnsense.bind_general
             ipv6: false
 
         - name: Pulling settings
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'bind_general'
           register: existing_entries
 
@@ -291,7 +291,7 @@ oxlorg.opnsense.bind_general
           ansible.builtin.debug:
             var: existing_entries.data
 
-oxlorg.opnsense.bind_blocklist
+fyrastack.opnsense.bind_blocklist
 ==================================
 
 .. code-block:: yaml
@@ -300,16 +300,16 @@ oxlorg.opnsense.bind_blocklist
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'bind_blocklist'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.bind_blocklist:
+          fyrastack.opnsense.bind_blocklist:
             # enabled: true
             # block: []
             # exclude: []
@@ -320,14 +320,14 @@ oxlorg.opnsense.bind_blocklist
             # reload: true
 
         - name: Configuring blocklists
-          oxlorg.opnsense.bind_blocklist:
+          fyrastack.opnsense.bind_blocklist:
             block: ['Steven Black List', 'NoCoin List', 'Blocklist.site Phishing', 'AdGuard List']
             exclude: ['test.opnsense.oxl.app', 'opnsense.oxl.app']
             safe_google: true
             safe_youtube: true
 
         - name: Disabling blocklists
-          oxlorg.opnsense.bind_blocklist:
+          fyrastack.opnsense.bind_blocklist:
             enabled: false
             block: ['Steven Black List', 'NoCoin List', 'Blocklist.site Phishing', 'AdGuard List']
             exclude: ['test.opnsense.oxl.app', 'opnsense.oxl.app']
@@ -335,7 +335,7 @@ oxlorg.opnsense.bind_blocklist
             safe_youtube: true
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'bind_blocklist'
           register: existing_entries
 
@@ -343,7 +343,7 @@ oxlorg.opnsense.bind_blocklist
           ansible.builtin.debug:
             var: existing_entries.data
 
-oxlorg.opnsense.bind_acl
+fyrastack.opnsense.bind_acl
 ============================
 
 .. code-block:: yaml
@@ -352,39 +352,39 @@ oxlorg.opnsense.bind_acl
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'bind_acl'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.bind_acl:
+          fyrastack.opnsense.bind_acl:
             name: 'example'
             # enabled: true
             # networks: []
             # reload: true
 
         - name: Adding
-          oxlorg.opnsense.bind_acl:
+          fyrastack.opnsense.bind_acl:
             name: 'test1'
             networks: ['192.168.0.0/24']
 
         - name: Changing
-          oxlorg.opnsense.bind_acl:
+          fyrastack.opnsense.bind_acl:
             name: 'test1'
             networks: ['192.168.1.0/25']
 
         - name: Disabling
-          oxlorg.opnsense.bind_acl:
+          fyrastack.opnsense.bind_acl:
             name: 'test1'
             networks: ['192.168.1.0/25']
             enabled: false
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
             # target: 'bind_acl'
           register: existing_entries
 
@@ -393,12 +393,12 @@ oxlorg.opnsense.bind_acl
             var: existing_entries.data
 
         - name: Removing
-          oxlorg.opnsense.bind_acl:
+          fyrastack.opnsense.bind_acl:
             name: 'test1'
             state: 'absent'
 
 
-oxlorg.opnsense.bind_domain
+fyrastack.opnsense.bind_domain
 ===============================
 
 .. code-block:: yaml
@@ -407,16 +407,16 @@ oxlorg.opnsense.bind_domain
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'bind_domain'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.bind_domain:
+          fyrastack.opnsense.bind_domain:
             name: 'example.opnsense.oxl.app'
             # enabled: true
             # mode: 'primary'
@@ -436,7 +436,7 @@ oxlorg.opnsense.bind_domain
             # reload: true
 
         - name: Adding
-          oxlorg.opnsense.bind_domain:
+          fyrastack.opnsense.bind_domain:
             name: 'test1.opnsense.oxl.app'
             transfer_key_algo: 'hmac-sha512'
             transfer_key_name: 'test'
@@ -445,7 +445,7 @@ oxlorg.opnsense.bind_domain
             retry: 1800
 
         - name: Changing
-          oxlorg.opnsense.bind_domain:
+          fyrastack.opnsense.bind_domain:
             name: 'test1.opnsense.oxl.app'
             transfer_key_algo: 'hmac-sha512'
             transfer_key_name: 'test'
@@ -455,12 +455,12 @@ oxlorg.opnsense.bind_domain
             transfer_acl: 'test1_acl'
 
         - name: Disabling
-          oxlorg.opnsense.bind_domain:
+          fyrastack.opnsense.bind_domain:
             name: 'test1.opnsense.oxl.app'
             enabled: false
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
             # target: 'bind_domain'
           register: existing_entries
 
@@ -469,11 +469,11 @@ oxlorg.opnsense.bind_domain
             var: existing_entries.data
 
         - name: Removing
-          oxlorg.opnsense.bind_domain:
+          fyrastack.opnsense.bind_domain:
             name: 'test1.opnsense.oxl.app'
             state: 'absent'
 
-oxlorg.opnsense.bind_record
+fyrastack.opnsense.bind_record
 ===============================
 
 .. code-block:: yaml
@@ -482,16 +482,16 @@ oxlorg.opnsense.bind_record
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'bind_record'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.bind_record:
+          fyrastack.opnsense.bind_record:
             domain: 'template.opnsense.oxl.app'
             name: 'example'
             # value: ''
@@ -502,26 +502,26 @@ oxlorg.opnsense.bind_record
             # reload: true
 
         - name: Adding
-          oxlorg.opnsense.bind_record:
+          fyrastack.opnsense.bind_record:
             domain: 'template.opnsense.oxl.app'
             name: 'test1'
             value: '192.168.0.1'
 
         - name: Changing
-          oxlorg.opnsense.bind_record:
+          fyrastack.opnsense.bind_record:
             domain: 'template.opnsense.oxl.app'
             name: 'test1'
             value: '192.168.1.1'
 
         - name: Disabling
-          oxlorg.opnsense.bind_record:
+          fyrastack.opnsense.bind_record:
             domain: 'template.opnsense.oxl.app'
             name: 'test1'
             value: '192.168.1.1'
             enabled: false
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
             # target: 'bind_record'
           register: existing_entries
 
@@ -530,12 +530,12 @@ oxlorg.opnsense.bind_record
             var: existing_entries.data
 
         - name: Removing
-          oxlorg.opnsense.bind_record:
+          fyrastack.opnsense.bind_record:
             domain: 'template.opnsense.oxl.app'
             name: 'test1'
             state: 'absent'
 
-oxlorg.opnsense.bind_record (multi)
+fyrastack.opnsense.bind_record (multi)
 ===================================
 
 .. code-block:: yaml
@@ -544,16 +544,16 @@ oxlorg.opnsense.bind_record (multi)
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.bind_record_multi:
+        fyrastack.opnsense.bind_record_multi:
           match_fields: ['domain', 'name', 'type']
   
       tasks:
         - name: Example
-          oxlorg.opnsense.bind_record_multi:
+          fyrastack.opnsense.bind_record_multi:
             records:
               - name: 'example'
                 domain: 'template.opnsense.oxl.app'
@@ -569,7 +569,7 @@ oxlorg.opnsense.bind_record (multi)
             # reload: true
 
         - name: Adding
-          oxlorg.opnsense.bind_record_multi:
+          fyrastack.opnsense.bind_record_multi:
             records:
               - name: 'test1'
                 domain: 'template.opnsense.oxl.app'
@@ -594,7 +594,7 @@ oxlorg.opnsense.bind_record (multi)
                 value: 'test1.test3.opnsense.oxl.app'
 
         - name: Changing
-          oxlorg.opnsense.bind_record_multi:
+          fyrastack.opnsense.bind_record_multi:
             records:
               - name: 'test1'
                 domain: 'template.opnsense.oxl.app'
@@ -620,7 +620,7 @@ oxlorg.opnsense.bind_record (multi)
                 value: 'test2.test3.opnsense.oxl.app'
 
         - name: Disabling all
-          oxlorg.opnsense.bind_record_multi:
+          fyrastack.opnsense.bind_record_multi:
             records:
               - name: 'test1'
                 domain: 'template.opnsense.oxl.app'
@@ -648,7 +648,7 @@ oxlorg.opnsense.bind_record (multi)
               enabled: false
 
         - name: Removing all
-          oxlorg.opnsense.bind_record_multi:
+          fyrastack.opnsense.bind_record_multi:
             records:
               - name: 'test1'
                 domain: 'template.opnsense.oxl.app'

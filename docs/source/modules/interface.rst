@@ -32,42 +32,42 @@ Interface
 Info
 ****
 
-oxlorg.opnsense.interface_vlan
+fyrastack.opnsense.interface_vlan
 ==================================
 
 This module manages VLAN configuration that can be found in the WEB-UI menu: 'Interfaces - Devices - VLAN'
 
-oxlorg.opnsense.interface_vxlan
+fyrastack.opnsense.interface_vxlan
 ===================================
 
 This module manages VXLAN configuration that can be found in the WEB-UI menu: 'Interfaces - Devices - VXLAN'
 
-oxlorg.opnsense.interface_vip
+fyrastack.opnsense.interface_vip
 =================================
 
 This module manages VIP configuration that can be found in the WEB-UI menu: 'Interfaces - Virtual IPs - Settings'
 
-oxlorg.opnsense.interface_lagg
+fyrastack.opnsense.interface_lagg
 ==================================
 
 This module manages LAGG configuration that can be found in the WEB-UI menu: 'Interfaces - Devices - LAGG'
 
-oxlorg.opnsense.interface_loopback
+fyrastack.opnsense.interface_loopback
 ======================================
 
 This module manages Loopback configuration that can be found in the WEB-UI menu: 'Interfaces - Devices - Loopback'
 
-oxlorg.opnsense.interface_gre
+fyrastack.opnsense.interface_gre
 =================================
 
 This module manages GRE Tunnel configuration that can be found in the WEB-UI menu: 'Interfaces - Devices - GRE'
 
-oxlorg.opnsense.interface_bridge
+fyrastack.opnsense.interface_bridge
 ====================================
 
 This module manages Bridge configuration that can be found in the WEB-UI menu: 'Interfaces - Devices - Bridge'
 
-oxlorg.opnsense.interface_gif
+fyrastack.opnsense.interface_gif
 =================================
 
 This module manages GIF Tunnel configuration that can be found in the WEB-UI menu: 'Interfaces - Devices - GIF'
@@ -87,7 +87,7 @@ Definition
 
 .. include:: ../_include/param_basic.rst
 
-oxlorg.opnsense.interface_vlan
+fyrastack.opnsense.interface_vlan
 ==================================
 
 ..  csv-table:: Definition
@@ -101,7 +101,7 @@ oxlorg.opnsense.interface_vlan
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
 
-oxlorg.opnsense.interface_vxlan
+fyrastack.opnsense.interface_vxlan
 ===================================
 
 ..  csv-table:: Definition
@@ -118,7 +118,7 @@ oxlorg.opnsense.interface_vxlan
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
 
-oxlorg.opnsense.interface_vip
+fyrastack.opnsense.interface_vip
 =================================
 
 ..  csv-table:: Definition
@@ -140,7 +140,7 @@ oxlorg.opnsense.interface_vip
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
 
-oxlorg.opnsense.interface_lagg
+fyrastack.opnsense.interface_lagg
 ==================================
 
 .. warning::
@@ -164,7 +164,7 @@ oxlorg.opnsense.interface_lagg
     "description","string","true","\-","desc, name","The description used to match the configured entries to the existing ones"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.interface_loopback
+fyrastack.opnsense.interface_loopback
 ======================================
 
 ..  csv-table:: Definition
@@ -174,7 +174,7 @@ oxlorg.opnsense.interface_loopback
     "description","string","true","\-","desc, name","The unique description used to match the configured entries to the existing ones"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.interface_gre
+fyrastack.opnsense.interface_gre
 =================================
 
 ..  csv-table:: Definition
@@ -189,7 +189,7 @@ oxlorg.opnsense.interface_gre
     "tunnel_remote_net","integer","false","32","\-","Netmask `ipv4` or prefix `ipv6` to use for this tunnel "
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.interface_bridge
+fyrastack.opnsense.interface_bridge
 ====================================
 
 ..  csv-table:: Definition
@@ -216,7 +216,7 @@ oxlorg.opnsense.interface_bridge
     "private_interfaces","list","false","\-","private_ports, private_ints","Mark interfaces as a 'private' interface"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.interface_gif
+fyrastack.opnsense.interface_gif
 =================================
 
 ..  csv-table:: Definition
@@ -238,7 +238,7 @@ oxlorg.opnsense.interface_gif
 Examples
 ********
 
-oxlorg.opnsense.interface_vlan
+fyrastack.opnsense.interface_vlan
 ==================================
 
 .. code-block:: yaml
@@ -247,16 +247,16 @@ oxlorg.opnsense.interface_vlan
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
     
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'interface_vlan'
     
       tasks:
         - name: Example
-          oxlorg.opnsense.interface_vlan:
+          fyrastack.opnsense.interface_vlan:
             description: 'example'
             interface: 'vtnet0'
             vlan: 100
@@ -266,13 +266,13 @@ oxlorg.opnsense.interface_vlan
             # reload: true
     
         - name: Adding VLAN
-          oxlorg.opnsense.interface_vlan:
+          fyrastack.opnsense.interface_vlan:
             description: 'test1'
             interface: 'vtnet0'
             vlan: 100
     
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'interface_vlan'
           register: existing_entries
     
@@ -281,11 +281,11 @@ oxlorg.opnsense.interface_vlan
             var: existing_entries.data
     
         - name: Removing VLAN
-          oxlorg.opnsense.interface_vlan:
+          fyrastack.opnsense.interface_vlan:
             description: 'test1'
             state: 'absent'
 
-oxlorg.opnsense.interface_vxlan
+fyrastack.opnsense.interface_vxlan
 ===================================
 
 .. code-block:: yaml
@@ -294,16 +294,16 @@ oxlorg.opnsense.interface_vxlan
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
     
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'interface_vxlan'
     
       tasks:
         - name: Example
-          oxlorg.opnsense.interface_vxlan:
+          fyrastack.opnsense.interface_vxlan:
             id: 100
             local: '192.168.0.1'
             # remote: ''
@@ -314,13 +314,13 @@ oxlorg.opnsense.interface_vxlan
             # reload: true
     
         - name: Adding VxLAN
-          oxlorg.opnsense.interface_vxlan:
+          fyrastack.opnsense.interface_vxlan:
             id: 100
             local: '192.168.0.1'
             interface: 'lan'
     
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'interface_vxlan'
           register: existing_entries
     
@@ -329,11 +329,11 @@ oxlorg.opnsense.interface_vxlan
             var: existing_entries.data
     
         - name: Removing VxLAN
-          oxlorg.opnsense.interface_vxlan:
+          fyrastack.opnsense.interface_vxlan:
             id: 100
             state: 'absent'
 
-oxlorg.opnsense.interface_vip
+fyrastack.opnsense.interface_vip
 =================================
 
 .. code-block:: yaml
@@ -342,16 +342,16 @@ oxlorg.opnsense.interface_vip
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
     
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'interface_vip'
     
       tasks:
         - name: Example
-          oxlorg.opnsense.interface_vip:
+          fyrastack.opnsense.interface_vip:
             interface: 'opt1'
             address: '192.168.0.100/24'
             # match_fields: ['address', 'interface]
@@ -369,7 +369,7 @@ oxlorg.opnsense.interface_vip
             # reload: true
     
         - name: Adding VIP
-          oxlorg.opnsense.interface_vip:
+          fyrastack.opnsense.interface_vip:
             interface: 'opt1'
             address: '192.168.0.100/24'
             mode: 'carp'
@@ -377,7 +377,7 @@ oxlorg.opnsense.interface_vip
             password: 'secret'
     
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'interface_vip'
           register: existing_entries
     
@@ -386,12 +386,12 @@ oxlorg.opnsense.interface_vip
             var: existing_entries.data
     
         - name: Removing VIP
-          oxlorg.opnsense.interface_vip:
+          fyrastack.opnsense.interface_vip:
             interface: 'opt1'
             address: '192.168.0.100/24'
             state: 'absent'
 
-oxlorg.opnsense.interface_lagg
+fyrastack.opnsense.interface_lagg
 ==================================
 
 .. code-block:: yaml
@@ -400,16 +400,16 @@ oxlorg.opnsense.interface_lagg
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
     
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'interface_lagg'
     
       tasks:
         - name: Example
-          oxlorg.opnsense.interface_lagg:
+          fyrastack.opnsense.interface_lagg:
             # device: lagg0
             # description: LACP ax0/1
             members:
@@ -425,13 +425,13 @@ oxlorg.opnsense.interface_lagg
             # match_fields: ['members']
     
         - name: Adding LAGG
-          oxlorg.opnsense.interface_lagg:
+          fyrastack.opnsense.interface_lagg:
             members:
               - ax0
               - ax1
     
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'interface_lagg'
           register: existing_entries
     
@@ -440,12 +440,12 @@ oxlorg.opnsense.interface_lagg
             var: existing_entries.data
     
         - name: Removing LAGG
-          oxlorg.opnsense.interface_lagg:
+          fyrastack.opnsense.interface_lagg:
             device: lagg0
             match_fields: ['device']
             state: 'absent'
 
-oxlorg.opnsense.interface_loopback
+fyrastack.opnsense.interface_loopback
 ======================================
 
 .. code-block:: yaml
@@ -454,27 +454,27 @@ oxlorg.opnsense.interface_loopback
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
     
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'interface_loopback'
     
       tasks:
         - name: Example
-          oxlorg.opnsense.interface_loopback:
+          fyrastack.opnsense.interface_loopback:
             description: 'MyLoopback'
             # debug: false
             # state: 'present'
             # reload: true
     
         - name: Adding Loopback
-          oxlorg.opnsense.interface_loopback:
+          fyrastack.opnsense.interface_loopback:
             description: 'MyLoopback'
     
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'interface_loopback'
           register: existing_entries
     
@@ -483,11 +483,11 @@ oxlorg.opnsense.interface_loopback
             var: existing_entries.data
     
         - name: Removing Loopback
-          oxlorg.opnsense.interface_loopback:
+          fyrastack.opnsense.interface_loopback:
             description: 'MyLoopback'
             state: 'absent'
 
-oxlorg.opnsense.interface_gre
+fyrastack.opnsense.interface_gre
 =================================
 
 .. code-block:: yaml
@@ -496,16 +496,16 @@ oxlorg.opnsense.interface_gre
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
     
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'interface_gre'
     
       tasks:
         - name: Example
-          oxlorg.opnsense.interface_gre:
+          fyrastack.opnsense.interface_gre:
             description: 'MyGRETunnel'
             local: 'lan'
             remote: '192.168.100.1'
@@ -517,7 +517,7 @@ oxlorg.opnsense.interface_gre
             # reload: true
     
         - name: Adding GRE Tunnel
-          oxlorg.opnsense.interface_gre:
+          fyrastack.opnsense.interface_gre:
             description: 'MyGRETunnel'
             local: 'lan'
             remote: '192.168.100.1'
@@ -525,7 +525,7 @@ oxlorg.opnsense.interface_gre
             tunnel_remote: '10.0.0.2'
     
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'interface_gre'
           register: existing_entries
     
@@ -534,11 +534,11 @@ oxlorg.opnsense.interface_gre
             var: existing_entries.data
     
         - name: Removing GRE Tunnel 
-          oxlorg.opnsense.interface_gre:
+          fyrastack.opnsense.interface_gre:
             description: 'MyGRETunnel'
             state: 'absent'
 
-oxlorg.opnsense.interface_bridge
+fyrastack.opnsense.interface_bridge
 ====================================
 
 .. code-block:: yaml
@@ -547,16 +547,16 @@ oxlorg.opnsense.interface_bridge
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
     
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'interface_bridge'
     
       tasks:
         - name: Example
-          oxlorg.opnsense.interface_bridge:
+          fyrastack.opnsense.interface_bridge:
             description: 'MyBridge'
             members: 'lan'
             # link_local: false
@@ -580,12 +580,12 @@ oxlorg.opnsense.interface_bridge
             # reload: true
     
         - name: Adding Bridge
-          oxlorg.opnsense.interface_bridge:
+          fyrastack.opnsense.interface_bridge:
             description: 'MyBridge'
             members: 'lan'
     
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'interface_bridge'
           register: existing_entries
     
@@ -594,11 +594,11 @@ oxlorg.opnsense.interface_bridge
             var: existing_entries.data
     
         - name: Removing Bridge
-          oxlorg.opnsense.interface_bridge:
+          fyrastack.opnsense.interface_bridge:
             description: 'MyBridge'
             state: 'absent'
 
-oxlorg.opnsense.interface_gif
+fyrastack.opnsense.interface_gif
 =================================
 
 .. code-block:: yaml
@@ -607,16 +607,16 @@ oxlorg.opnsense.interface_gif
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
     
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'interface_gif'
     
       tasks:
         - name: Example
-          oxlorg.opnsense.interface_gif:
+          fyrastack.opnsense.interface_gif:
             description: 'MyGIFTunnel'
             local: 'lan'
             remote: '192.168.100.1'
@@ -630,7 +630,7 @@ oxlorg.opnsense.interface_gif
             # reload: true
     
         - name: Adding GIF Tunnel
-          oxlorg.opnsense.interface_gif:
+          fyrastack.opnsense.interface_gif:
             description: 'MyGIFTunnel'
             local: 'lan'
             remote: '192.168.100.1'
@@ -638,7 +638,7 @@ oxlorg.opnsense.interface_gif
             tunnel_remote: '10.0.0.2'
     
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'interface_gif'
           register: existing_entries
     
@@ -647,6 +647,6 @@ oxlorg.opnsense.interface_gif
             var: existing_entries.data
     
         - name: Removing GIF Tunnel 
-          oxlorg.opnsense.interface_gif:
+          fyrastack.opnsense.interface_gif:
             description: 'MyGIFTunnel'
             state: 'absent'

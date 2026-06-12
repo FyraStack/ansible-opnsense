@@ -4,12 +4,12 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'monit_alert'
 
   vars:
@@ -20,14 +20,14 @@
 
   tasks:
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn10
       failed_when: >
         'data' not in opn10 or
         opn10.data | length != default_alert_count
 
     - name: Removing - does not exist
-      oxlorg.opnsense.monit_alert:
+      fyrastack.opnsense.monit_alert:
         recipient: 'alert@monit.opnsense.test.oxlorg.net'
         state: 'absent'
       register: opn1
@@ -36,20 +36,20 @@
         opn1.changed
 
     - name: Adding 1 - failing because of invalid reminder
-      oxlorg.opnsense.monit_alert:
+      fyrastack.opnsense.monit_alert:
         recipient: 'alert@monit.opnsense.test.oxlorg.net@INVALID'
         reminder: 90000
       register: opn11
       failed_when: not opn11.failed
 
     - name: Adding 1 - failing because of invalid recipient
-      oxlorg.opnsense.monit_alert:
+      fyrastack.opnsense.monit_alert:
         recipient: 'alert@monit.opnsense.test.oxlorg.net@INVALID'
       register: opn12
       failed_when: not opn12.failed
 
     - name: Adding 1
-      oxlorg.opnsense.monit_alert:
+      fyrastack.opnsense.monit_alert:
         recipient: 'alert@monit.opnsense.test.oxlorg.net'
       register: opn4
       failed_when: >
@@ -57,7 +57,7 @@
         not opn4.changed
 
     - name: Disabling 1
-      oxlorg.opnsense.monit_alert:
+      fyrastack.opnsense.monit_alert:
         recipient: 'alert@monit.opnsense.test.oxlorg.net'
         enabled: false
       register: opn6
@@ -67,7 +67,7 @@
       when: not ansible_check_mode
 
     - name: Disabling 1 - nothing changed
-      oxlorg.opnsense.monit_alert:
+      fyrastack.opnsense.monit_alert:
         recipient: 'alert@monit.opnsense.test.oxlorg.net'
         enabled: false
       register: opn9
@@ -77,7 +77,7 @@
       when: not ansible_check_mode
 
     - name: Enabling 1
-      oxlorg.opnsense.monit_alert:
+      fyrastack.opnsense.monit_alert:
         recipient: 'alert@monit.opnsense.test.oxlorg.net'
       register: opn7
       failed_when: >
@@ -86,7 +86,7 @@
       when: not ansible_check_mode
 
     - name: Adding 2
-      oxlorg.opnsense.monit_alert:
+      fyrastack.opnsense.monit_alert:
         recipient: 'alert2@monit.opnsense.test.oxlorg.net'
         not_on: true
         events: ['timestamp']
@@ -98,7 +98,7 @@
         not opn5.changed
 
     - name: Adding 2 - nothing changed
-      oxlorg.opnsense.monit_alert:
+      fyrastack.opnsense.monit_alert:
         recipient: 'alert2@monit.opnsense.test.oxlorg.net'
         not_on: true
         events: ['timestamp']
@@ -111,7 +111,7 @@
       when: not ansible_check_mode
 
     - name: Removing 2
-      oxlorg.opnsense.monit_alert:
+      fyrastack.opnsense.monit_alert:
         recipient: 'alert2@monit.opnsense.test.oxlorg.net'
         state: 'absent'
       register: opn8
@@ -121,7 +121,7 @@
       when: not ansible_check_mode
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn3
       failed_when: >
         'data' not in opn3 or
@@ -129,7 +129,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.monit_alert:
+      fyrastack.opnsense.monit_alert:
         recipient: "{{ item }}"
         state: 'absent'
       loop:
@@ -138,7 +138,7 @@
       when: not ansible_check_mode
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn2
       failed_when: >
         'data' not in opn2 or

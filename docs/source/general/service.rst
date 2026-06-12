@@ -45,18 +45,18 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
       tasks:
         - name: Restarting IPSec service
-          oxlorg.opnsense.service:
+          fyrastack.opnsense.service:
             name: 'ipsec'
             action: 'restart'
 
         - name: Get status of FRR service
-          oxlorg.opnsense.service:
+          fyrastack.opnsense.service:
             name: 'frr'
             action: 'status'
           register: frr_svc
@@ -66,6 +66,6 @@ Examples
             var: frr_svc.data
 
         - name: Stopping Tor service
-          oxlorg.opnsense.service:
+          fyrastack.opnsense.service:
             name: 'tor'
             action: 'stop'

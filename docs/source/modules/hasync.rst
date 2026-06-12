@@ -8,8 +8,8 @@ High Availability
 
 **STATE**: stable
 
-**TESTS**: `oxlorg.opnsense.hasync_general <https://github.com/oxlorg/collection_opnsense/blob/latest/tests/hasync_general.yml>`_ |
-`oxlorg.opnsense.hasync_service <https://github.com/oxlorg/collection_opnsense/blob/latest/tests/hasync_service.yml>`_
+**TESTS**: `fyrastack.opnsense.hasync_general <https://github.com/oxlorg/collection_opnsense/blob/latest/tests/hasync_general.yml>`_ |
+`fyrastack.opnsense.hasync_service <https://github.com/oxlorg/collection_opnsense/blob/latest/tests/hasync_service.yml>`_
 
 **API Docs**: `Core - HASync <https://docs.opnsense.org/development/api/core/core.html>`_
 
@@ -31,7 +31,7 @@ Definition
 
 .. include:: ../_include/param_basic.rst
 
-oxlorg.opnsense.hasync_general
+fyrastack.opnsense.hasync_general
 ===================================
 
 ..  csv-table:: Definition
@@ -51,7 +51,7 @@ oxlorg.opnsense.hasync_general
     "syncitems","list of string","false","\-","\-","Services that should be send to the other host."
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.hasync_service
+fyrastack.opnsense.hasync_service
 ===================================
 
 ..  csv-table:: Definition
@@ -65,14 +65,14 @@ oxlorg.opnsense.hasync_service
 Usage
 *****
 
-Use the :code:`oxlorg.opnsense.hasync_general` module to configure the synchronisation of states and configuration.
-If configuration synchronization is set up the :code:`oxlorg.opnsense.hasync_service` module can be used to trigger the sync and restart of a specific or all services.
+Use the :code:`fyrastack.opnsense.hasync_general` module to configure the synchronisation of states and configuration.
+If configuration synchronization is set up the :code:`fyrastack.opnsense.hasync_service` module can be used to trigger the sync and restart of a specific or all services.
 
 
 Examples
 ********
 
-oxlorg.opnsense.hasync_general
+fyrastack.opnsense.hasync_general
 ==================================
 
 .. code-block:: yaml
@@ -81,11 +81,11 @@ oxlorg.opnsense.hasync_general
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'hasync_general'
 
       tasks:
@@ -93,7 +93,7 @@ oxlorg.opnsense.hasync_general
         # required ones normally
         # add their default values to get a brief overview of how the module works
         - name: Example
-          oxlorg.opnsense.hasync_general:
+          fyrastack.opnsense.hasync_general:
             # preempt: false
             # disconnect_ppps: false
             # pfsync_interface: 
@@ -108,7 +108,7 @@ oxlorg.opnsense.hasync_general
             # debug: false
 
         - name: Setup pfsync
-          oxlorg.opnsense.hasync_general:
+          fyrastack.opnsense.hasync_general:
             preempt: false
             disconnect_ppps: false
             pfsync_interface: pfSync
@@ -116,7 +116,7 @@ oxlorg.opnsense.hasync_general
             pfsync_version: 1400
 
         - name: Setup Config Sync
-          oxlorg.opnsense.hasync_general:
+          fyrastack.opnsense.hasync_general:
             synchronize_to_ip: 192.168.1.2
             username: opnsync
             password: secret
@@ -125,7 +125,7 @@ oxlorg.opnsense.hasync_general
               - rules
 
         - name: Listing config
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'hasync_general'
           register: hasync_config
 
@@ -133,7 +133,7 @@ oxlorg.opnsense.hasync_general
           ansible.builtin.debug:
             var: hasync_config.data
 
-oxlorg.opnsense.hasync_service
+fyrastack.opnsense.hasync_service
 ==================================
 
 .. code-block:: yaml
@@ -142,28 +142,28 @@ oxlorg.opnsense.hasync_service
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
 
       tasks:
         - name: Synchronize and restart cron
-          oxlorg.opnsense.hasync_service:
+          fyrastack.opnsense.hasync_service:
             name: cron
             action: restart
 
         - name: Synchronize and restart all services
-          oxlorg.opnsense.hasync_service:
+          fyrastack.opnsense.hasync_service:
             #name: all
             action: restart
 
         - name: Stop ntpd
-          oxlorg.opnsense.hasync_service:
+          fyrastack.opnsense.hasync_service:
             name: ntpd
             action: stop
 
         - name: Start ntpd
-          oxlorg.opnsense.hasync_service:
+          fyrastack.opnsense.hasync_service:
             name: ntpd
             action: start

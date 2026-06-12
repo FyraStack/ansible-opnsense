@@ -35,7 +35,7 @@ You can also install it using the [package module](https://ansible-opnsense.oxl.
 
 For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basic.html)
 
-### oxlorg.opnsense.frr_rip
+### fyrastack.opnsense.frr_rip
 
 | Parameter | Type    | Required | Default value | Aliases            | Comment                                                                                                                                        |
 |:----------|:--------|:---------|:--------------|:-------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------|
@@ -49,23 +49,23 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
 
 ## Examples
 
-### oxlorg.opnsense.frr_rip
+### fyrastack.opnsense.frr_rip
 
 ```yaml
 - hosts: firewalls
   connection: local
   gather_facts: false
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: 'opnsense.template.opnsense.oxl.app'
       api_credential_file: '/home/guy/.secret/opn.key'
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'frr_rip'
 
   tasks:
     - name: Example
-      oxlorg.opnsense.frr_rip:
+      fyrastack.opnsense.frr_rip:
         # version: 2
         # metric: 10
         # passive_ints: []
@@ -74,7 +74,7 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
         # enabled: true
 
     - name: Pulling settings
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       #  target: 'frr_rip'
       register: existing_entries
 
@@ -83,13 +83,13 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
         var: existing_entries.data
 
     - name: Enabling & Configuring RIP
-      oxlorg.opnsense.frr_rip:
+      fyrastack.opnsense.frr_rip:
         passive_ints: ['lan']
         redistribute: ['static']
         networks: ['10.0.10.0/24']
         enabled: true
 
     - name: Disabling RIP
-      oxlorg.opnsense.frr_rip:
+      fyrastack.opnsense.frr_rip:
         enabled: false
 ```

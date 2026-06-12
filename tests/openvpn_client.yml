@@ -4,12 +4,12 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'openvpn_instance'
 
   environment:
@@ -17,14 +17,14 @@
 
   tasks:
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn_pre1
       failed_when: >
         'data' not in opn_pre1 or
         opn_pre1.data | length != 0
 
     - name: Removing - does not exist
-      oxlorg.opnsense.openvpn_client:
+      fyrastack.opnsense.openvpn_client:
         name: 'ANSIBLE_TEST_1_1'
         state: 'absent'
       register: opn_pre2
@@ -33,7 +33,7 @@
         opn_pre2.changed
 
     - name: Adding 1 - failing because no remote was provided
-      oxlorg.opnsense.openvpn_client:
+      fyrastack.opnsense.openvpn_client:
         name: 'ANSIBLE_TEST_1_1'
         protocol: 'udp'
         mode: 'tun'
@@ -43,7 +43,7 @@
       failed_when: not opn_fail1.failed
 
     - name: Adding 1 - failing because no ca/cert was provided
-      oxlorg.opnsense.openvpn_client:
+      fyrastack.opnsense.openvpn_client:
         name: 'ANSIBLE_TEST_1_1'
         remote: 'openvpn.test.oxlorg.net:20000'
         protocol: 'udp'
@@ -52,7 +52,7 @@
       failed_when: not opn_fail2.failed
 
     - name: Adding 1
-      oxlorg.opnsense.openvpn_client:
+      fyrastack.opnsense.openvpn_client:
         name: 'ANSIBLE_TEST_1_1'
         remote: 'openvpn.test.oxlorg.net:20000'
         protocol: 'udp'
@@ -65,7 +65,7 @@
         not opn1.changed
 
     - name: Changing 1
-      oxlorg.opnsense.openvpn_client:
+      fyrastack.opnsense.openvpn_client:
         name: 'ANSIBLE_TEST_1_1'
         remote: 'openvpn.test.oxlorg.net:20000'
         protocol: 'udp'
@@ -82,7 +82,7 @@
         not opn9.changed
 
     - name: Disabling 1
-      oxlorg.opnsense.openvpn_client:
+      fyrastack.opnsense.openvpn_client:
         name: 'ANSIBLE_TEST_1_1'
         remote: 'openvpn.test.oxlorg.net:20000'
         protocol: 'udp'
@@ -101,7 +101,7 @@
       when: not ansible_check_mode
 
     - name: Disabling 1 - nothing changed
-      oxlorg.opnsense.openvpn_client:
+      fyrastack.opnsense.openvpn_client:
         name: 'ANSIBLE_TEST_1_1'
         remote: 'openvpn.test.oxlorg.net:20000'
         protocol: 'udp'
@@ -120,7 +120,7 @@
       when: not ansible_check_mode
 
     - name: Enabling 1
-      oxlorg.opnsense.openvpn_client:
+      fyrastack.opnsense.openvpn_client:
         name: 'ANSIBLE_TEST_1_1'
         remote: 'openvpn.test.oxlorg.net:20000'
         protocol: 'udp'
@@ -138,7 +138,7 @@
       when: not ansible_check_mode
 
     - name: Adding 2
-      oxlorg.opnsense.openvpn_client:
+      fyrastack.opnsense.openvpn_client:
         name: 'ANSIBLE_TEST_1_2'
         remote: 'openvpn.test.oxlorg.net:24000'
         protocol: 'tcp'
@@ -154,7 +154,7 @@
         not opn5.changed
 
     - name: Adding 2 - nothing changed
-      oxlorg.opnsense.openvpn_client:
+      fyrastack.opnsense.openvpn_client:
         name: 'ANSIBLE_TEST_1_2'
         remote: 'openvpn.test.oxlorg.net:24000'
         protocol: 'tcp'
@@ -171,7 +171,7 @@
       when: not ansible_check_mode
 
     - name: Removing 2
-      oxlorg.opnsense.openvpn_client:
+      fyrastack.opnsense.openvpn_client:
         name: 'ANSIBLE_TEST_1_2'
         state: 'absent'
       register: opn7
@@ -181,7 +181,7 @@
       when: not ansible_check_mode
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn8
       failed_when: >
         'data' not in opn8 or
@@ -189,7 +189,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.openvpn_client:
+      fyrastack.opnsense.openvpn_client:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -198,7 +198,7 @@
       when: not ansible_check_mode
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn_post1
       failed_when: >
         'data' not in opn_post1 or
@@ -208,7 +208,7 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
@@ -218,12 +218,12 @@
 
   tasks:
     - name: Adding dummy key
-      oxlorg.opnsense.openvpn_static_key:
+      fyrastack.opnsense.openvpn_static_key:
         name: 'ANSIBLE_TEST_2_1'
       when: not ansible_check_mode
 
     - name: Adding 1 with link to static-key
-      oxlorg.opnsense.openvpn_client:
+      fyrastack.opnsense.openvpn_client:
         name: 'ANSIBLE_TEST_2_1'
         remote: 'openvpn.test.oxlorg.net'
         ca: 'OpenVPN'
@@ -235,13 +235,13 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.openvpn_client:
+      fyrastack.opnsense.openvpn_client:
         name: 'ANSIBLE_TEST_2_1'
         state: 'absent'
       when: not ansible_check_mode
 
     - name: Cleanup key
-      oxlorg.opnsense.openvpn_static_key:
+      fyrastack.opnsense.openvpn_static_key:
         name: 'ANSIBLE_TEST_2_1'
         state: 'absent'
       when: not ansible_check_mode

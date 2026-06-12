@@ -4,12 +4,12 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.package:
+    fyrastack.opnsense.package:
       timeout: 120
 
   environment:
@@ -17,7 +17,7 @@
 
   tasks:
     - name: Installing packages
-      oxlorg.opnsense.package:
+      fyrastack.opnsense.package:
         name: "{{ item }}"
         action: 'install'
       register: opn_dep_install

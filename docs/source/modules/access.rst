@@ -31,7 +31,7 @@ Thanks to `@jiuka <https://github.com/jiuka>`_ for developing this module!
 Definition
 **********
 
-oxlorg.opnsense.user
+fyrastack.opnsense.user
 ========================
 
 ..  csv-table:: Definition
@@ -53,7 +53,7 @@ oxlorg.opnsense.user
     "membership","list","false","\-","group, m, g","List of group memberships."
     "privilege","list","false","\-","priv, p","List of granted privileges."
 
-oxlorg.opnsense.group
+fyrastack.opnsense.group
 =========================
 
 ..  csv-table:: Definition
@@ -67,7 +67,7 @@ oxlorg.opnsense.group
     "source_net","list","false","\-","source, src, s","List of networks which constraint the membership of this group to their location."
 
 
-oxlorg.opnsense.privilege
+fyrastack.opnsense.privilege
 =============================
 
 ..  csv-table:: Definition
@@ -101,13 +101,13 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
       tasks:
         - name: Example User
-          oxlorg.opnsense.user:
+          fyrastack.opnsense.user:
             name: alice
             # expires:
             # authorized_keys: |
@@ -128,7 +128,7 @@ Examples
             # debug: false
 
         - name: Example Group
-          oxlorg.opnsense.group:
+          fyrastack.opnsense.group:
             name: aliceandbob
             # description:
             # member:
@@ -138,7 +138,7 @@ Examples
             # debug: false
 
         - name: Example Privilege
-          oxlorg.opnsense.group:
+          fyrastack.opnsense.group:
             id: user-config-readonly
             user: alice
             group: aliceandbob
@@ -146,7 +146,7 @@ Examples
             # debug: false
 
         - name: Adding Monitoring User
-          oxlorg.opnsense.user:
+          fyrastack.opnsense.user:
             name: alice
             update_password: on_create
             scrambled_password: true
@@ -156,14 +156,14 @@ Examples
               - page-status-carp
 
         - name: Ensure only admins have all privileges
-          oxlorg.opnsense.privilege:
+          fyrastack.opnsense.privilege:
             id: page-all
             user: []
             group: admin
             state: pure
 
         - name: Listing users
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
             target: 'user'
           register: existing_users
 

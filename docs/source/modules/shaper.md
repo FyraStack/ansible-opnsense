@@ -31,7 +31,7 @@ Interfaces for 'shaper_rules' must be provided as used in the network config (_p
 
 For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basic.html)
 
-### oxlorg.opnsense.shaper_pipe
+### fyrastack.opnsense.shaper_pipe
 
 | Parameter    | Type            | Required                                   | Default value | Aliases   | Comment                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 |:-------------|:----------------|:-------------------------------------------|:--------------|:----------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -54,7 +54,7 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
 | reload             | boolean | false    | true          | -         | If the running config should be reloaded on change - this will take some time. You might want to reload it 'manually' after all changes are done => using the [reload module](https://ansible-opnsense.oxl.app/general/reload.html).                                                                                                                                                                               |
 | reset              | boolean | false    | false         | flush          | Can be used instead of 'reload'. If the running config should be flushed and reloaded on change - this will take some time. This might have impact on other services using the same technology underneath (such as Captive portal). You might want to reload it 'manually' after all changes are done => using the [service module](https://ansible-opnsense.oxl.app/general/service.html) (_action 'restart'_). |
 
-### oxlorg.opnsense.shaper_queue
+### fyrastack.opnsense.shaper_queue
 
 | Parameter    | Type            | Required                                   | Default value | Aliases        | Comment                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 |:-------------|:----------------|:-------------------------------------------|:--------------|:---------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -72,7 +72,7 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
 | reload             | boolean | false    | true          | -              | If the running config should be reloaded on change - this will take some time. You might want to reload it 'manually' after all changes are done => using the [reload module](https://ansible-opnsense.oxl.app/general/reload.html).                                                                                                                                                                               |
 | reset              | boolean | false    | false         | flush               | Can be used instead of 'reload'. If the running config should be flushed and reloaded on change - this will take some time. This might have impact on other services using the same technology underneath (such as Captive portal). You might want to reload it 'manually' after all changes are done => using the [service module](https://ansible-opnsense.oxl.app/general/service.html) (_action 'restart'_). |
 
-### oxlorg.opnsense.shaper_rule
+### fyrastack.opnsense.shaper_rule
 
 | Parameter          | Type    | Required                               | Default value | Aliases                           | Comment                                                                                                                                                                                                                                                                                                                                                                                                                   |
 |:-------------------|:--------|:---------------------------------------|:--------------|:----------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -106,16 +106,16 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
   connection: local
   gather_facts: false
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: 'opnsense.template.opnsense.oxl.app'
       api_credential_file: '/home/guy/.secret/opn.key'
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'shaper_pipe'
 
   tasks:
     - name: Example
-      oxlorg.opnsense.shaper_pipe:
+      fyrastack.opnsense.shaper_pipe:
         description: 'example'
         bandwidth: 50
         # bandwidth_metric: 'Mbit'
@@ -138,18 +138,18 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
         # reset: false
 
     - name: Adding pipe
-      oxlorg.opnsense.shaper_pipe:
+      fyrastack.opnsense.shaper_pipe:
         description: 'test1'
         bandwidth: 50
 
     - name: Disabling pipe
-      oxlorg.opnsense.shaper_pipe:
+      fyrastack.opnsense.shaper_pipe:
         description: 'test1'
         bandwidth: 50
         enabled: false
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
         target: 'shaper_pipe'
       register: existing_entries
 
@@ -158,7 +158,7 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
         var: existing_entries.data
 
     - name: Removing pipe
-      oxlorg.opnsense.shaper_pipe:
+      fyrastack.opnsense.shaper_pipe:
         description: 'test1'
         state: 'absent'
 ```
@@ -170,16 +170,16 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
   connection: local
   gather_facts: false
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: 'opnsense.template.opnsense.oxl.app'
       api_credential_file: '/home/guy/.secret/opn.key'
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'shaper_queue'
 
   tasks:
     - name: Example
-      oxlorg.opnsense.shaper_queue:
+      fyrastack.opnsense.shaper_queue:
         description: 'example'
         pipe: 'example'
         weight: 50
@@ -197,25 +197,25 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
         # reset: false
 
     - name: Adding pipe
-      oxlorg.opnsense.shaper_pipe:
+      fyrastack.opnsense.shaper_pipe:
         description: 'testPipe1'
         bandwidth: 50
 
     - name: Adding queue
-      oxlorg.opnsense.shaper_queue:
+      fyrastack.opnsense.shaper_queue:
         description: 'testQueue1'
         pipe: 'testPipe1'
         weight: 50
 
     - name: Disabling queue
-      oxlorg.opnsense.shaper_queue:
+      fyrastack.opnsense.shaper_queue:
         description: 'testQueue1'
         pipe: 'testPipe1'
         weight: 50
         enabled: false
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
         target: 'shaper_queue'
       register: existing_entries
 
@@ -224,7 +224,7 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
         var: existing_entries.data
 
     - name: Removing queues
-      oxlorg.opnsense.shaper_queue:
+      fyrastack.opnsense.shaper_queue:
         description: 'testQueue1'
         state: 'absent'
 ```
@@ -236,16 +236,16 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
   connection: local
   gather_facts: false
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: 'opnsense.template.opnsense.oxl.app'
       api_credential_file: '/home/guy/.secret/opn.key'
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'shaper_rule'
 
   tasks:
     - name: Example
-      oxlorg.opnsense.shaper_rule:
+      fyrastack.opnsense.shaper_rule:
         description: 'example'
         target_pipe: 'example'
         target_queue: 'example'
@@ -269,32 +269,32 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
         # reset: false
 
     - name: Adding pipe
-      oxlorg.opnsense.shaper_pipe:
+      fyrastack.opnsense.shaper_pipe:
         description: 'testPipe1'
         bandwidth: 50
 
     - name: Adding queue
-      oxlorg.opnsense.shaper_queue:
+      fyrastack.opnsense.shaper_queue:
         description: 'testQueue1'
         pipe: 'testPipe1'
         weight: 50
 
     - name: Adding rule - link it to queue
-      oxlorg.opnsense.shaper_rule:
+      fyrastack.opnsense.shaper_rule:
         description: 'testRule1'
         target_queue: 'testQueue1'
         protocol: 'tcp'
         destination_port: 80
 
     - name: Adding rule - link it to pipe
-      oxlorg.opnsense.shaper_rule:
+      fyrastack.opnsense.shaper_rule:
         description: 'testRule2'
         target_pipe: 'testPipe1'
         destination_invert: true
         destination: '172.16.0.0/12'
 
     - name: Disabling rule and flush-reload
-      oxlorg.opnsense.shaper_rule:
+      fyrastack.opnsense.shaper_rule:
         description: 'testRule1'
         target_queue: 'testQueue1'
         protocol: 'tcp'
@@ -302,7 +302,7 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
         enabled: false
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
         target: 'shaper_rule'
       register: existing_entries
 
@@ -311,7 +311,7 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
         var: existing_entries.data
 
     - name: Removing rule
-      oxlorg.opnsense.shaper_queue:
+      fyrastack.opnsense.shaper_queue:
         description: 'testRule1'
         state: 'absent'
 ```

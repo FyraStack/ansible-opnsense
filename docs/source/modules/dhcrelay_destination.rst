@@ -41,7 +41,7 @@ Info
 
 This module manages DHCRelay destinations. A destination can contain multiple IP addresses.
 
-Note: You can also use the shortform module name: :code:`oxlorg.opnsense.dhcrelay_dst`
+Note: You can also use the shortform module name: :code:`fyrastack.opnsense.dhcrelay_dst`
 
 ----
 
@@ -54,16 +54,16 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'dhcrelay_destination'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.dhcrelay_destination:
+          fyrastack.opnsense.dhcrelay_destination:
             name: 'mydhcp'
             server:
               - '192.168.0.1'
@@ -72,20 +72,20 @@ Examples
             # debug: false
 
         - name: Adding
-          oxlorg.opnsense.dhcrelay_destination:
+          fyrastack.opnsense.dhcrelay_destination:
             name: 'mydhcp'
             server:
               - '192.168.0.1'
 
         - name: Removing
-          oxlorg.opnsense.dhcrelay_destination:
+          fyrastack.opnsense.dhcrelay_destination:
             name: 'mydhcp'
             server:
               - '192.168.0.1'
             state: 'absent'
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'dhcrelay_destination'
           register: existing_entries
 

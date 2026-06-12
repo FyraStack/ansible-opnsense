@@ -4,288 +4,288 @@ requires_ansible: ">=2.14"
 
 action_groups:
   alias:
-    - oxlorg.opnsense.alias
-    - oxlorg.opnsense.alias_multi
-    - oxlorg.opnsense.alias_purge
+    - fyrastack.opnsense.alias
+    - fyrastack.opnsense.alias_multi
+    - fyrastack.opnsense.alias_purge
   rule:
-    - oxlorg.opnsense.rule
-    - oxlorg.opnsense.rule_multi
-    - oxlorg.opnsense.rule_purge
-    - oxlorg.opnsense.rule_interface_group
+    - fyrastack.opnsense.rule
+    - fyrastack.opnsense.rule_multi
+    - fyrastack.opnsense.rule_purge
+    - fyrastack.opnsense.rule_interface_group
   unbound:
-    - oxlorg.opnsense.unbound_general
-    - oxlorg.opnsense.unbound_acl
-    - oxlorg.opnsense.unbound_forward
-    - oxlorg.opnsense.unbound_dot
-    - oxlorg.opnsense.unbound_host
-    - oxlorg.opnsense.unbound_host_alias
-    - oxlorg.opnsense.unbound_dnsbl
+    - fyrastack.opnsense.unbound_general
+    - fyrastack.opnsense.unbound_acl
+    - fyrastack.opnsense.unbound_forward
+    - fyrastack.opnsense.unbound_dot
+    - fyrastack.opnsense.unbound_host
+    - fyrastack.opnsense.unbound_host_alias
+    - fyrastack.opnsense.unbound_dnsbl
   ipsec:
-    - oxlorg.opnsense.ipsec_auth_local
-    - oxlorg.opnsense.ipsec_auth_remote
-    - oxlorg.opnsense.ipsec_child
-    - oxlorg.opnsense.ipsec_vti
-    - oxlorg.opnsense.ipsec_cert
-    - oxlorg.opnsense.ipsec_psk
-    - oxlorg.opnsense.ipsec_connection
-    - oxlorg.opnsense.ipsec_pool
-    - oxlorg.opnsense.ipsec_manual_spd
-    - oxlorg.opnsense.ipsec_general
+    - fyrastack.opnsense.ipsec_auth_local
+    - fyrastack.opnsense.ipsec_auth_remote
+    - fyrastack.opnsense.ipsec_child
+    - fyrastack.opnsense.ipsec_vti
+    - fyrastack.opnsense.ipsec_cert
+    - fyrastack.opnsense.ipsec_psk
+    - fyrastack.opnsense.ipsec_connection
+    - fyrastack.opnsense.ipsec_pool
+    - fyrastack.opnsense.ipsec_manual_spd
+    - fyrastack.opnsense.ipsec_general
   shaper:
-    - oxlorg.opnsense.shaper_pipe
-    - oxlorg.opnsense.shaper_queue
-    - oxlorg.opnsense.shaper_rule
+    - fyrastack.opnsense.shaper_pipe
+    - fyrastack.opnsense.shaper_queue
+    - fyrastack.opnsense.shaper_rule
   monit:
-    - oxlorg.opnsense.monit_service
-    - oxlorg.opnsense.monit_alert
-    - oxlorg.opnsense.monit_test
+    - fyrastack.opnsense.monit_service
+    - fyrastack.opnsense.monit_alert
+    - fyrastack.opnsense.monit_test
   wireguard:
-    - oxlorg.opnsense.wireguard_server
-    - oxlorg.opnsense.wireguard_peer
-    - oxlorg.opnsense.wireguard_show
-    - oxlorg.opnsense.wireguard_general
+    - fyrastack.opnsense.wireguard_server
+    - fyrastack.opnsense.wireguard_peer
+    - fyrastack.opnsense.wireguard_show
+    - fyrastack.opnsense.wireguard_general
   interface:
-    - oxlorg.opnsense.interface_vlan
-    - oxlorg.opnsense.interface_vxlan
-    - oxlorg.opnsense.interface_vip
-    - oxlorg.opnsense.interface_lagg
-    - oxlorg.opnsense.interface_loopback
-    - oxlorg.opnsense.interface_gre
-    - oxlorg.opnsense.interface_bridge
-    - oxlorg.opnsense.interface_gif
-    - oxlorg.opnsense.neighbor
+    - fyrastack.opnsense.interface_vlan
+    - fyrastack.opnsense.interface_vxlan
+    - fyrastack.opnsense.interface_vip
+    - fyrastack.opnsense.interface_lagg
+    - fyrastack.opnsense.interface_loopback
+    - fyrastack.opnsense.interface_gre
+    - fyrastack.opnsense.interface_bridge
+    - fyrastack.opnsense.interface_gif
+    - fyrastack.opnsense.neighbor
   frr:
-    - oxlorg.opnsense.frr_diagnostic
-    - oxlorg.opnsense.frr_general
-    - oxlorg.opnsense.frr_bfd_general
-    - oxlorg.opnsense.frr_bfd_neighbor
-    - oxlorg.opnsense.frr_bgp_general
-    - oxlorg.opnsense.frr_bgp_prefix_list
-    - oxlorg.opnsense.frr_bgp_community_list
-    - oxlorg.opnsense.frr_bgp_as_path
-    - oxlorg.opnsense.frr_bgp_redistribution
-    - oxlorg.opnsense.frr_bgp_route_map
-    - oxlorg.opnsense.frr_bgp_neighbor
-    - oxlorg.opnsense.frr_bgp_peer_group
-    - oxlorg.opnsense.frr_ospf_general
-    - oxlorg.opnsense.frr_ospf_prefix_list
-    - oxlorg.opnsense.frr_ospf_interface
-    - oxlorg.opnsense.frr_ospf_redistribution
-    - oxlorg.opnsense.frr_ospf_route_map
-    - oxlorg.opnsense.frr_ospf_network
-    - oxlorg.opnsense.frr_ospf3_general
-    - oxlorg.opnsense.frr_ospf3_prefix_list
-    - oxlorg.opnsense.frr_ospf3_interface
-    - oxlorg.opnsense.frr_ospf3_redistribution
-    - oxlorg.opnsense.frr_ospf3_route_map
-    - oxlorg.opnsense.frr_ospf3_network
-    - oxlorg.opnsense.frr_rip
+    - fyrastack.opnsense.frr_diagnostic
+    - fyrastack.opnsense.frr_general
+    - fyrastack.opnsense.frr_bfd_general
+    - fyrastack.opnsense.frr_bfd_neighbor
+    - fyrastack.opnsense.frr_bgp_general
+    - fyrastack.opnsense.frr_bgp_prefix_list
+    - fyrastack.opnsense.frr_bgp_community_list
+    - fyrastack.opnsense.frr_bgp_as_path
+    - fyrastack.opnsense.frr_bgp_redistribution
+    - fyrastack.opnsense.frr_bgp_route_map
+    - fyrastack.opnsense.frr_bgp_neighbor
+    - fyrastack.opnsense.frr_bgp_peer_group
+    - fyrastack.opnsense.frr_ospf_general
+    - fyrastack.opnsense.frr_ospf_prefix_list
+    - fyrastack.opnsense.frr_ospf_interface
+    - fyrastack.opnsense.frr_ospf_redistribution
+    - fyrastack.opnsense.frr_ospf_route_map
+    - fyrastack.opnsense.frr_ospf_network
+    - fyrastack.opnsense.frr_ospf3_general
+    - fyrastack.opnsense.frr_ospf3_prefix_list
+    - fyrastack.opnsense.frr_ospf3_interface
+    - fyrastack.opnsense.frr_ospf3_redistribution
+    - fyrastack.opnsense.frr_ospf3_route_map
+    - fyrastack.opnsense.frr_ospf3_network
+    - fyrastack.opnsense.frr_rip
   bind:
-    - oxlorg.opnsense.bind_general
-    - oxlorg.opnsense.bind_acl
-    - oxlorg.opnsense.bind_blocklist
-    - oxlorg.opnsense.bind_domain
-    - oxlorg.opnsense.bind_record
-    - oxlorg.opnsense.bind_record_multi
+    - fyrastack.opnsense.bind_general
+    - fyrastack.opnsense.bind_acl
+    - fyrastack.opnsense.bind_blocklist
+    - fyrastack.opnsense.bind_domain
+    - fyrastack.opnsense.bind_record
+    - fyrastack.opnsense.bind_record_multi
   webproxy:
-    - oxlorg.opnsense.webproxy_general
-    - oxlorg.opnsense.webproxy_cache
-    - oxlorg.opnsense.webproxy_parent
-    - oxlorg.opnsense.webproxy_traffic
-    - oxlorg.opnsense.webproxy_forward
-    - oxlorg.opnsense.webproxy_acl
-    - oxlorg.opnsense.webproxy_icap
-    - oxlorg.opnsense.webproxy_auth
-    - oxlorg.opnsense.webproxy_remote_acl
-    - oxlorg.opnsense.webproxy_pac_proxy
-    - oxlorg.opnsense.webproxy_pac_match
-    - oxlorg.opnsense.webproxy_pac_rule
+    - fyrastack.opnsense.webproxy_general
+    - fyrastack.opnsense.webproxy_cache
+    - fyrastack.opnsense.webproxy_parent
+    - fyrastack.opnsense.webproxy_traffic
+    - fyrastack.opnsense.webproxy_forward
+    - fyrastack.opnsense.webproxy_acl
+    - fyrastack.opnsense.webproxy_icap
+    - fyrastack.opnsense.webproxy_auth
+    - fyrastack.opnsense.webproxy_remote_acl
+    - fyrastack.opnsense.webproxy_pac_proxy
+    - fyrastack.opnsense.webproxy_pac_match
+    - fyrastack.opnsense.webproxy_pac_rule
   nginx:
-    - oxlorg.opnsense.nginx_general
-    - oxlorg.opnsense.nginx_upstream_server
+    - fyrastack.opnsense.nginx_general
+    - fyrastack.opnsense.nginx_upstream_server
   route:
-    - oxlorg.opnsense.route
-    - oxlorg.opnsense.gateway
+    - fyrastack.opnsense.route
+    - fyrastack.opnsense.gateway
   nat:
-    - oxlorg.opnsense.nat_source
-    - oxlorg.opnsense.nat_one_to_one
+    - fyrastack.opnsense.nat_source
+    - fyrastack.opnsense.nat_one_to_one
   system:
-    - oxlorg.opnsense.list
-    - oxlorg.opnsense.reload
-    - oxlorg.opnsense.service
-    - oxlorg.opnsense.savepoint
-    - oxlorg.opnsense.package
-    - oxlorg.opnsense.system
-    - oxlorg.opnsense.cron
-    - oxlorg.opnsense.syslog
-    - oxlorg.opnsense.snapshot
+    - fyrastack.opnsense.list
+    - fyrastack.opnsense.reload
+    - fyrastack.opnsense.service
+    - fyrastack.opnsense.savepoint
+    - fyrastack.opnsense.package
+    - fyrastack.opnsense.system
+    - fyrastack.opnsense.cron
+    - fyrastack.opnsense.syslog
+    - fyrastack.opnsense.snapshot
   ids:
-    - oxlorg.opnsense.ids_action
-    - oxlorg.opnsense.ids_general
-    - oxlorg.opnsense.ids_policy
-    - oxlorg.opnsense.ids_policy_rule
-    - oxlorg.opnsense.ids_rule
-    - oxlorg.opnsense.ids_ruleset
-    - oxlorg.opnsense.ids_ruleset_properties
-    - oxlorg.opnsense.ids_user_rule
+    - fyrastack.opnsense.ids_action
+    - fyrastack.opnsense.ids_general
+    - fyrastack.opnsense.ids_policy
+    - fyrastack.opnsense.ids_policy_rule
+    - fyrastack.opnsense.ids_rule
+    - fyrastack.opnsense.ids_ruleset
+    - fyrastack.opnsense.ids_ruleset_properties
+    - fyrastack.opnsense.ids_user_rule
   openvpn:
-    - oxlorg.opnsense.openvpn_client
-    - oxlorg.opnsense.openvpn_server
-    - oxlorg.opnsense.openvpn_static_key
-    - oxlorg.opnsense.openvpn_status
-    - oxlorg.opnsense.openvpn_client_override
-    - oxlorg.opnsense.openvpn_client_template
-    - oxlorg.opnsense.openvpn_client_export
+    - fyrastack.opnsense.openvpn_client
+    - fyrastack.opnsense.openvpn_server
+    - fyrastack.opnsense.openvpn_static_key
+    - fyrastack.opnsense.openvpn_status
+    - fyrastack.opnsense.openvpn_client_override
+    - fyrastack.opnsense.openvpn_client_template
+    - fyrastack.opnsense.openvpn_client_export
   dnsmasq:
-    - oxlorg.opnsense.dnsmasq_general
-    - oxlorg.opnsense.dnsmasq_domain
-    - oxlorg.opnsense.dnsmasq_host
-    - oxlorg.opnsense.dnsmasq_range
-    - oxlorg.opnsense.dnsmasq_option
-    - oxlorg.opnsense.dnsmasq_boot
-    - oxlorg.opnsense.dnsmasq_tag
+    - fyrastack.opnsense.dnsmasq_general
+    - fyrastack.opnsense.dnsmasq_domain
+    - fyrastack.opnsense.dnsmasq_host
+    - fyrastack.opnsense.dnsmasq_range
+    - fyrastack.opnsense.dnsmasq_option
+    - fyrastack.opnsense.dnsmasq_boot
+    - fyrastack.opnsense.dnsmasq_tag
   dhcrelay:
-    - oxlorg.opnsense.dhcrelay_destination
-    - oxlorg.opnsense.dhcrelay_relay
+    - fyrastack.opnsense.dhcrelay_destination
+    - fyrastack.opnsense.dhcrelay_relay
   dhcp:
-    - oxlorg.opnsense.dhcp_reservation
-    - oxlorg.opnsense.dhcp_controlagent
-    - oxlorg.opnsense.dhcp_general
-    - oxlorg.opnsense.dhcp_subnet
+    - fyrastack.opnsense.dhcp_reservation
+    - fyrastack.opnsense.dhcp_controlagent
+    - fyrastack.opnsense.dhcp_general
+    - fyrastack.opnsense.dhcp_subnet
   acme:
-    - oxlorg.opnsense.acme_general
-    - oxlorg.opnsense.acme_account
-    - oxlorg.opnsense.acme_validation
-    - oxlorg.opnsense.acme_action
-    - oxlorg.opnsense.acme_certificate
+    - fyrastack.opnsense.acme_general
+    - fyrastack.opnsense.acme_account
+    - fyrastack.opnsense.acme_validation
+    - fyrastack.opnsense.acme_action
+    - fyrastack.opnsense.acme_certificate
   postfix:
-    - oxlorg.opnsense.postfix_general
-    - oxlorg.opnsense.postfix_domain
-    - oxlorg.opnsense.postfix_recipient
-    - oxlorg.opnsense.postfix_recipientbcc
-    - oxlorg.opnsense.postfix_sender
-    - oxlorg.opnsense.postfix_senderbcc
-    - oxlorg.opnsense.postfix_sendercanonical
-    - oxlorg.opnsense.postfix_headercheck
-    - oxlorg.opnsense.postfix_address
+    - fyrastack.opnsense.postfix_general
+    - fyrastack.opnsense.postfix_domain
+    - fyrastack.opnsense.postfix_recipient
+    - fyrastack.opnsense.postfix_recipientbcc
+    - fyrastack.opnsense.postfix_sender
+    - fyrastack.opnsense.postfix_senderbcc
+    - fyrastack.opnsense.postfix_sendercanonical
+    - fyrastack.opnsense.postfix_headercheck
+    - fyrastack.opnsense.postfix_address
   hasync:
-    - oxlorg.opnsense.hasync_general
-    - oxlorg.opnsense.hasync_service
+    - fyrastack.opnsense.hasync_general
+    - fyrastack.opnsense.hasync_service
   haproxy:
-    - oxlorg.opnsense.haproxy_general_settings
-    - oxlorg.opnsense.haproxy_general_cache
-    - oxlorg.opnsense.haproxy_general_defaults
-    - oxlorg.opnsense.haproxy_general_logging
-    - oxlorg.opnsense.haproxy_general_peers
-    - oxlorg.opnsense.haproxy_general_stats
-    - oxlorg.opnsense.haproxy_general_tuning
-    - oxlorg.opnsense.haproxy_maintenance
-    - oxlorg.opnsense.haproxy_cpu
-    - oxlorg.opnsense.haproxy_user
-    - oxlorg.opnsense.haproxy_group
-    - oxlorg.opnsense.haproxy_acl
-    - oxlorg.opnsense.haproxy_action
-    - oxlorg.opnsense.haproxy_lua
-    - oxlorg.opnsense.haproxy_fcgi
-    - oxlorg.opnsense.haproxy_errorfile
+    - fyrastack.opnsense.haproxy_general_settings
+    - fyrastack.opnsense.haproxy_general_cache
+    - fyrastack.opnsense.haproxy_general_defaults
+    - fyrastack.opnsense.haproxy_general_logging
+    - fyrastack.opnsense.haproxy_general_peers
+    - fyrastack.opnsense.haproxy_general_stats
+    - fyrastack.opnsense.haproxy_general_tuning
+    - fyrastack.opnsense.haproxy_maintenance
+    - fyrastack.opnsense.haproxy_cpu
+    - fyrastack.opnsense.haproxy_user
+    - fyrastack.opnsense.haproxy_group
+    - fyrastack.opnsense.haproxy_acl
+    - fyrastack.opnsense.haproxy_action
+    - fyrastack.opnsense.haproxy_lua
+    - fyrastack.opnsense.haproxy_fcgi
+    - fyrastack.opnsense.haproxy_errorfile
   wazuh:
-    - oxlorg.opnsense.wazuh_agent
+    - fyrastack.opnsense.wazuh_agent
   raw:
-    - oxlorg.opnsense.raw
+    - fyrastack.opnsense.raw
   access:
-    - oxlorg.opnsense.user
-    - oxlorg.opnsense.group
-    - oxlorg.opnsense.privilege
+    - fyrastack.opnsense.user
+    - fyrastack.opnsense.group
+    - fyrastack.opnsense.privilege
   nut:
-    - oxlorg.opnsense.nut
-    - oxlorg.opnsense.nut_diagnostics
+    - fyrastack.opnsense.nut
+    - fyrastack.opnsense.nut_diagnostics
   all:
     - metadata:
         extend_group:
-          - oxlorg.opnsense.alias
-          - oxlorg.opnsense.rule
-          - oxlorg.opnsense.unbound
-          - oxlorg.opnsense.ipsec
-          - oxlorg.opnsense.shaper
-          - oxlorg.opnsense.monit
-          - oxlorg.opnsense.wireguard
-          - oxlorg.opnsense.interface
-          - oxlorg.opnsense.frr
-          - oxlorg.opnsense.bind
-          - oxlorg.opnsense.webproxy
-          - oxlorg.opnsense.nginx
-          - oxlorg.opnsense.route
-          - oxlorg.opnsense.gateway
-          - oxlorg.opnsense.nat
-          - oxlorg.opnsense.system
-          - oxlorg.opnsense.ids
-          - oxlorg.opnsense.openvpn
-          - oxlorg.opnsense.dhcrelay
-          - oxlorg.opnsense.dhcp
-          - oxlorg.opnsense.acme
-          - oxlorg.opnsense.postfix
-          - oxlorg.opnsense.hasync
-          - oxlorg.opnsense.wazuh
-          - oxlorg.opnsense.raw
-          - oxlorg.opnsense.access
-          - oxlorg.opnsense.dnsmasq
-          - oxlorg.opnsense.haproxy
-          - oxlorg.opnsense.nut
-          - oxlorg.opnsense.nut_diagnostics
+          - fyrastack.opnsense.alias
+          - fyrastack.opnsense.rule
+          - fyrastack.opnsense.unbound
+          - fyrastack.opnsense.ipsec
+          - fyrastack.opnsense.shaper
+          - fyrastack.opnsense.monit
+          - fyrastack.opnsense.wireguard
+          - fyrastack.opnsense.interface
+          - fyrastack.opnsense.frr
+          - fyrastack.opnsense.bind
+          - fyrastack.opnsense.webproxy
+          - fyrastack.opnsense.nginx
+          - fyrastack.opnsense.route
+          - fyrastack.opnsense.gateway
+          - fyrastack.opnsense.nat
+          - fyrastack.opnsense.system
+          - fyrastack.opnsense.ids
+          - fyrastack.opnsense.openvpn
+          - fyrastack.opnsense.dhcrelay
+          - fyrastack.opnsense.dhcp
+          - fyrastack.opnsense.acme
+          - fyrastack.opnsense.postfix
+          - fyrastack.opnsense.hasync
+          - fyrastack.opnsense.wazuh
+          - fyrastack.opnsense.raw
+          - fyrastack.opnsense.access
+          - fyrastack.opnsense.dnsmasq
+          - fyrastack.opnsense.haproxy
+          - fyrastack.opnsense.nut
+          - fyrastack.opnsense.nut_diagnostics
 
 plugin_routing:
   modules:
     ipsec_tunnel:
-      redirect: oxlorg.opnsense.ipsec_connection
+      redirect: fyrastack.opnsense.ipsec_connection
     ipsec_network:
-      redirect: oxlorg.opnsense.ipsec_pool
+      redirect: fyrastack.opnsense.ipsec_pool
     snat:
-      redirect: oxlorg.opnsense.source_nat
+      redirect: fyrastack.opnsense.source_nat
     proxy_general:
-      redirect: oxlorg.opnsense.webproxy_general
+      redirect: fyrastack.opnsense.webproxy_general
     proxy_cache:
-      redirect: oxlorg.opnsense.webproxy_cache
+      redirect: fyrastack.opnsense.webproxy_cache
     proxy_parent:
-      redirect: oxlorg.opnsense.webproxy_parent
+      redirect: fyrastack.opnsense.webproxy_parent
     proxy_traffic:
-      redirect: oxlorg.opnsense.webproxy_traffic
+      redirect: fyrastack.opnsense.webproxy_traffic
     proxy_forward:
-      redirect: oxlorg.opnsense.webproxy_forward
+      redirect: fyrastack.opnsense.webproxy_forward
     proxy_acl:
-      redirect: oxlorg.opnsense.webproxy_acl
+      redirect: fyrastack.opnsense.webproxy_acl
     proxy_icap:
-      redirect: oxlorg.opnsense.webproxy_icap
+      redirect: fyrastack.opnsense.webproxy_icap
     proxy_auth:
-      redirect: oxlorg.opnsense.webproxy_auth
+      redirect: fyrastack.opnsense.webproxy_auth
     proxy_remote_acl:
-      redirect: oxlorg.opnsense.webproxy_remote_acl
+      redirect: fyrastack.opnsense.webproxy_remote_acl
     proxy_pac_proxy:
-      redirect: oxlorg.opnsense.webproxy_pac_proxy
+      redirect: fyrastack.opnsense.webproxy_pac_proxy
     proxy_pac_match:
-      redirect: oxlorg.opnsense.webproxy_pac_match
+      redirect: fyrastack.opnsense.webproxy_pac_match
     proxy_pac_rule:
-      redirect: oxlorg.opnsense.webproxy_pac_rule
+      redirect: fyrastack.opnsense.webproxy_pac_rule
     openvpn_client_overwrite:
-      redirect: oxlorg.opnsense.openvpn_client_override
+      redirect: fyrastack.opnsense.openvpn_client_override
     routing:
-      redirect: oxlorg.opnsense.gateway
+      redirect: fyrastack.opnsense.gateway
     gw:
-      redirect: oxlorg.opnsense.gateway
+      redirect: fyrastack.opnsense.gateway
     rule_if_group:
-      redirect: oxlorg.opnsense.rule_interface_group
+      redirect: fyrastack.opnsense.rule_interface_group
     dhcrelay:
-      redirect: oxlorg.opnsense.dhcrelay_relay
+      redirect: fyrastack.opnsense.dhcrelay_relay
     dhcrelay_dst:
-      redirect: oxlorg.opnsense.dhcrelay_destination
+      redirect: fyrastack.opnsense.dhcrelay_destination
     unbound_domain:
-      redirect: oxlorg.opnsense.unbound_forward
+      redirect: fyrastack.opnsense.unbound_forward
     acme_challenge:
-      redirect: oxlorg.opnsense.acme_validation
+      redirect: fyrastack.opnsense.acme_validation
     acme_automation:
-      redirect: oxlorg.opnsense.acme_action
+      redirect: fyrastack.opnsense.acme_action
     source_nat:
-      redirect: oxlorg.opnsense.nat_source
+      redirect: fyrastack.opnsense.nat_source
     one_to_one:
-      redirect: oxlorg.opnsense.nat_one_to_one
+      redirect: fyrastack.opnsense.nat_one_to_one
     wireguard_client:
-      redirect: oxlorg.opnsense.wireguard_peer
+      redirect: fyrastack.opnsense.wireguard_peer

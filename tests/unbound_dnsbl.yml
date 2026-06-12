@@ -4,12 +4,12 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'unbound_dnsbl'
 
   environment:
@@ -17,14 +17,14 @@
 
   tasks:
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn_pre1
       failed_when: >
         opn_pre1.failed or
         opn_pre1.data | length != 0
 
     - name: Configuring - failing because of invalid type
-      oxlorg.opnsense.unbound_dnsbl:
+      fyrastack.opnsense.unbound_dnsbl:
         name: 'ANSIBLE_TEST_1'
         providers:
           - 'INVALID'
@@ -33,7 +33,7 @@
       when: not ansible_check_mode
 
     - name: Configuring - failing because of invalid address
-      oxlorg.opnsense.unbound_dnsbl:
+      fyrastack.opnsense.unbound_dnsbl:
         name: 'ANSIBLE_TEST_1'
         address: 'INVALID'
       register: opn_fail2
@@ -41,7 +41,7 @@
       when: not ansible_check_mode
 
     - name: Adding 1
-      oxlorg.opnsense.unbound_dnsbl:
+      fyrastack.opnsense.unbound_dnsbl:
         name: 'ANSIBLE_TEST_1'
         providers: 'atf'
         download_urls: ['https://example.com/dns.blocklist']
@@ -65,7 +65,7 @@
         not opn1.changed
 
     - name: Changing 1
-      oxlorg.opnsense.unbound_dnsbl:
+      fyrastack.opnsense.unbound_dnsbl:
         name: 'ANSIBLE_TEST_1'
         providers: 'atf'
         domains_allow:
@@ -88,7 +88,7 @@
       when: not ansible_check_mode
 
     - name: Disabling 1
-      oxlorg.opnsense.unbound_dnsbl:
+      fyrastack.opnsense.unbound_dnsbl:
         name: 'ANSIBLE_TEST_1'
         providers: 'atf'
         domains_allow:
@@ -111,7 +111,7 @@
       when: not ansible_check_mode
 
     - name: Nothing changed
-      oxlorg.opnsense.unbound_dnsbl:
+      fyrastack.opnsense.unbound_dnsbl:
         name: 'ANSIBLE_TEST_1'
         providers: 'atf'
         domains_allow:
@@ -134,7 +134,7 @@
       when: not ansible_check_mode
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn6
       failed_when: >
         opn6.failed or
@@ -142,7 +142,7 @@
       when: not ansible_check_mode
 
     - name: Adding 2
-      oxlorg.opnsense.unbound_dnsbl:
+      fyrastack.opnsense.unbound_dnsbl:
         name: 'ANSIBLE_TEST_2'
         providers: 'atf'
         download_urls: ['https://example.com/dns.blocklist']
@@ -162,7 +162,7 @@
       when: not ansible_check_mode
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn7
       failed_when: >
         opn7.failed or
@@ -170,7 +170,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.unbound_dnsbl:
+      fyrastack.opnsense.unbound_dnsbl:
         name: "{{ item }}"
         state: 'absent'
       loop:

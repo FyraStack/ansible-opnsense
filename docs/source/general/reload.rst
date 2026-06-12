@@ -24,7 +24,7 @@ This module can reload the running/loaded configuration for a specified part of 
 
 Most modules of this collection will automatically reload its relevant running config on change - but you can speed up mass-management of items when disabling reload on single module-calls (*reload: false*), and do it afterward using THIS module.
 
-Alternatively you can use the :ref:`oxlorg.opnsense.service <modules_service>` module with action :code:`reload` if you like it better.
+Alternatively you can use the :ref:`fyrastack.opnsense.service <modules_service>` module with action :code:`reload` if you like it better.
 
 Definition
 **********
@@ -48,17 +48,17 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
       tasks:
         - name: Reloading aliases
-          oxlorg.opnsense.reload:
+          fyrastack.opnsense.reload:
             target: 'alias'
 
         - name: Reloading routes
-          oxlorg.opnsense.reload:
+          fyrastack.opnsense.reload:
             target: 'route'
 
 Practical
@@ -70,13 +70,13 @@ Practical
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
       tasks:
         - name: Adding routes
-          oxlorg.opnsense.route:
+          fyrastack.opnsense.route:
             network: "{{ item.nw }}"
             gateway: "{{ item.gw }}"
             reload: false
@@ -85,7 +85,7 @@ Practical
             - {nw: '10.67.0.0/16', gw: 'VPN2_GW'}
 
         - name: Adding DNS overrides
-          oxlorg.opnsense.unbound_host:
+          fyrastack.opnsense.unbound_host:
             hostname: "{{ item.host }}"
             domain: 'opnsense.template.opnsense.oxl.app'
             value: "{{ item.value }}"
@@ -95,7 +95,7 @@ Practical
             - {host: 'd', value: '192.168.0.5'}
 
         - name: Reloading
-          oxlorg.opnsense.reload:
+          fyrastack.opnsense.reload:
             target: "{{ item }}"
           loop:
             - 'route'

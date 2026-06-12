@@ -1,6 +1,6 @@
 ---
 
-namespace: 'oxlorg'
+namespace: 'fyrastack'
 name: 'opnsense'
 version: 25.7.8
 readme: 'README.md'

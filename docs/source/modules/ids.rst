@@ -8,13 +8,13 @@ Intrusion Prevention System
 
 **STATE**: stable
 
-**TESTS**: `oxlorg.opnsense.ids_general <https://github.com/O-X-L/ansible-opnsense/blob/latest/tests/ids_general.yml>`_ |
-`oxlorg.opnsense.ids_action <https://github.com/oxlorg/collection_opnsense/blob/latest/tests/ids_action.yml>`_ |
-`oxlorg.opnsense.ids_policy <https://github.com/oxlorg/collection_opnsense/blob/latest/tests/ids_policy.yml>`_ |
-`oxlorg.opnsense.ids_policy_rule <https://github.com/oxlorg/collection_opnsense/blob/latest/tests/ids_policy_rule.yml>`_ |
-`oxlorg.opnsense.ids_rule <https://github.com/oxlorg/collection_opnsense/blob/latest/tests/ids_rule.yml>`_ |
-`oxlorg.opnsense.ids_ruleset <https://github.com/oxlorg/collection_opnsense/blob/latest/tests/ids_ruleset.yml>`_ |
-`oxlorg.opnsense.ids_user_rule <https://github.com/oxlorg/collection_opnsense/blob/latest/tests/ids_user_rule.yml>`_
+**TESTS**: `fyrastack.opnsense.ids_general <https://github.com/O-X-L/ansible-opnsense/blob/latest/tests/ids_general.yml>`_ |
+`fyrastack.opnsense.ids_action <https://github.com/oxlorg/collection_opnsense/blob/latest/tests/ids_action.yml>`_ |
+`fyrastack.opnsense.ids_policy <https://github.com/oxlorg/collection_opnsense/blob/latest/tests/ids_policy.yml>`_ |
+`fyrastack.opnsense.ids_policy_rule <https://github.com/oxlorg/collection_opnsense/blob/latest/tests/ids_policy_rule.yml>`_ |
+`fyrastack.opnsense.ids_rule <https://github.com/oxlorg/collection_opnsense/blob/latest/tests/ids_rule.yml>`_ |
+`fyrastack.opnsense.ids_ruleset <https://github.com/oxlorg/collection_opnsense/blob/latest/tests/ids_ruleset.yml>`_ |
+`fyrastack.opnsense.ids_user_rule <https://github.com/oxlorg/collection_opnsense/blob/latest/tests/ids_user_rule.yml>`_
 
 **API Docs**: `IDS <https://docs.opnsense.org/development/api/core/ids.html>`_
 
@@ -32,7 +32,7 @@ Definition
 
 .. include:: ../_include/param_basic.rst
 
-oxlorg.opnsense.ids_action
+fyrastack.opnsense.ids_action
 ==============================
 
 ..  csv-table:: Definition
@@ -42,7 +42,7 @@ oxlorg.opnsense.ids_action
     "action","string","true","\-","do, a","Action to execute. One of: 'get_alert_info', 'get_alert_logs', 'query_alerts', 'status', 'reconfigure', 'restart', 'start', 'stop', 'drop_alert_log', 'reload_rules', 'update_rules'. These ones return information: 'get_alert_info', 'get_alert_logs', 'query_alerts', 'status'"
     "alert_id","string","false","\-","alert","Parameter Alert-ID needed for 'get_alert_info'"
 
-oxlorg.opnsense.ids_general
+fyrastack.opnsense.ids_general
 ===============================
 
 Interfaces for 'ids_general' must be provided as used in the network config (*p.e. 'opt1' instead of 'DMZ'*)
@@ -70,7 +70,7 @@ Interfaces for 'ids_general' must be provided as used in the network config (*p.
     "log_rotate","string","false","weekly","\-","One of: 'weekly', 'daily'. Rotate alert logs at provided interval"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.ids_ruleset
+fyrastack.opnsense.ids_ruleset
 ===============================
 
 The :code:`reload` action will download/update the rulesets. If modifying multiple ones in a loop you might want to disable it on single calls.
@@ -84,7 +84,7 @@ The :code:`reload` action will download/update the rulesets. If modifying multip
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
 
-oxlorg.opnsense.ids_rule
+fyrastack.opnsense.ids_rule
 ============================
 
 ..  csv-table:: Definition
@@ -97,7 +97,7 @@ oxlorg.opnsense.ids_rule
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
 
-oxlorg.opnsense.ids_user_rule
+fyrastack.opnsense.ids_user_rule
 =================================
 
 ..  csv-table:: Definition
@@ -114,7 +114,7 @@ oxlorg.opnsense.ids_user_rule
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
 
-oxlorg.opnsense.ids_policy
+fyrastack.opnsense.ids_policy
 ==============================
 
 ..  csv-table:: Definition
@@ -130,7 +130,7 @@ oxlorg.opnsense.ids_policy
     "enabled","boolean","false","true","\-","En- or disable the Policy"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.ids_policy_rule
+fyrastack.opnsense.ids_policy_rule
 ===================================
 
 ..  csv-table:: Definition
@@ -156,7 +156,7 @@ Info
 Examples
 ********
 
-oxlorg.opnsense.ids_action
+fyrastack.opnsense.ids_action
 ==============================
 
 .. code-block:: yaml
@@ -165,19 +165,19 @@ oxlorg.opnsense.ids_action
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.ids_action:
+          fyrastack.opnsense.ids_action:
             action: 'status'
             # alert_id: ''
             # debug: false
 
         - name: Pull Alert Logs
-          oxlorg.opnsense.ids_action:
+          fyrastack.opnsense.ids_action:
             action: 'get_alert_logs'
           register: ids_logs
 
@@ -186,15 +186,15 @@ oxlorg.opnsense.ids_action
             var: ids_logs.data
 
         - name: Reload Rules
-          oxlorg.opnsense.ids_action:
+          fyrastack.opnsense.ids_action:
             action: 'reload_rules'
 
         - name: Update Rules
-          oxlorg.opnsense.ids_action:
+          fyrastack.opnsense.ids_action:
             action: 'update_rules'
 
         - name: Pull Alert Information
-          oxlorg.opnsense.ids_action:
+          fyrastack.opnsense.ids_action:
             action: 'get_alert_info'
             alert_id: 1337
           register: ids_alert
@@ -204,7 +204,7 @@ oxlorg.opnsense.ids_action
             var: ids_alert.data
 
 
-oxlorg.opnsense.ids_general
+fyrastack.opnsense.ids_general
 ===============================
 
 .. code-block:: yaml
@@ -213,16 +213,16 @@ oxlorg.opnsense.ids_general
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'ids_general'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.ids_general:
+          fyrastack.opnsense.ids_general:
             interfaces: ['opt1']
             # enabled: true
             # block: true
@@ -244,7 +244,7 @@ oxlorg.opnsense.ids_general
             # debug: false
 
         - name: Enabling IDS (learning mode)
-          oxlorg.opnsense.ids_general:
+          fyrastack.opnsense.ids_general:
             interfaces: ['opt1']
             enabled: true
             pattern_matcher: 'ac'
@@ -256,7 +256,7 @@ oxlorg.opnsense.ids_general
             log_level: 'info'
 
         - name: Enabling IPS (blocking)
-          oxlorg.opnsense.ids_general:
+          fyrastack.opnsense.ids_general:
             interfaces: ['opt1']
             enabled: true
             block: true
@@ -269,7 +269,7 @@ oxlorg.opnsense.ids_general
             log_level: 'info'
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'ids_general'
           register: existing_settings
 
@@ -277,7 +277,7 @@ oxlorg.opnsense.ids_general
           ansible.builtin.debug:
             var: existing_settings.data
 
-oxlorg.opnsense.ids_ruleset
+fyrastack.opnsense.ids_ruleset
 ===============================
 
 .. code-block:: yaml
@@ -286,33 +286,33 @@ oxlorg.opnsense.ids_ruleset
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'ids_ruleset'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.ids_ruleset:
+          fyrastack.opnsense.ids_ruleset:
             name: 'ET open/drop'
             # enabled: true
             # reload: true
             # debug: false
 
         - name: Enabling & downloading ruleset 'ET open/drop'
-          oxlorg.opnsense.ids_ruleset:
+          fyrastack.opnsense.ids_ruleset:
             name: 'ET open/compromised'
             reload: true
 
         - name: Disabling ruleset 'ET open/compromised'
-          oxlorg.opnsense.ids_ruleset:
+          fyrastack.opnsense.ids_ruleset:
             name: 'ET open/compromised'
             enabled: false
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'ids_ruleset'
           register: existing_rulesets
 
@@ -320,7 +320,7 @@ oxlorg.opnsense.ids_ruleset
           ansible.builtin.debug:
             var: existing_rulesets.data
 
-oxlorg.opnsense.ids_rule
+fyrastack.opnsense.ids_rule
 ============================
 
 .. code-block:: yaml
@@ -329,16 +329,16 @@ oxlorg.opnsense.ids_rule
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'ids_rule'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.ids_rule:
+          fyrastack.opnsense.ids_rule:
             sid: 2400000
             # enabled: true
             # action: 'alert'
@@ -346,17 +346,17 @@ oxlorg.opnsense.ids_rule
             # debug: false
 
         - name: Setting rule with ID 2400000 to drop
-          oxlorg.opnsense.ids_rule:
+          fyrastack.opnsense.ids_rule:
             sid: 2400000
             action: 'drop'
 
         - name: Disabling rule with ID 2400011
-          oxlorg.opnsense.ids_rule:
+          fyrastack.opnsense.ids_rule:
             sid: 2400011
             enabled: false
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'ids_rule'
           register: existing_rules
 
@@ -365,7 +365,7 @@ oxlorg.opnsense.ids_rule
             var: existing_rules.data
 
 
-oxlorg.opnsense.ids_user_rule
+fyrastack.opnsense.ids_user_rule
 =================================
 
 .. code-block:: yaml
@@ -374,16 +374,16 @@ oxlorg.opnsense.ids_user_rule
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'ids_user_rule'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.ids_user_rule:
+          fyrastack.opnsense.ids_user_rule:
             name: 'Example'
             # source_ip: ''
             # destination_ip: ''
@@ -395,7 +395,7 @@ oxlorg.opnsense.ids_user_rule
             # debug: false
 
         - name: Adding
-          oxlorg.opnsense.ids_user_rule:
+          fyrastack.opnsense.ids_user_rule:
             name: 'ANSIBLE_TEST_1_1'
             source_ip: '192.168.10.1'
             destination_ip: '1.1.1.1'
@@ -403,7 +403,7 @@ oxlorg.opnsense.ids_user_rule
             bypass: false
 
         - name: Disabling
-          oxlorg.opnsense.ids_user_rule:
+          fyrastack.opnsense.ids_user_rule:
             name: 'ANSIBLE_TEST_1_1'
             source_ip: '192.168.10.1'
             destination_ip: '1.1.1.1'
@@ -412,12 +412,12 @@ oxlorg.opnsense.ids_user_rule
             enabled: false
 
         - name: Removing
-          oxlorg.opnsense.ids_user_rule:
+          fyrastack.opnsense.ids_user_rule:
             name: 'ANSIBLE_TEST_1_1'
             state: 'absent'
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'ids_user_rule'
           register: existing_rules
 
@@ -425,7 +425,7 @@ oxlorg.opnsense.ids_user_rule
           ansible.builtin.debug:
             var: existing_rules.data
 
-oxlorg.opnsense.ids_policy
+fyrastack.opnsense.ids_policy
 ==============================
 
 .. code-block:: yaml
@@ -434,16 +434,16 @@ oxlorg.opnsense.ids_policy
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'ids_policy'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.ids_policy:
+          fyrastack.opnsense.ids_policy:
             name: 'Example'
             # priority: 0
             # rulesets: []
@@ -455,7 +455,7 @@ oxlorg.opnsense.ids_policy
             # debug: false
 
         - name: Adding
-          oxlorg.opnsense.ids_policy:
+          fyrastack.opnsense.ids_policy:
             name: 'ANSIBLE_TEST_1_1'
             priority: 1
             rulesets: 'ET open/drop'
@@ -466,7 +466,7 @@ oxlorg.opnsense.ids_policy
               signature_severity: 'Minor'
 
         - name: Disabling
-          oxlorg.opnsense.ids_policy:
+          fyrastack.opnsense.ids_policy:
             name: 'ANSIBLE_TEST_1_1'
             priority: 1
             rulesets: 'ET open/drop'
@@ -478,12 +478,12 @@ oxlorg.opnsense.ids_policy
             enabled: false
 
         - name: Removing
-          oxlorg.opnsense.ids_policy:
+          fyrastack.opnsense.ids_policy:
             name: 'ANSIBLE_TEST_1_1'
             state: 'absent'
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'ids_policy'
           register: existing_policies
 
@@ -491,7 +491,7 @@ oxlorg.opnsense.ids_policy
           ansible.builtin.debug:
             var: existing_policies.data
 
-oxlorg.opnsense.ids_policy_rule
+fyrastack.opnsense.ids_policy_rule
 ===================================
 
 .. code-block:: yaml
@@ -500,16 +500,16 @@ oxlorg.opnsense.ids_policy_rule
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'ids_policy_rule'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.ids_policy_rule:
+          fyrastack.opnsense.ids_policy_rule:
             sid: 2400000
             # action: 'alert'
             # enabled: true
@@ -517,23 +517,23 @@ oxlorg.opnsense.ids_policy_rule
             # debug: false
 
         - name: Adding
-          oxlorg.opnsense.ids_policy_rule:
+          fyrastack.opnsense.ids_policy_rule:
             sid: 2400000
             action: 'alert'
 
         - name: Disabling
-          oxlorg.opnsense.ids_policy_rule:
+          fyrastack.opnsense.ids_policy_rule:
             sid: 2400000
             action: 'alert'
             enabled: false
 
         - name: Removing
-          oxlorg.opnsense.ids_policy_rule:
+          fyrastack.opnsense.ids_policy_rule:
             sid: 2400000
             state: 'absent'
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'ids_policy_rule'
           register: existing_rules
 

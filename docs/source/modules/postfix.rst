@@ -39,7 +39,7 @@ You need to install the postfix plugin:
 os-postfix
 ```
 
-You can also install it using the :ref:`oxlorg.opnsense.package <modules_package>` module.
+You can also install it using the :ref:`fyrastack.opnsense.package <modules_package>` module.
 
 ----
 
@@ -48,7 +48,7 @@ Definition
 
 .. include:: ../_include/param_basic.rst
 
-oxlorg.opnsense.postfix_general
+fyrastack.opnsense.postfix_general
 ===================================
 
 ..  csv-table:: Definition
@@ -78,7 +78,7 @@ oxlorg.opnsense.postfix_general
     "smtpauth_enabled","boolean","false","false","\-","Enable authentication against your relayhost."
     "smtpauth_user","string","false","\-","\-","The username to use for SMTP authentication against your relayhost."
     "smtpauth_password","string","false","\-","\.","The password to use for SMTP authentication against your relayhost."
-    "enforce_recipient_check","boolean","false","false","\-","Activates recipient restrictions managed by oxlorg.opnsense.postfix_recipient."
+    "enforce_recipient_check","boolean","false","false","\-","Activates recipient restrictions managed by fyrastack.opnsense.postfix_recipient."
     "extensive_helo_restrictions","boolean","false","false","\-","Activate hello restrictions."
     "extensive_sender_restrictions","boolean","false","false","\-","Activate sender restrictions."
     "reject_unknown_client_hostname","boolean","false","false","\-","Add `reject_unknown_client_hostname <https://www.postfix.org/postconf.5.html#reject_unknown_client_hostname>`_ to `smtpd_recipient_restrictions <https://www.postfix.org/postconf.5.html#smtpd_recipient_restrictions>`_."
@@ -99,7 +99,7 @@ oxlorg.opnsense.postfix_general
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
 
-oxlorg.opnsense.postfix_domain
+fyrastack.opnsense.postfix_domain
 ==================================
 
 ..  csv-table:: Definition
@@ -112,7 +112,7 @@ oxlorg.opnsense.postfix_domain
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
 
-oxlorg.opnsense.postfix_recipient
+fyrastack.opnsense.postfix_recipient
 =====================================
 
 ..  csv-table:: Definition
@@ -125,7 +125,7 @@ oxlorg.opnsense.postfix_recipient
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
 
-oxlorg.opnsense.postfix_recipientbcc
+fyrastack.opnsense.postfix_recipientbcc
 ========================================
 
 ..  csv-table:: Definition
@@ -138,7 +138,7 @@ oxlorg.opnsense.postfix_recipientbcc
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
 
-oxlorg.opnsense.postfix_sender
+fyrastack.opnsense.postfix_sender
 ==================================
 
 ..  csv-table:: Definition
@@ -151,7 +151,7 @@ oxlorg.opnsense.postfix_sender
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
 
-oxlorg.opnsense.postfix_senderbcc
+fyrastack.opnsense.postfix_senderbcc
 =====================================
 
 ..  csv-table:: Definition
@@ -164,7 +164,7 @@ oxlorg.opnsense.postfix_senderbcc
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
 
-oxlorg.opnsense.postfix_sendercanonical
+fyrastack.opnsense.postfix_sendercanonical
 ===========================================
 
 ..  csv-table:: Definition
@@ -177,7 +177,7 @@ oxlorg.opnsense.postfix_sendercanonical
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
 
-oxlorg.opnsense.postfix_headercheck
+fyrastack.opnsense.postfix_headercheck
 =======================================
 
 ..  csv-table:: Definition
@@ -190,7 +190,7 @@ oxlorg.opnsense.postfix_headercheck
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
 
-oxlorg.opnsense.postfix_address
+fyrastack.opnsense.postfix_address
 ===================================
 
 ..  csv-table:: Definition
@@ -207,26 +207,26 @@ oxlorg.opnsense.postfix_address
 Usage
 *****
 
-oxlorg.opnsense.postfix_general
+fyrastack.opnsense.postfix_general
 ===================================
 
-Use ``oxlorg.opnsense.postfix_general`` to setup the postfix daemon.
+Use ``fyrastack.opnsense.postfix_general`` to setup the postfix daemon.
 
-oxlorg.opnsense.postfix_domain
+fyrastack.opnsense.postfix_domain
 ==================================
 
 Manage accepted domains and the target to forward mails to using the
 `relay_domains <https://www.postfix.org/postconf.5.html#relay_domains>`_ and
 `transport_maps <https://www.postfix.org/postconf.5.html#transport_maps>`_.
 
-oxlorg.opnsense.postfix_recipient / postfix_sender
+fyrastack.opnsense.postfix_recipient / postfix_sender
 ======================================================
 
 Manage addresses on the
 `smtpd_recipient_restrictions <https://www.postfix.org/postconf.5.html#smtpd_recipient_restrictions>`_ and
 `check_sender_access <https://www.postfix.org/postconf.5.html#check_sender_access>`_ maps respectively.
 
-oxlorg.opnsense.postfix_recipientbcc / postfix_senderbcc
+fyrastack.opnsense.postfix_recipientbcc / postfix_senderbcc
 ============================================================
 
 Manage entries for the
@@ -234,14 +234,14 @@ Manage entries for the
 `sender_bcc_maps <https://www.postfix.org/postconf.5.html#sender_bcc_maps>`_ maps respectively.
 
 
-oxlorg.opnsense.postfix_canonical
+fyrastack.opnsense.postfix_canonical
 =====================================
 
 Manage entries for the
 `sender_canonical_maps <https://www.postfix.org/postconf.5.html#sender_canonical_maps>`_ map.
 
 
-oxlorg.opnsense.postfix_headercheck
+fyrastack.opnsense.postfix_headercheck
 =======================================
 
 Manage entries for the
@@ -249,7 +249,7 @@ Manage entries for the
 `smtp_header_checks <https://www.postfix.org/postconf.5.html#smtp_header_checks>`_ (type: WHILE_DELIVERING) maps.
 
 
-oxlorg.opnsense.postfix_address
+fyrastack.opnsense.postfix_address
 ===================================
 
 Manage entries for the
@@ -267,13 +267,13 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
       tasks:
         - name: Setup Postfix
-          oxlorg.opnsense.postfix_general:
+          fyrastack.opnsense.postfix_general:
             enable: true
             # myhostname:
             # mydomain:
@@ -325,55 +325,55 @@ Examples
             # debug: false
 
         - name: Add Domain
-          oxlorg.opnsense.postfix_domain:
+          fyrastack.opnsense.postfix_domain:
             domainname: opnsense.oxl.app
             # destination: mail.opnsense.oxl.app
             # enable: true
 
         - name: Block Recipient
-          oxlorg.opnsense.postfix_recipient:
+          fyrastack.opnsense.postfix_recipient:
             address: noreply@opnsense.oxl.app
             action: REJECT
             # enable: true
 
         - name: Auto BCC Recipient
-          oxlorg.opnsense.postfix_recipient:
+          fyrastack.opnsense.postfix_recipient:
             address: alice@opnsense.oxl.app
             to: bob@opnsense.oxl.app
             # enable: true
 
         - name: Block Sender
-          oxlorg.opnsense.postfix_recipient:
+          fyrastack.opnsense.postfix_recipient:
             address: internal-only@opnsense.oxl.app
             action: REJECT
             # enable: true
 
         - name: Auto BCC Sender
-          oxlorg.opnsense.postfix_recipient:
+          fyrastack.opnsense.postfix_recipient:
             address: alice@opnsense.oxl.app
             to: bob@opnsense.oxl.app
             # enable: true
 
         - name: Sender Canonical Rewriting
-          oxlorg.opnsense.postfix_sendercanonical:
+          fyrastack.opnsense.postfix_sendercanonical:
             address: '@oxlorg.com'
             to: '@opnsense.oxl.app'
             # enable: true
 
         - name: Strip User-Agent header
-          oxlorg.opnsense.header_check:
+          fyrastack.opnsense.header_check:
             expression: /^\s*User-Agent/ IGNORE
             filter: WHILE_DELIVERING
             # enable: true
 
         - name: Address Rewriting
-          oxlorg.opnsense.postfix_address:
+          fyrastack.opnsense.postfix_address:
             address: root@opnsense.oxl.app
             to: alice@opnsense.oxl.app
             # enable: true
 
         - name: Listing jobs
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
             target: 'postfix_address'
           register: existing_postfix_address
 

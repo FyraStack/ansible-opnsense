@@ -85,19 +85,19 @@ Examples
 
       gather_facts: no
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.unbound_host_alias:
+        fyrastack.opnsense.unbound_host_alias:
           match_fields: ['description']
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'unbound_host_alias'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.unbound_host_alias:
+          fyrastack.opnsense.unbound_host_alias:
             alias: 'test'
             domain: 'opnsense.template.opnsense.oxl.app'
             target: 'host.opnsense.template.opnsense.oxl.app'
@@ -109,7 +109,7 @@ Examples
             # debug: false
 
         - name: Adding alias 'test1.local' for record 'test.local'
-          oxlorg.opnsense.unbound_host_alias:
+          fyrastack.opnsense.unbound_host_alias:
             alias: 'test1'
             domain: 'local'
             target: 'test.local'
@@ -117,7 +117,7 @@ Examples
             # match_fields: ['description']
 
         - name: Disabling
-          oxlorg.opnsense.unbound_host_alias:
+          fyrastack.opnsense.unbound_host_alias:
             alias: 'test1'
             domain: 'local'
             target: 'test.local'
@@ -126,7 +126,7 @@ Examples
             # match_fields: ['description']
 
         - name: Removing
-          oxlorg.opnsense.unbound_host_alias:
+          fyrastack.opnsense.unbound_host_alias:
             alias: 'test1'
             domain: 'local'
             target: 'test.local'
@@ -135,7 +135,7 @@ Examples
             # match_fields: ['description']
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'unbound_host_alias'
           register: existing_entries
 

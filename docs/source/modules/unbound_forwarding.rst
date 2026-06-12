@@ -62,16 +62,16 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'unbound_forward'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.unbound_forward:
+          fyrastack.opnsense.unbound_forward:
             domain: 'dot.template.opnsense.oxl.app'
             target: '1.1.1.1'
             # port: 53
@@ -82,12 +82,12 @@ Examples
             # debug: false
 
         - name: Adding
-          oxlorg.opnsense.unbound_forward:
+          fyrastack.opnsense.unbound_forward:
             domain: 'dot.template.opnsense.oxl.app'
             target: '1.1.1.1'
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'unbound_forward'
           register: existing_entries
 

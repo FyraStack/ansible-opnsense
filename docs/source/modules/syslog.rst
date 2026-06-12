@@ -49,19 +49,19 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.syslog:
+        fyrastack.opnsense.syslog:
           match_fields: ['description']
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'syslog'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.syslog:
+          fyrastack.opnsense.syslog:
             target: '192.168.0.1'
             # port: 514
             # transport: 'udp4'
@@ -74,13 +74,13 @@ Examples
             # match_fields: ['target', 'facility', 'program']
 
         - name: Adding 1
-          oxlorg.opnsense.syslog:
+          fyrastack.opnsense.syslog:
             description: 'test1'
             target: '192.168.0.1'
             # match_fields: ['description']
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'syslog'
           register: existing_entries
 
@@ -102,14 +102,14 @@ In this example the description is used as unique identifier!
 
       gather_facts: no
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.syslog:
+        fyrastack.opnsense.syslog:
           match_fields: ['description']
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'syslog'
 
       vars:
@@ -117,12 +117,12 @@ In this example the description is used as unique identifier!
 
       tasks:
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'syslog'
           register: existing_entries
 
         - name: Purge
-          oxlorg.opnsense.syslog:
+          fyrastack.opnsense.syslog:
             description: "{{ destination.description }}"
             target: "{{ destination.target }}"
             state: 'absent'

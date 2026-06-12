@@ -4,7 +4,7 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
@@ -14,25 +14,25 @@
 
   tasks:
     - name: Cleanup Rules
-      oxlorg.opnsense.rule_multi:
+      fyrastack.opnsense.rule_multi:
         multi_control:
           purge_all: true
         match_fields: ['description']
 
     - name: Cleanup Aliases (skips referenced by other)
-      oxlorg.opnsense.alias_multi:
+      fyrastack.opnsense.alias_multi:
         multi_control:
           purge_all: true
           fail_process: false
 
     - name: Cleanup Aliases (previously referenced)
-      oxlorg.opnsense.alias_multi:
+      fyrastack.opnsense.alias_multi:
         multi_control:
           purge_all: true
           fail_process: false
 
     - name: Cleanup packages
-      oxlorg.opnsense.package:
+      fyrastack.opnsense.package:
         name: ['os-hw-probe', 'os-dmidecode']
         action: "{{ item }}"
         timeout: 60
@@ -42,7 +42,7 @@
         - 'remove'
 
     - name: Cleanup cron jobs
-      oxlorg.opnsense.cron:
+      fyrastack.opnsense.cron:
         description: "{{ item }}"
         state: 'absent'
       loop:
@@ -50,7 +50,7 @@
         - 'ANSIBLE_TEST_2'
 
     - name: Cleanup routes
-      oxlorg.opnsense.route:
+      fyrastack.opnsense.route:
         description: "{{ item }}"
         network: '192.168.0.0/32'
         gateway: 'LAN_GW'
@@ -61,12 +61,12 @@
         - 'ANSIBLE_TEST_2'
 
     - name: Cleanup Unbound General
-      oxlorg.opnsense.unbound_general:
+      fyrastack.opnsense.unbound_general:
         enabled: false
         reload: false  # speed
 
     - name: Cleanup Unbound DNS ACLs
-      oxlorg.opnsense.unbound_acl:
+      fyrastack.opnsense.unbound_acl:
         name: "{{ item }}"
         state: 'absent'
         reload: false  # speed
@@ -75,7 +75,7 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup Unbound DNS-over-TLS
-      oxlorg.opnsense.unbound_dot:
+      fyrastack.opnsense.unbound_dot:
         target: "{{ item }}"
         state: 'absent'
         reload: false  # speed
@@ -86,7 +86,7 @@
         - '1.1.1.4'
 
     - name: Cleanup Unbound DNS-Forwarding's
-      oxlorg.opnsense.unbound_forward:
+      fyrastack.opnsense.unbound_forward:
         domain: "{{ item.d }}"
         target: "{{ item.t }}"
         state: 'absent'
@@ -98,7 +98,7 @@
         - {d: '', t: '1.1.1.4'}
 
     - name: Cleanup Unbound DNS host-override aliases
-      oxlorg.opnsense.unbound_host_alias:
+      fyrastack.opnsense.unbound_host_alias:
         description: "{{ item }}"
         alias: 'dummy'
         domain: 'dummy'
@@ -110,7 +110,7 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup Unbound DNS host-overrides
-      oxlorg.opnsense.unbound_host:
+      fyrastack.opnsense.unbound_host:
         description: "{{ item }}"
         hostname: 'dummy'
         domain: 'dummy'
@@ -124,7 +124,7 @@
         - 'ANSIBLE_TEST_2_1'
 
     - name: Cleanup
-      oxlorg.opnsense.unbound_dnsbl:
+      fyrastack.opnsense.unbound_dnsbl:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -132,7 +132,7 @@
         - 'ANSIBLE_TEST_2'
 
     - name: Cleanup syslog
-      oxlorg.opnsense.syslog:
+      fyrastack.opnsense.syslog:
         description: "{{ item }}"
         target: '192.168.0.1'
         state: 'absent'
@@ -143,7 +143,7 @@
         - 'ANSIBLE_TEST_3'
 
     - name: Cleanup ipsec certs
-      oxlorg.opnsense.ipsec_cert:
+      fyrastack.opnsense.ipsec_cert:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -153,7 +153,7 @@
         - 'ANSIBLE_TEST_3_1'
 
     - name: Cleanup shaper pipes
-      oxlorg.opnsense.shaper_pipe:
+      fyrastack.opnsense.shaper_pipe:
         description: "{{ item }}"
         state: 'absent'
       loop:
@@ -163,7 +163,7 @@
         - 'ANSIBLE_TEST_3_1'
 
     - name: Cleanup shaper queues
-      oxlorg.opnsense.shaper_queue:
+      fyrastack.opnsense.shaper_queue:
         description: "{{ item }}"
         state: 'absent'
       loop:
@@ -172,7 +172,7 @@
         - 'ANSIBLE_TEST_2_1'
 
     - name: Cleanup shaper rules
-      oxlorg.opnsense.shaper_rule:
+      fyrastack.opnsense.shaper_rule:
         description: "{{ item }}"
         state: 'absent'
       loop:
@@ -180,7 +180,7 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup monit services
-      oxlorg.opnsense.monit_service:
+      fyrastack.opnsense.monit_service:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -190,7 +190,7 @@
         - 'ANSIBLE_TEST_1_4'
 
     - name: Cleanup monit alerts
-      oxlorg.opnsense.monit_alert:
+      fyrastack.opnsense.monit_alert:
         recipient: "{{ item }}"
         state: 'absent'
       loop:
@@ -198,7 +198,7 @@
         - 'alert2@monit.opnsense.test.oxlorg.net'
 
     - name: Cleanup monit tests
-      oxlorg.opnsense.monit_test:
+      fyrastack.opnsense.monit_test:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -207,7 +207,7 @@
         - 'ANSIBLE_TEST_2_1'
 
     - name: Cleanup wireguard servers
-      oxlorg.opnsense.wireguard_server:
+      fyrastack.opnsense.wireguard_server:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -218,7 +218,7 @@
         - 'ANSIBLE_TEST_2_1'
 
     - name: Cleanup wireguard peers
-      oxlorg.opnsense.wireguard_peer:
+      fyrastack.opnsense.wireguard_peer:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -228,11 +228,11 @@
         - 'ANSIBLE_TEST_3_1'
 
     - name: Cleanup wireguard general
-      oxlorg.opnsense.wireguard_general:
+      fyrastack.opnsense.wireguard_general:
         enabled: false
 
     - name: Cleanup VIPs
-      oxlorg.opnsense.interface_vip:
+      fyrastack.opnsense.interface_vip:
         interface: "{{ item.int }}"
         address: "{{ item.ip }}"
         state: 'absent'
@@ -242,7 +242,7 @@
         - {int: 'opt1', ip: '2001:db8::1/128'}
 
     - name: Cleanup vlan interfaces
-      oxlorg.opnsense.interface_vlan:
+      fyrastack.opnsense.interface_vlan:
         description: "{{ item }}"
         state: 'absent'
       loop:
@@ -250,7 +250,7 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup vxlan interfaces
-      oxlorg.opnsense.interface_vxlan:
+      fyrastack.opnsense.interface_vxlan:
         id: "{{ item }}"
         state: 'absent'
       loop:
@@ -258,12 +258,12 @@
         - 101
 
     - name: Cleanup lagg interfaces
-      oxlorg.opnsense.interface_lagg:
+      fyrastack.opnsense.interface_lagg:
         device: 'lagg0'
         state: 'absent'
 
     - name: Cleanup GRE interfaces
-      oxlorg.opnsense.interface_gre:
+      fyrastack.opnsense.interface_gre:
         description: "{{ item }}"
         state: 'absent'
       loop:
@@ -271,7 +271,7 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup Bridge interfaces
-      oxlorg.opnsense.interface_bridge:
+      fyrastack.opnsense.interface_bridge:
         description: "{{ item }}"
         state: 'absent'
       loop:
@@ -279,7 +279,7 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup GIF interfaces
-      oxlorg.opnsense.interface_gif:
+      fyrastack.opnsense.interface_gif:
         description: "{{ item }}"
         state: 'absent'
       loop:
@@ -287,7 +287,7 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup source-nat
-      oxlorg.opnsense.source_nat:
+      fyrastack.opnsense.source_nat:
         description: "{{ item }}"
         state: 'absent'
         match_fields: ['description']
@@ -296,7 +296,7 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup on-to-one nat
-      oxlorg.opnsense.one_to_one:
+      fyrastack.opnsense.one_to_one:
         description: "{{ item }}"
         state: 'absent'
         match_fields: ['description']
@@ -305,7 +305,7 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup FRR general settings
-      oxlorg.opnsense.frr_general:
+      fyrastack.opnsense.frr_general:
         enabled: false
         profile: 'traditional'
         carp: false
@@ -314,11 +314,11 @@
         log_level: 'notifications'
 
     - name: Cleanup FRR BFD general settings
-      oxlorg.opnsense.frr_bfd_general:
+      fyrastack.opnsense.frr_bfd_general:
         enabled: false
 
     - name: Cleanup FRR BFD neighbors
-      oxlorg.opnsense.frr_bfd_neighbor:
+      fyrastack.opnsense.frr_bfd_neighbor:
         ip: "{{ item }}"
         state: 'absent'
       loop:
@@ -326,12 +326,12 @@
         - '10.0.0.0/28'
 
     - name: Cleanup FRR BGP general settings
-      oxlorg.opnsense.frr_bgp_general:
+      fyrastack.opnsense.frr_bgp_general:
         as_number: 1337
         enabled: false
 
     - name: Cleanup FRR BGP neighbors
-      oxlorg.opnsense.frr_bgp_neighbor:
+      fyrastack.opnsense.frr_bgp_neighbor:
         description: "{{ item }}"
         state: 'absent'
         match_fields: ['description']
@@ -342,7 +342,7 @@
         - 'ANSIBLE_TEST_2_2'
 
     - name: Cleanup FRR BGP route-maps
-      oxlorg.opnsense.frr_bgp_route_map:
+      fyrastack.opnsense.frr_bgp_route_map:
         name: "{{ item.name }}"
         id: "{{ item.id }}"
         state: 'absent'
@@ -356,7 +356,7 @@
         - {'name': 'ANSIBLE_TEST_3_1', id: 50}
 
     - name: Cleanup FRR BGP prefix lists
-      oxlorg.opnsense.frr_bgp_prefix_list:
+      fyrastack.opnsense.frr_bgp_prefix_list:
         name: "{{ item.n }}"
         seq: "{{ item.s | default(omit) }}"
         state: 'absent'
@@ -370,7 +370,7 @@
         - {'n': 'ANSIBLE_TEST_3_1', 's': 51}
 
     - name: Cleanup FRR BGP community lists
-      oxlorg.opnsense.frr_bgp_community_list:
+      fyrastack.opnsense.frr_bgp_community_list:
         description: "{{ item }}"
         state: 'absent'
       loop:
@@ -379,7 +379,7 @@
         - 'ANSIBLE_TEST_2_1'
 
     - name: Cleanup FRR BGP as paths
-      oxlorg.opnsense.frr_bgp_as_path:
+      fyrastack.opnsense.frr_bgp_as_path:
         description: "{{ item }}"
         state: 'absent'
       loop:
@@ -388,7 +388,7 @@
         - 'ANSIBLE_TEST_2_1'
 
     - name: Cleanup FRR BGP redistributions
-      oxlorg.opnsense.frr_bgp_redistribution:
+      fyrastack.opnsense.frr_bgp_redistribution:
         description: "{{ item }}"
         state: 'absent'
       loop:
@@ -397,7 +397,7 @@
         - 'ANSIBLE_TEST_2_1'
 
     - name: Cleanup FRR BGP Peer Groups
-      oxlorg.opnsense.frr_bgp_peer_group:
+      fyrastack.opnsense.frr_bgp_peer_group:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -406,15 +406,15 @@
         - 'ANSIBLE_TEST_2_1'
 
     - name: Cleanup OSPF general settings
-      oxlorg.opnsense.frr_ospf_general:
+      fyrastack.opnsense.frr_ospf_general:
         enabled: false
 
     - name: Cleanup OSPFv3 general settings
-      oxlorg.opnsense.frr_ospf3_general:
+      fyrastack.opnsense.frr_ospf3_general:
         enabled: false
 
     - name: Cleanup OSPFv3 interfaces
-      oxlorg.opnsense.frr_ospf3_interface:
+      fyrastack.opnsense.frr_ospf3_interface:
         interface: "{{ item }}"
         state: 'absent'
         match_fields: ['interface']
@@ -423,7 +423,7 @@
         - 'lan'
 
     - name: Cleanup OSPF route-maps
-      oxlorg.opnsense.frr_ospf_route_map:
+      fyrastack.opnsense.frr_ospf_route_map:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -432,7 +432,7 @@
         - 'ANSIBLE_TEST_2_1'
 
     - name: Cleanup OSPFv3 route-maps
-      oxlorg.opnsense.frr_ospf3_route_map:
+      fyrastack.opnsense.frr_ospf3_route_map:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -441,7 +441,7 @@
         - 'ANSIBLE_TEST_2_1'
 
     - name: Cleanup OSPF networks
-      oxlorg.opnsense.frr_ospf_network:
+      fyrastack.opnsense.frr_ospf_network:
         ip: "{{ item.ip }}"
         mask: "{{ item.mask }}"
         state: 'absent'
@@ -452,7 +452,7 @@
         - {'ip': '10.0.3.0', 'mask': 24}
 
     - name: Cleanup OSPFv3 networks
-      oxlorg.opnsense.frr_ospf3_network:
+      fyrastack.opnsense.frr_ospf3_network:
         ip: "{{ item.ip }}"
         mask: "{{ item.mask }}"
         state: 'absent'
@@ -462,7 +462,7 @@
         - {'ip': '2001:db8::', 'mask': 64}
 
     - name: Cleanup OSPF prefix-lists
-      oxlorg.opnsense.frr_ospf_prefix_list:
+      fyrastack.opnsense.frr_ospf_prefix_list:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -472,7 +472,7 @@
         - 'ANSIBLE_TEST_3_1'
 
     - name: Cleanup OSPFv3 prefix-lists
-      oxlorg.opnsense.frr_ospf3_prefix_list:
+      fyrastack.opnsense.frr_ospf3_prefix_list:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -482,7 +482,7 @@
         - 'ANSIBLE_TEST_3_1'
 
     - name: Cleanup FRR OSPF redistributions
-      oxlorg.opnsense.frr_ospf_redistribution:
+      fyrastack.opnsense.frr_ospf_redistribution:
         description: "{{ item }}"
         state: 'absent'
       loop:
@@ -491,7 +491,7 @@
         - 'ANSIBLE_TEST_2_1'
 
     - name: Cleanup FRR OSPFv4 redistributions
-      oxlorg.opnsense.frr_ospf3_redistribution:
+      fyrastack.opnsense.frr_ospf3_redistribution:
         description: "{{ item }}"
         state: 'absent'
       loop:
@@ -500,15 +500,15 @@
         - 'ANSIBLE_TEST_2_1'
 
     - name: Cleanup BIND general settings
-      oxlorg.opnsense.bind_general:
+      fyrastack.opnsense.bind_general:
         enabled: false
 
     - name: Cleanup BIND blocklist settings
-      oxlorg.opnsense.bind_blocklist:
+      fyrastack.opnsense.bind_blocklist:
         enabled: false
 
     - name: Cleanup BIND Records
-      oxlorg.opnsense.bind_record_multi:
+      fyrastack.opnsense.bind_record_multi:
         multi_control:
           purge_all: true
       register: bind_cleanup1
@@ -517,7 +517,7 @@
         - "'does not seem to exist' not in bind_cleanup1.msg"
 
     - name: Cleanup BIND Domains
-      oxlorg.opnsense.bind_domain:
+      fyrastack.opnsense.bind_domain:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -527,7 +527,7 @@
         - 'test4.oxlorg'
 
     - name: Cleanup BIND ACLs
-      oxlorg.opnsense.bind_acl:
+      fyrastack.opnsense.bind_acl:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -540,35 +540,35 @@
       when: not ansible_check_mode
 
     - name: Cleanup WebProxy General
-      oxlorg.opnsense.webproxy_general:
+      fyrastack.opnsense.webproxy_general:
         enabled: false
 
     - name: Cleanup WebProxy Cache
-      oxlorg.opnsense.webproxy_cache:
+      fyrastack.opnsense.webproxy_cache:
 
     - name: Cleanup WebProxy Parent
-      oxlorg.opnsense.webproxy_parent:
+      fyrastack.opnsense.webproxy_parent:
         enabled: false
 
     - name: Cleanup WebProxy Traffic
-      oxlorg.opnsense.webproxy_traffic:
+      fyrastack.opnsense.webproxy_traffic:
         enabled: false
 
     - name: Cleanup WebProxy Forward
-      oxlorg.opnsense.webproxy_forward:
+      fyrastack.opnsense.webproxy_forward:
 
     - name: Cleanup WebProxy ACL
-      oxlorg.opnsense.webproxy_acl:
+      fyrastack.opnsense.webproxy_acl:
 
     - name: Cleanup WebProxy ICAP
-      oxlorg.opnsense.webproxy_icap:
+      fyrastack.opnsense.webproxy_icap:
         enabled: false
 
     - name: Cleanup WebProxy Auth
-      oxlorg.opnsense.webproxy_auth:
+      fyrastack.opnsense.webproxy_auth:
 
     - name: Cleanup WebProxy Remote-ACLs
-      oxlorg.opnsense.webproxy_remote_acl:
+      fyrastack.opnsense.webproxy_remote_acl:
         file: "{{ item }}"
         state: 'absent'
       loop:
@@ -576,7 +576,7 @@
         - 'ANSIBLETEST2'
 
     - name: Cleanup WebProxy PAC-Rule
-      oxlorg.opnsense.webproxy_pac_rule:
+      fyrastack.opnsense.webproxy_pac_rule:
         description: "{{ item }}"
         state: 'absent'
       loop:
@@ -584,7 +584,7 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup WebProxy PAC-Proxy
-      oxlorg.opnsense.webproxy_pac_proxy:
+      fyrastack.opnsense.webproxy_pac_proxy:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -593,7 +593,7 @@
         - 'ANSIBLE_TEST_2_1'
 
     - name: Cleanup WebProxy PAC-Match
-      oxlorg.opnsense.webproxy_pac_match:
+      fyrastack.opnsense.webproxy_pac_match:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -602,7 +602,7 @@
         - 'ANSIBLE_TEST_2_1'
 
     - name: Cleanup IPSec PSK
-      oxlorg.opnsense.ipsec_psk:
+      fyrastack.opnsense.ipsec_psk:
         identity: "{{ item }}"
         state: 'absent'
       loop:
@@ -611,7 +611,7 @@
         - 'ANSIBLE@TEST2X'
 
     - name: Cleanup IPSec childs
-      oxlorg.opnsense.ipsec_child:
+      fyrastack.opnsense.ipsec_child:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -620,7 +620,7 @@
         - 'ANSIBLE_TEST_2_1'
 
     - name: Cleanup IPSec connections
-      oxlorg.opnsense.ipsec_connection:
+      fyrastack.opnsense.ipsec_connection:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -632,7 +632,7 @@
         - 'ANSIBLE_TEST_5_1'
 
     - name: Cleanup IPSec pools
-      oxlorg.opnsense.ipsec_pool:
+      fyrastack.opnsense.ipsec_pool:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -642,7 +642,7 @@
         - 'ANSIBLE_TEST_2_2'
 
     - name: Cleanup IPSec VTIs
-      oxlorg.opnsense.ipsec_vti:
+      fyrastack.opnsense.ipsec_vti:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -650,7 +650,7 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup IPSec Local-Auth
-      oxlorg.opnsense.ipsec_auth_local:
+      fyrastack.opnsense.ipsec_auth_local:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -658,7 +658,7 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup IPSec Remote-Auth
-      oxlorg.opnsense.ipsec_auth_remote:
+      fyrastack.opnsense.ipsec_auth_remote:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -666,36 +666,36 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup IDS General
-      oxlorg.opnsense.ids_general:
+      fyrastack.opnsense.ids_general:
         interfaces: ['opt1']
         enabled: false
 
     - name: Cleanup IDS Ruleset
-      oxlorg.opnsense.ids_ruleset:
+      fyrastack.opnsense.ids_ruleset:
         name: 'ET open/compromised'
         enabled: false
 
     - name: Cleanup IDS Rule
-      oxlorg.opnsense.ids_rule:
+      fyrastack.opnsense.ids_rule:
         sid: 2400000
 
     - name: Cleanup IDS User-Rule
-      oxlorg.opnsense.ids_user_rule:
+      fyrastack.opnsense.ids_user_rule:
         name: 'ANSIBLE_TEST_1_1'
         state: 'absent'
 
     - name: Cleanup IDS Policy
-      oxlorg.opnsense.ids_policy:
+      fyrastack.opnsense.ids_policy:
         description: 'ANSIBLE_TEST_1_1'
         state: absent
 
     - name: Cleanup IDS Policy-Rule
-      oxlorg.opnsense.ids_policy_rule:
+      fyrastack.opnsense.ids_policy_rule:
         sid: 2400000
         state: absent
 
     - name: Cleanup OpenVPN Client
-      oxlorg.opnsense.openvpn_client:
+      fyrastack.opnsense.openvpn_client:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -704,7 +704,7 @@
         - 'ANSIBLE_TEST_2_1'
 
     - name: Cleanup OpenVPN Client-Overwrite
-      oxlorg.opnsense.openvpn_client_override:
+      fyrastack.opnsense.openvpn_client_override:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -712,7 +712,7 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup OpenVPN Server
-      oxlorg.opnsense.openvpn_server:
+      fyrastack.opnsense.openvpn_server:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -722,7 +722,7 @@
         - 'ANSIBLE_TEST_3_1'
 
     - name: Cleanup OpenVPN Static-Keys
-      oxlorg.opnsense.openvpn_static_key:
+      fyrastack.opnsense.openvpn_static_key:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -732,16 +732,16 @@
         - 'ANSIBLE_TEST_3_1'
 
     - name: Cleanup Nginx General
-      oxlorg.opnsense.nginx_general:
+      fyrastack.opnsense.nginx_general:
         enabled: false
 
     - name: Cleanup Nginx Upstream-Server
-      oxlorg.opnsense.nginx_upstream_server:
+      fyrastack.opnsense.nginx_upstream_server:
         name: 'ANSIBLE@TEST1'
         state: 'absent'
 
     - name: Cleanup Gateways
-      oxlorg.opnsense.gateway:
+      fyrastack.opnsense.gateway:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -749,24 +749,24 @@
         - 'ANSIBLE_TEST_2'
 
     - name: Cleanup Interface groups
-      oxlorg.opnsense.rule_interface_group:
+      fyrastack.opnsense.rule_interface_group:
         name: 'ANSIBLE_TEST'
         state: 'absent'
 
     - name: Cleanup dhcrelay
-      oxlorg.opnsense.dhcrelay_relay:
+      fyrastack.opnsense.dhcrelay_relay:
         interface: '{{ if_dhcrelay }}'
         state: 'absent'
       vars:
         if_dhcrelay: "{{ lookup('ansible.builtin.env', 'TEST_DHCRELAY_IF') | default('lan', true) }}"
 
     - name: Cleanup dhcrelay-destination
-      oxlorg.opnsense.dhcrelay_destination:
+      fyrastack.opnsense.dhcrelay_destination:
         name: 'ANSIBLE_TEST_1_1'
         state: 'absent'
 
     - name: Cleanup DHCP-reservations
-      oxlorg.opnsense.dhcp_reservation:
+      fyrastack.opnsense.dhcp_reservation:
         ip: "{{ item }}"
         state: 'absent'
       loop:
@@ -774,17 +774,17 @@
         - '192.168.69.86'
 
     - name: Cleanup DHCP-Controlagent
-      oxlorg.opnsense.dhcp_controlagent:
+      fyrastack.opnsense.dhcp_controlagent:
         enabled: false
         http_host: '127.0.0.1'
         http_port: 8000
 
     - name: Cleanup DHCP Settings
-      oxlorg.opnsense.dhcp_general:
+      fyrastack.opnsense.dhcp_general:
         enabled: false
 
     - name: Cleanup DHCP Subnets
-      oxlorg.opnsense.dhcp_subnet:
+      fyrastack.opnsense.dhcp_subnet:
         subnet: "{{ item }}"
         state: 'absent'
       loop:
@@ -793,7 +793,7 @@
         - '192.168.89.0/24'
 
     - name: Cleanup ACME Certificates
-      oxlorg.opnsense.acme_certificate:
+      fyrastack.opnsense.acme_certificate:
         description: '{{ item }}'
         state: 'absent'
       loop:
@@ -802,11 +802,11 @@
         - 'ANSIBLE_TEST_1_3'
 
     - name: Cleanup ACME General
-      oxlorg.opnsense.acme_general:
+      fyrastack.opnsense.acme_general:
         enabled: false
 
     - name: Cleanup ACME Account
-      oxlorg.opnsense.acme_account:
+      fyrastack.opnsense.acme_account:
         name: '{{ item }}'
         state: 'absent'
       loop:
@@ -815,7 +815,7 @@
         - 'ANSIBLE_TEST_DUMMY_1_1'
 
     - name: Cleanup ACME Action
-      oxlorg.opnsense.acme_action:
+      fyrastack.opnsense.acme_action:
         name: '{{ item }}'
         state: 'absent'
       loop:
@@ -832,7 +832,7 @@
         - 'ANSIBLE_TEST_DUMMY_1_1'
 
     - name: Cleanup ACME Validation
-      oxlorg.opnsense.acme_validation:
+      fyrastack.opnsense.acme_validation:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -850,11 +850,11 @@
         - 'ANSIBLE_TEST_DUMMY_1_1'
 
     - name: Cleanup Postfix General
-      oxlorg.opnsense.postfix_general:
+      fyrastack.opnsense.postfix_general:
         enabled: false
 
     - name: Cleanup Postfix Address
-      oxlorg.opnsense.postfix_address:
+      fyrastack.opnsense.postfix_address:
         address: "{{ item }}"
         state: 'absent'
       loop:
@@ -862,7 +862,7 @@
         - 'bob@example.com'
 
     - name: Cleanup Postfix Domain
-      oxlorg.opnsense.postfix_domain:
+      fyrastack.opnsense.postfix_domain:
         domainname: "{{ item }}"
         state: 'absent'
       loop:
@@ -870,7 +870,7 @@
         - 'example.net'
 
     - name: Cleanup Postfix Headercheck
-      oxlorg.opnsense.postfix_headercheck:
+      fyrastack.opnsense.postfix_headercheck:
         expression: '/^\s*User-Agent/ IGNORE'
         filter: '{{ item }}'
         state: 'absent'
@@ -879,7 +879,7 @@
         - 'WHILE_DELIVERING'
 
     - name: Cleanup Postfix Recipient
-      oxlorg.opnsense.postfix_recipient:
+      fyrastack.opnsense.postfix_recipient:
         address: '{{ item }}'
         state: 'absent'
       loop:
@@ -887,7 +887,7 @@
         - 'bob@example.com'
 
     - name: Cleanup Postfix Recipient BCC
-      oxlorg.opnsense.postfix_recipientbcc:
+      fyrastack.opnsense.postfix_recipientbcc:
         address: '{{ item }}'
         state: 'absent'
       loop:
@@ -895,7 +895,7 @@
         - 'bob@example.com'
 
     - name: Cleanup Postfix Sender
-      oxlorg.opnsense.postfix_sender:
+      fyrastack.opnsense.postfix_sender:
         address: '{{ item }}'
         state: 'absent'
       loop:
@@ -903,7 +903,7 @@
         - 'bob@example.com'
 
     - name: Cleanup Postfix Sender BCC
-      oxlorg.opnsense.postfix_senderbcc:
+      fyrastack.opnsense.postfix_senderbcc:
         address: '{{ item }}'
         state: 'absent'
       loop:
@@ -911,7 +911,7 @@
         - 'bob@example.com'
 
     - name: Cleanup Postfix Sender Canonical
-      oxlorg.opnsense.postfix_sendercanonical:
+      fyrastack.opnsense.postfix_sendercanonical:
         address: '{{ item }}'
         state: 'absent'
       loop:
@@ -919,7 +919,7 @@
         - 'bob@example.com'
 
     - name: Cleanup IPSec Manual SPD
-      oxlorg.opnsense.ipsec_manual_spd:
+      fyrastack.opnsense.ipsec_manual_spd:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -927,13 +927,13 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup IPSec General
-      oxlorg.opnsense.ipsec_general:
+      fyrastack.opnsense.ipsec_general:
 
     - name: Cleanup HASync
-      oxlorg.opnsense.hasync_general:
+      fyrastack.opnsense.hasync_general:
 
     - name: Cleanup Snapshots
-      oxlorg.opnsense.snapshot:
+      fyrastack.opnsense.snapshot:
         name: 'default'
         activate: true
       register: cl_snap1
@@ -942,7 +942,7 @@
         - "'Unsupported' not in cl_snap1.msg | default('')"
 
     - name: Cleanup Snapshots
-      oxlorg.opnsense.snapshot:
+      fyrastack.opnsense.snapshot:
         name: '{{ item }}'
         state: 'absent'
       loop:
@@ -954,14 +954,14 @@
         - "'Unsupported' not in cl_snap2.msg | default('')"
 
     - name: Cleanup Wazuh Agent - disable
-      oxlorg.opnsense.wazuh_agent:
+      fyrastack.opnsense.wazuh_agent:
         enabled: false
         server_address: '127.0.0.1'  # placeholder
       register: cl_wazuh
       failed_when: cl_wazuh.failed
 
     - name: Cleanup Users
-      oxlorg.opnsense.user:
+      fyrastack.opnsense.user:
         name: '{{ item }}'
         state: 'absent'
       loop:
@@ -971,7 +971,7 @@
         - 'ANSIBLE_TEST_2_2'
 
     - name: Cleanup Groups
-      oxlorg.opnsense.group:
+      fyrastack.opnsense.group:
         name: '{{ item }}'
         state: 'absent'
       loop:
@@ -981,11 +981,11 @@
         - 'ANSIBLE_TEST_2_2'
 
     - name: Cleanup dnsmasq General
-      oxlorg.opnsense.dnsmasq_general:
+      fyrastack.opnsense.dnsmasq_general:
         enabled: false
 
     - name: Cleanup dnsmasq Domain
-      oxlorg.opnsense.dnsmasq_domain:
+      fyrastack.opnsense.dnsmasq_domain:
         domain: '{{ item }}'
         state: 'absent'
       loop:
@@ -993,7 +993,7 @@
         - 'test2.oxlorg'
 
     - name: Cleanup dnsmasq Host
-      oxlorg.opnsense.dnsmasq_host:
+      fyrastack.opnsense.dnsmasq_host:
         description: '{{ item }}'
         state: 'absent'
       loop:
@@ -1001,7 +1001,7 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup dnsmasq Range
-      oxlorg.opnsense.dnsmasq_range:
+      fyrastack.opnsense.dnsmasq_range:
         description: '{{ item }}'
         state: 'absent'
       loop:
@@ -1009,7 +1009,7 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup dnsmasq Option
-      oxlorg.opnsense.dnsmasq_option:
+      fyrastack.opnsense.dnsmasq_option:
         description: '{{ item }}'
         state: 'absent'
       loop:
@@ -1017,7 +1017,7 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup dnsmasq Boot
-      oxlorg.opnsense.dnsmasq_boot:
+      fyrastack.opnsense.dnsmasq_boot:
         description: '{{ item }}'
         state: 'absent'
       loop:
@@ -1025,51 +1025,51 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup dnsmasq Tags
-      oxlorg.opnsense.dnsmasq_tag:
+      fyrastack.opnsense.dnsmasq_tag:
         name: '{{ item }}'
         state: 'absent'
       loop:
         - 'AnsibleTest1'
 
     - name: Cleanup HAProxy general settings
-      oxlorg.opnsense.haproxy_general_settings:
+      fyrastack.opnsense.haproxy_general_settings:
         enabled: false
 
     - name: Cleanup HAProxy general cache settings
-      oxlorg.opnsense.haproxy_general_cache:
+      fyrastack.opnsense.haproxy_general_cache:
         enabled: false
 
     - name: Cleanup HAProxy general defaults settings
-      oxlorg.opnsense.haproxy_general_defaults:
+      fyrastack.opnsense.haproxy_general_defaults:
         retries: 3
         redispatch: 'x-1'
 
     - name: Cleanup HAProxy general logging settings
-      oxlorg.opnsense.haproxy_general_logging:
+      fyrastack.opnsense.haproxy_general_logging:
         host: '127.0.0.1'
         facility: 'local0'
         level: 'info'
 
     - name: Cleanup HAProxy general peers settings
-      oxlorg.opnsense.haproxy_general_peers:
+      fyrastack.opnsense.haproxy_general_peers:
         enabled: false
 
     - name: Cleanup HAProxy general stats settings
-      oxlorg.opnsense.haproxy_general_stats:
+      fyrastack.opnsense.haproxy_general_stats:
         enabled: false
 
     - name: Cleanup HAProxy general tuning settings
-      oxlorg.opnsense.haproxy_general_tuning:
+      fyrastack.opnsense.haproxy_general_tuning:
         root: false
 
     - name: Cleanup HAProxy maintenance settings
-      oxlorg.opnsense.haproxy_maintenance:
+      fyrastack.opnsense.haproxy_maintenance:
         sync_certs: false
         reload_service: false
         restart_service: false
 
     - name: Cleanup HAProxy CPU rules
-      oxlorg.opnsense.haproxy_cpu:
+      fyrastack.opnsense.haproxy_cpu:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -1077,7 +1077,7 @@
         - 'ANSIBLE_TEST_1_2'
 
     - name: Cleanup HAProxy users
-      oxlorg.opnsense.haproxy_user:
+      fyrastack.opnsense.haproxy_user:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -1091,7 +1091,7 @@
         - 'stats_monitor'
 
     - name: Cleanup HAProxy groups
-      oxlorg.opnsense.haproxy_group:
+      fyrastack.opnsense.haproxy_group:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -1103,7 +1103,7 @@
         - 'stats_monitor'
 
     - name: Cleanup HAProxy ACLs
-      oxlorg.opnsense.haproxy_acl:
+      fyrastack.opnsense.haproxy_acl:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -1114,7 +1114,7 @@
         - 'ANSIBLE_TEST_ACL_1'
 
     - name: Cleanup HAProxy Actions
-      oxlorg.opnsense.haproxy_action:
+      fyrastack.opnsense.haproxy_action:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -1126,7 +1126,7 @@
         - 'ANSIBLE_TEST_FCGI_ACTION_2'
 
     - name: Cleanup HAProxy Lua scripts
-      oxlorg.opnsense.haproxy_lua:
+      fyrastack.opnsense.haproxy_lua:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -1135,7 +1135,7 @@
         - 'ANSIBLE_TEST_1_3'
 
     - name: Cleanup HAProxy FCGI applications
-      oxlorg.opnsense.haproxy_fcgi:
+      fyrastack.opnsense.haproxy_fcgi:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -1145,7 +1145,7 @@
         - 'ANSIBLE_TEST_1_4'
 
     - name: Cleanup HAProxy Error files
-      oxlorg.opnsense.haproxy_errorfile:
+      fyrastack.opnsense.haproxy_errorfile:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -1155,5 +1155,5 @@
         - 'ANSIBLE_TEST_1_4'
 
     - name: Cleanup NUT
-      oxlorg.opnsense.nut:
+      fyrastack.opnsense.nut:
         enabled: false

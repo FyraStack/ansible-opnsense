@@ -58,13 +58,13 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
       tasks:
         - name: Query interfaces
-          oxlorg.opnsense.raw:
+          fyrastack.opnsense.raw:
             url: 'interfaces/overview/interfacesInfo'
           register: interfaces
 
@@ -72,7 +72,7 @@ Examples
             var: interfaces.response.rows
 
         - name: Execute action
-          oxlorg.opnsense.raw:
+          fyrastack.opnsense.raw:
             module: 'syslog'
             controller: 'service'
             command: 'restart'

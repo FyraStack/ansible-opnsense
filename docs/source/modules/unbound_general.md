@@ -27,7 +27,7 @@ You may also need to increase the module `timeout`.
 
 For basic parameters see: [Basics](https://github.com/oxlorg/collection_opnsense/blob/latest/docs/use_basic.md#definition)
 
-### oxlorg.opnsense.unbound_general
+### fyrastack.opnsense.unbound_general
 
 | Parameter                     | Type    | Required | Default value | Aliases | Comment                                                                                                                                                                                                                                                                                  |
 |:------------------------------|:--------|:---------|:--------------|:--------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -54,20 +54,20 @@ For basic parameters see: [Basics](https://github.com/oxlorg/collection_opnsense
 
 ## Examples
 
-### oxlorg.opnsense.unbound_general
+### fyrastack.opnsense.unbound_general
 
 ```yaml
 - hosts: firewalls
   connection: local
   gather_facts: false
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: 'opnsense.template.opnsense.oxl.app'
       api_credential_file: '/home/guy/.secret/opn.key'
 
   tasks:
     - name: Example
-      oxlorg.opnsense.unbound_general:
+      fyrastack.opnsense.unbound_general:
         # enabled: true
         # port: 53
         # interfaces: ''
@@ -89,7 +89,7 @@ For basic parameters see: [Basics](https://github.com/oxlorg/collection_opnsense
 
 
     - name: Enabling Unbound
-      oxlorg.opnsense.unbound_general:
+      fyrastack.opnsense.unbound_general:
         enabled: true
         port: 53
         interfaces: ['lan']

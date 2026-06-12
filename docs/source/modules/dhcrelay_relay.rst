@@ -43,7 +43,7 @@ Info
 
 This module manages DHCRelay relays. Each interface can be assigned a single relay.
 
-Note: You can also use the shortform module name: :code:`oxlorg.opnsense.dhcrelay`
+Note: You can also use the shortform module name: :code:`fyrastack.opnsense.dhcrelay`
 
 ----
 
@@ -56,16 +56,16 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'dhcrelay_relay'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.dhcrelay_relay:
+          fyrastack.opnsense.dhcrelay_relay:
             interface: 'lan'
             destination: mydhcp
             # enabled: false
@@ -75,18 +75,18 @@ Examples
             # debug: false
 
         - name: Adding
-          oxlorg.opnsense.dhcrelay_relay:
+          fyrastack.opnsense.dhcrelay_relay:
             interface: 'lan'
             destination: mydhcp
 
         - name: Removing
-          oxlorg.opnsense.dhcrelay_relay:
+          fyrastack.opnsense.dhcrelay_relay:
             interface: 'lan'
             destination: mydhcp
             state: 'absent'
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'dhcrelay_relay'
           register: existing_entries
 

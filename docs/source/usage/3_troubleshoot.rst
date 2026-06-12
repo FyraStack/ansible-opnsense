@@ -28,17 +28,17 @@ You can also use the :code:`debug` argument to enable verbose output:
 .. code-block:: yaml
 
     - name: Example
-      oxlorg.opnsense.alias:
+      fyrastack.opnsense.alias:
         debug: true
 
-When the debug-mode is enabled some useful log files are created in the directory :code:`/tmp/oxlorg.opnsense` (*HTTP requests made, profiling of time consumption*)
+When the debug-mode is enabled some useful log files are created in the directory :code:`/tmp/fyrastack.opnsense` (*HTTP requests made, profiling of time consumption*)
 
 If you only want the profiling logs written, you can also use the :code:`profiling` argument:
 
 .. code-block:: yaml
 
     - name: Example
-      oxlorg.opnsense.alias:
+      fyrastack.opnsense.alias:
         profiling: true
 
 
@@ -56,7 +56,7 @@ Known errors
   .. code-block:: yaml
 
       - name: Example
-        oxlorg.opnsense.alias:
+        fyrastack.opnsense.alias:
           timeout: 60  # seconds
 
 Known issues
@@ -75,4 +75,4 @@ Known issues
   
   **What to do about it?**
 
-  If you are calling a module **in a loop** for multiple items - it might be faster to use the :ref:`oxlorg.opnsense.reload module <modules_reload>` instead.
+  If you are calling a module **in a loop** for multiple items - it might be faster to use the :ref:`fyrastack.opnsense.reload module <modules_reload>` instead.

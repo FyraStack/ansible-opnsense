@@ -4,12 +4,12 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'postfix_general'
 
   environment:
@@ -17,26 +17,26 @@
 
   tasks:
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn_pre1
       failed_when: >
         opn_pre1.failed or
         'data' not in opn_pre1
 
     - name: Configuring - failing because of invalid inet_port
-      oxlorg.opnsense.postfix_general:
+      fyrastack.opnsense.postfix_general:
         inet_port: 999999
       register: opn_fail1
       failed_when: not opn_fail1.failed
 
     - name: Configuring - failing because of invalid ip_version
-      oxlorg.opnsense.postfix_general:
+      fyrastack.opnsense.postfix_general:
         ip_version: ipv5
       register: opn_fail2
       failed_when: not opn_fail2.failed
 
     - name: Configuring
-      oxlorg.opnsense.postfix_general:
+      fyrastack.opnsense.postfix_general:
         myhostname: mx.example.com
         mydomain: example.com
       register: opn1
@@ -45,7 +45,7 @@
         not opn1.changed
 
     - name: Changing
-      oxlorg.opnsense.postfix_general:
+      fyrastack.opnsense.postfix_general:
         myhostname: mx.example.com
         mydomain: example.com
         inet_port: 26
@@ -73,7 +73,7 @@
       when: not ansible_check_mode
 
     - name: Nothing changed
-      oxlorg.opnsense.postfix_general:
+      fyrastack.opnsense.postfix_general:
         myhostname: mx.example.com
         mydomain: example.com
         inet_port: 26
@@ -101,5 +101,5 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.postfix_general:
+      fyrastack.opnsense.postfix_general:
         enabled: false

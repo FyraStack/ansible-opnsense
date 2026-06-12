@@ -4,12 +4,12 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'bind_blocklist'
 
   environment:
@@ -17,14 +17,14 @@
 
   tasks:
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn_pre1
       failed_when: >
         opn_pre1.failed or
         'data' not in opn_pre1
 
     - name: Configuring
-      oxlorg.opnsense.bind_blocklist:
+      fyrastack.opnsense.bind_blocklist:
         block: ['Steven Black List', 'AdGuard List']
         exclude: 'test.oxlorg.net'
         enabled: true
@@ -34,7 +34,7 @@
         not opn1.changed
 
     - name: Changing
-      oxlorg.opnsense.bind_blocklist:
+      fyrastack.opnsense.bind_blocklist:
         block: ['Steven Black List', 'NoCoin List', 'Blocklist.site Phishing', 'AdGuard List']
         exclude: ['test.oxlorg.net', 'oxlorg.net']
         safe_google: true
@@ -45,7 +45,7 @@
         not opn9.changed
 
     - name: Disabling 1
-      oxlorg.opnsense.bind_blocklist:
+      fyrastack.opnsense.bind_blocklist:
         block: ['Steven Black List', 'NoCoin List', 'Blocklist.site Phishing', 'AdGuard List']
         exclude: ['test.oxlorg.net', 'oxlorg.net']
         safe_google: true
@@ -57,7 +57,7 @@
       when: not ansible_check_mode
 
     - name: Disabling 1 - nothing changed
-      oxlorg.opnsense.bind_blocklist:
+      fyrastack.opnsense.bind_blocklist:
         block: ['Steven Black List', 'NoCoin List', 'Blocklist.site Phishing', 'AdGuard List']
         exclude: ['test.oxlorg.net', 'oxlorg.net']
         safe_google: true
@@ -69,7 +69,7 @@
       when: not ansible_check_mode
 
     - name: Enabling 1
-      oxlorg.opnsense.bind_blocklist:
+      fyrastack.opnsense.bind_blocklist:
         block: ['Steven Black List', 'NoCoin List', 'Blocklist.site Phishing', 'AdGuard List']
         exclude: ['test.oxlorg.net', 'oxlorg.net']
         safe_google: true
@@ -80,7 +80,7 @@
       when: not ansible_check_mode
 
     - name: Changing more
-      oxlorg.opnsense.bind_blocklist:
+      fyrastack.opnsense.bind_blocklist:
         block: ['Steven Black List', 'NoCoin List', 'Blocklist.site Phishing', 'AdGuard List']
         exclude: ['test.oxlorg.net', 'oxlorg.net']
         safe_google: false
@@ -94,7 +94,7 @@
       when: not ansible_check_mode
 
     - name: Nothing changed
-      oxlorg.opnsense.bind_blocklist:
+      fyrastack.opnsense.bind_blocklist:
         block: ['Steven Black List', 'NoCoin List', 'Blocklist.site Phishing', 'AdGuard List']
         exclude: ['test.oxlorg.net', 'oxlorg.net']
         safe_google: false
@@ -108,6 +108,6 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.bind_blocklist:
+      fyrastack.opnsense.bind_blocklist:
         enabled: false
       when: not ansible_check_mode

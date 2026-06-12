@@ -4,12 +4,12 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'haproxy_general_stats'
 
   environment:
@@ -17,14 +17,14 @@
 
   tasks:
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn_pre1
       failed_when: >
         opn_pre1.failed or
         'data' not in opn_pre1
 
     - name: Create test users for stats testing
-      oxlorg.opnsense.haproxy_user:
+      fyrastack.opnsense.haproxy_user:
         name: "{{ item.name }}"
         description: "{{ item.description }}"
         password: "{{ item.password }}"
@@ -35,7 +35,7 @@
       when: not ansible_check_mode
 
     - name: Create test groups for stats testing
-      oxlorg.opnsense.haproxy_group:
+      fyrastack.opnsense.haproxy_group:
         name: "{{ item.name }}"
         description: "{{ item.description }}"
         members: "{{ item.members }}"
@@ -46,13 +46,13 @@
       when: not ansible_check_mode
 
     - name: Configuring - failing because of invalid port
-      oxlorg.opnsense.haproxy_general_stats:
+      fyrastack.opnsense.haproxy_general_stats:
         port: 70000
       register: opn_fail1
       failed_when: not opn_fail1.failed
 
     - name: Configuring basic stats settings
-      oxlorg.opnsense.haproxy_general_stats:
+      fyrastack.opnsense.haproxy_general_stats:
         enabled: true
         port: 8823
         remote_enabled: true
@@ -69,7 +69,7 @@
       when: not ansible_check_mode
 
     - name: Changing stats settings with Prometheus
-      oxlorg.opnsense.haproxy_general_stats:
+      fyrastack.opnsense.haproxy_general_stats:
         enabled: true
         port: 8824
         remote_enabled: false
@@ -85,7 +85,7 @@
       when: not ansible_check_mode
 
     - name: Disabling HAProxy stats
-      oxlorg.opnsense.haproxy_general_stats:
+      fyrastack.opnsense.haproxy_general_stats:
         enabled: false
         port: 8824
         remote_enabled: false
@@ -100,7 +100,7 @@
       when: not ansible_check_mode
 
     - name: Disabling HAProxy stats - nothing changed
-      oxlorg.opnsense.haproxy_general_stats:
+      fyrastack.opnsense.haproxy_general_stats:
         enabled: false
         port: 8824
         remote_enabled: false
@@ -115,7 +115,7 @@
       when: not ansible_check_mode
 
     - name: Enabling HAProxy stats
-      oxlorg.opnsense.haproxy_general_stats:
+      fyrastack.opnsense.haproxy_general_stats:
         enabled: true
         port: 8824
         remote_enabled: false
@@ -130,7 +130,7 @@
       when: not ansible_check_mode
 
     - name: Testing minimal configuration
-      oxlorg.opnsense.haproxy_general_stats:
+      fyrastack.opnsense.haproxy_general_stats:
         enabled: true
         port: 8822
         remote_enabled: false
@@ -143,7 +143,7 @@
       when: not ansible_check_mode
 
     - name: Nothing changed
-      oxlorg.opnsense.haproxy_general_stats:
+      fyrastack.opnsense.haproxy_general_stats:
         enabled: true
         port: 8822
         remote_enabled: false
@@ -156,7 +156,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup stats configuration
-      oxlorg.opnsense.haproxy_general_stats:
+      fyrastack.opnsense.haproxy_general_stats:
         enabled: false
         port: 8822
         remote_enabled: false
@@ -167,7 +167,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup test groups
-      oxlorg.opnsense.haproxy_group:
+      fyrastack.opnsense.haproxy_group:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -176,7 +176,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup test users
-      oxlorg.opnsense.haproxy_user:
+      fyrastack.opnsense.haproxy_user:
         name: "{{ item }}"
         state: 'absent'
       loop:

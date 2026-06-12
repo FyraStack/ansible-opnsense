@@ -4,12 +4,12 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'haproxy_group'
 
   environment:
@@ -17,14 +17,14 @@
 
   tasks:
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn_pre1
       failed_when: >
         opn_pre1.failed or
         'data' not in opn_pre1
 
     - name: Create test users first
-      oxlorg.opnsense.haproxy_user:
+      fyrastack.opnsense.haproxy_user:
         name: "{{ item.name }}"
         description: "{{ item.description }}"
         password: "{{ item.password }}"
@@ -36,14 +36,14 @@
       when: not ansible_check_mode
 
     - name: Configuring - failing because of invalid name
-      oxlorg.opnsense.haproxy_group:
+      fyrastack.opnsense.haproxy_group:
         name: ''
       register: opn_fail1
       failed_when: not opn_fail1.failed
       when: not ansible_check_mode
 
     - name: Creating HAProxy group
-      oxlorg.opnsense.haproxy_group:
+      fyrastack.opnsense.haproxy_group:
         name: 'testgroup1'
         description: 'Test group 1'
         members: ['groupuser1', 'groupuser2']
@@ -56,7 +56,7 @@
       when: not ansible_check_mode
 
     - name: Creating another HAProxy group
-      oxlorg.opnsense.haproxy_group:
+      fyrastack.opnsense.haproxy_group:
         name: 'testgroup2'
         description: 'Test group 2'
         members: ['groupuser3']
@@ -69,7 +69,7 @@
       when: not ansible_check_mode
 
     - name: Changing group settings
-      oxlorg.opnsense.haproxy_group:
+      fyrastack.opnsense.haproxy_group:
         name: 'testgroup1'
         description: 'Modified test group 1'
         members: ['groupuser1', 'groupuser2', 'groupuser3']
@@ -82,7 +82,7 @@
       when: not ansible_check_mode
 
     - name: Disabling HAProxy group
-      oxlorg.opnsense.haproxy_group:
+      fyrastack.opnsense.haproxy_group:
         name: 'testgroup1'
         description: 'Modified test group 1'
         members: ['groupuser1', 'groupuser2', 'groupuser3']
@@ -95,7 +95,7 @@
       when: not ansible_check_mode
 
     - name: Disabling HAProxy group - nothing changed
-      oxlorg.opnsense.haproxy_group:
+      fyrastack.opnsense.haproxy_group:
         name: 'testgroup1'
         description: 'Modified test group 1'
         members: ['groupuser1', 'groupuser2', 'groupuser3']
@@ -108,7 +108,7 @@
       when: not ansible_check_mode
 
     - name: Enabling HAProxy group
-      oxlorg.opnsense.haproxy_group:
+      fyrastack.opnsense.haproxy_group:
         name: 'testgroup1'
         description: 'Modified test group 1'
         members: ['groupuser1', 'groupuser2', 'groupuser3']
@@ -121,7 +121,7 @@
       when: not ansible_check_mode
 
     - name: Nothing changed
-      oxlorg.opnsense.haproxy_group:
+      fyrastack.opnsense.haproxy_group:
         name: 'testgroup1'
         description: 'Modified test group 1'
         members: ['groupuser1', 'groupuser2', 'groupuser3']
@@ -134,7 +134,7 @@
       when: not ansible_check_mode
 
     - name: Testing empty group
-      oxlorg.opnsense.haproxy_group:
+      fyrastack.opnsense.haproxy_group:
         name: 'emptygroup'
         description: 'Empty test group'
         members: []
@@ -146,7 +146,7 @@
         not opn7.changed
 
     - name: Cleanup groups
-      oxlorg.opnsense.haproxy_group:
+      fyrastack.opnsense.haproxy_group:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -156,7 +156,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup test users
-      oxlorg.opnsense.haproxy_user:
+      fyrastack.opnsense.haproxy_user:
         name: "{{ item }}"
         state: 'absent'
       loop:

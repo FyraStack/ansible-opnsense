@@ -4,12 +4,12 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'haproxy_action'
 
   environment:
@@ -17,21 +17,21 @@
 
   tasks:
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn_pre1
       failed_when: >
         opn_pre1.failed or
         'data' not in opn_pre1
 
     - name: Configuring - failing because of invalid name
-      oxlorg.opnsense.haproxy_action:
+      fyrastack.opnsense.haproxy_action:
         name: ''
       register: opn_fail1
       failed_when: not opn_fail1.failed
       when: not ansible_check_mode
 
     - name: Configuring - failing because of missing type
-      oxlorg.opnsense.haproxy_action:
+      fyrastack.opnsense.haproxy_action:
         name: 'ANSIBLE_TEST_1_1'
         description: 'Test Action 1'
       register: opn_fail2
@@ -40,7 +40,7 @@
 
     # Create prerequisite ACL for testing
     - name: Create test ACL for Action testing
-      oxlorg.opnsense.haproxy_acl:
+      fyrastack.opnsense.haproxy_acl:
         name: 'ANSIBLE_TEST_ACL_1'
         description: 'Test ACL for Action'
         expression: 'hdr'
@@ -49,7 +49,7 @@
       when: not ansible_check_mode
 
     - name: Creating HAProxy Action with deny
-      oxlorg.opnsense.haproxy_action:
+      fyrastack.opnsense.haproxy_action:
         name: 'ANSIBLE_TEST_1_1'
         description: 'Test Action for deny'
         test_type: 'if'
@@ -61,7 +61,7 @@
         not opn1.changed
 
     - name: Creating HAProxy Action with ACL link
-      oxlorg.opnsense.haproxy_action:
+      fyrastack.opnsense.haproxy_action:
         name: 'ANSIBLE_TEST_1_2'
         description: 'Test Action with ACL'
         test_type: 'if'
@@ -75,7 +75,7 @@
       when: not ansible_check_mode
 
     - name: Creating HAProxy Action with header manipulation
-      oxlorg.opnsense.haproxy_action:
+      fyrastack.opnsense.haproxy_action:
         name: 'ANSIBLE_TEST_1_3'
         description: 'Test Action for header add'
         test_type: 'if'
@@ -88,7 +88,7 @@
         not opn3.changed
 
     - name: Creating HAProxy Action with variable setting
-      oxlorg.opnsense.haproxy_action:
+      fyrastack.opnsense.haproxy_action:
         name: 'ANSIBLE_TEST_1_4'
         description: 'Test Action for set variable'
         test_type: 'if'
@@ -102,7 +102,7 @@
         not opn4.changed
 
     - name: Changing Action settings
-      oxlorg.opnsense.haproxy_action:
+      fyrastack.opnsense.haproxy_action:
         name: 'ANSIBLE_TEST_1_1'
         description: 'Modified test Action for deny'
         test_type: 'unless'
@@ -115,7 +115,7 @@
       when: not ansible_check_mode
 
     - name: Changing Action operator
-      oxlorg.opnsense.haproxy_action:
+      fyrastack.opnsense.haproxy_action:
         name: 'ANSIBLE_TEST_1_1'
         description: 'Modified test Action for deny'
         test_type: 'if'
@@ -128,7 +128,7 @@
       when: not ansible_check_mode
 
     - name: Changing Action operator - nothing changed
-      oxlorg.opnsense.haproxy_action:
+      fyrastack.opnsense.haproxy_action:
         name: 'ANSIBLE_TEST_1_1'
         description: 'Modified test Action for deny'
         test_type: 'if'
@@ -141,7 +141,7 @@
       when: not ansible_check_mode
 
     - name: Changing Action back to original
-      oxlorg.opnsense.haproxy_action:
+      fyrastack.opnsense.haproxy_action:
         name: 'ANSIBLE_TEST_1_1'
         description: 'Test Action for deny'
         test_type: 'if'
@@ -154,7 +154,7 @@
       when: not ansible_check_mode
 
     - name: Nothing changed
-      oxlorg.opnsense.haproxy_action:
+      fyrastack.opnsense.haproxy_action:
         name: 'ANSIBLE_TEST_1_1'
         description: 'Test Action for deny'
         test_type: 'if'
@@ -167,31 +167,31 @@
       when: not ansible_check_mode
 
     - name: Cleanup Action 1
-      oxlorg.opnsense.haproxy_action:
+      fyrastack.opnsense.haproxy_action:
         name: 'ANSIBLE_TEST_1_1'
         state: 'absent'
       when: not ansible_check_mode
 
     - name: Cleanup Action 2
-      oxlorg.opnsense.haproxy_action:
+      fyrastack.opnsense.haproxy_action:
         name: 'ANSIBLE_TEST_1_2'
         state: 'absent'
       when: not ansible_check_mode
 
     - name: Cleanup Action 3
-      oxlorg.opnsense.haproxy_action:
+      fyrastack.opnsense.haproxy_action:
         name: 'ANSIBLE_TEST_1_3'
         state: 'absent'
       when: not ansible_check_mode
 
     - name: Cleanup Action 4
-      oxlorg.opnsense.haproxy_action:
+      fyrastack.opnsense.haproxy_action:
         name: 'ANSIBLE_TEST_1_4'
         state: 'absent'
       when: not ansible_check_mode
 
     - name: Cleanup test ACL
-      oxlorg.opnsense.haproxy_acl:
+      fyrastack.opnsense.haproxy_acl:
         name: 'ANSIBLE_TEST_ACL_1'
         expression: 'path_beg'
         state: 'absent'

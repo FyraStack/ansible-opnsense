@@ -43,7 +43,7 @@ Definition
 
 .. include:: ../_include/param_basic.rst
 
-oxlorg.opnsense.acme_general
+fyrastack.opnsense.acme_general
 ================================
 
 ..  csv-table:: Definition
@@ -61,7 +61,7 @@ oxlorg.opnsense.acme_general
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
 
-oxlorg.opnsense.acme_account
+fyrastack.opnsense.acme_account
 ================================
 
 ..  csv-table:: Definition
@@ -80,7 +80,7 @@ oxlorg.opnsense.acme_account
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
 
-oxlorg.opnsense.acme_validation
+fyrastack.opnsense.acme_validation
 ===================================
 
 ..  csv-table:: Definition
@@ -327,7 +327,7 @@ oxlorg.opnsense.acme_validation
     "dns_rage4_token","string","false","\-","\-","Paramater token for dns_service 'dns_rage4'"
     "dns_rage4_user","string","false","\-","\-","Paramater user for dns_service 'dns_rage4'"
 
-oxlorg.opnsense.acme_action
+fyrastack.opnsense.acme_action
 ===============================
 
 ..  csv-table:: Definition
@@ -388,7 +388,7 @@ oxlorg.opnsense.acme_action
     "acme_truenas_scheme","string","false","http","\-","Connection scheme that will be used when uploading certificates to TrueNAS Core Server. One of: 'http', 'https' For type: 'acme_truenas'"
     "acme_unifi_keystore","string","false","/usr/local/share/java/unifi/data/keystore","\-","Path to the Unifi keystore file in the local filesystem, i.e. /usr/local/share/java/unifi/data/keystore. For type: 'acme_unifi'"
 
-oxlorg.opnsense.acme_certificate
+fyrastack.opnsense.acme_certificate
 ====================================
 
 ..  csv-table:: Definition
@@ -437,13 +437,13 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
       tasks:
         - name: Activate ACME Client
-          oxlorg.opnsense.acme_general:
+          fyrastack.opnsense.acme_general:
             enable: true
             # auto_renewal: true
             # challenge_port: 43580
@@ -455,7 +455,7 @@ Examples
             # debug: false
 
         - name: Adding ACME Account
-          oxlorg.opnsense.acme_account:
+          fyrastack.opnsense.acme_account:
             name: LE opnsense
             # description:
             # email:
@@ -466,7 +466,7 @@ Examples
             # enable: true
 
         - name: Adding ACME Validation
-          oxlorg.opnsense.acme_validation:
+          fyrastack.opnsense.acme_validation:
             name: HTTP
             description: Default HTTP-01 Validation
             method: http01
@@ -476,7 +476,7 @@ Examples
             # http_opn_ipaddresses: ['1.2.3.4']
 
         - name: Adding ACME Validation DNS
-          oxlorg.opnsense.acme_validation:
+          fyrastack.opnsense.acme_validation:
             name: DNS FreeDNS
             description: DNS Validation w/ FreeDNS
             # method: dns01
@@ -485,13 +485,13 @@ Examples
             dns_freedns_password: SECRET
 
         - name: Adding ACME Action
-          oxlorg.opnsense.acme_action:
+          fyrastack.opnsense.acme_action:
             name: Restart GUI
             description: Restart OPNsense GUI
             type: configd_restart_gui
 
         - name: Adding ACME Certificate
-          oxlorg.opnsense.acme_certificate:
+          fyrastack.opnsense.acme_certificate:
             name: opnsense.oxl.app
             description: LE opnsense.oxl.app
             alt_names: ['oxlorg.com']
@@ -505,7 +505,7 @@ Examples
             # aliasmode: none
 
         - name: Listing jobs
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
             target: 'acme_certificate'
           register: existing_certificates
 

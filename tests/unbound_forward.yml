@@ -6,15 +6,15 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.unbound_forward:
+    fyrastack.opnsense.unbound_forward:
       timeout: 60
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'unbound_forward'
 
   environment:
@@ -22,14 +22,14 @@
 
   tasks:
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn10
       failed_when: >
         'data' not in opn10 or
         opn10.data | length != 0
 
     - name: Removing - does not exist
-      oxlorg.opnsense.unbound_forward:
+      fyrastack.opnsense.unbound_forward:
         domain: 'fwd.opnsense.test.oxlorg.net'
         target: '1.1.1.1'
         state: 'absent'
@@ -40,7 +40,7 @@
         opn1.changed
 
     - name: Adding 1
-      oxlorg.opnsense.unbound_forward:
+      fyrastack.opnsense.unbound_forward:
         domain: 'fwd.opnsense.test.oxlorg.net'
         target: '1.1.1.1'
         reload: false  # speed
@@ -50,7 +50,7 @@
         not opn4.changed
 
     - name: Adding 2
-      oxlorg.opnsense.unbound_forward:
+      fyrastack.opnsense.unbound_forward:
         domain: 'fwd.opnsense.test.oxlorg.net'
         target: '1.1.1.2'
         reload: false  # speed
@@ -60,7 +60,7 @@
         not opn5.changed
 
     - name: Adding 3 - catch-all
-      oxlorg.opnsense.unbound_forward:
+      fyrastack.opnsense.unbound_forward:
         target: '1.1.1.3'
         reload: false  # speed
       register: opn11
@@ -69,7 +69,7 @@
         not opn11.changed
 
     - name: Disabling 2
-      oxlorg.opnsense.unbound_forward:
+      fyrastack.opnsense.unbound_forward:
         domain: 'fwd.opnsense.test.oxlorg.net'
         target: '1.1.1.2'
         enabled: false
@@ -81,7 +81,7 @@
       when: not ansible_check_mode
 
     - name: Disabling 2 - nothing changed
-      oxlorg.opnsense.unbound_forward:
+      fyrastack.opnsense.unbound_forward:
         domain: 'fwd.opnsense.test.oxlorg.net'
         target: '1.1.1.2'
         enabled: false
@@ -93,7 +93,7 @@
       when: not ansible_check_mode
 
     - name: Enabling 2
-      oxlorg.opnsense.unbound_forward:
+      fyrastack.opnsense.unbound_forward:
         domain: 'fwd.opnsense.test.oxlorg.net'
         target: '1.1.1.2'
         reload: false  # speed
@@ -104,7 +104,7 @@
       when: not ansible_check_mode
 
     - name: Channging 2 - tcp-forward
-      oxlorg.opnsense.unbound_forward:
+      fyrastack.opnsense.unbound_forward:
         domain: 'fwd.opnsense.test.oxlorg.net'
         target: '1.1.1.2'
         forward_tcp: true
@@ -116,7 +116,7 @@
       when: not ansible_check_mode
 
     - name: Removing 2
-      oxlorg.opnsense.unbound_forward:
+      fyrastack.opnsense.unbound_forward:
         domain: 'fwd.opnsense.test.oxlorg.net'
         target: '1.1.1.2'
         state: 'absent'
@@ -128,7 +128,7 @@
       when: not ansible_check_mode
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn3
       failed_when: >
         'data' not in opn3 or
@@ -136,7 +136,7 @@
       when: not ansible_check_mode
 
     - name: Adding 4 - description
-      oxlorg.opnsense.unbound_forward:
+      fyrastack.opnsense.unbound_forward:
         target: '1.1.1.4'
         reload: false  # speed
         description: 'Deny access'
@@ -146,7 +146,7 @@
         not opn1.changed
 
     - name: Adding - failing because of an invalid description was provided
-      oxlorg.opnsense.unbound_forward:
+      fyrastack.opnsense.unbound_forward:
         target: '1.1.1.4'
         reload: false  # speed
         description: >-
@@ -158,7 +158,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.unbound_forward:
+      fyrastack.opnsense.unbound_forward:
         domain: "{{ item.d }}"
         target: "{{ item.t }}"
         state: 'absent'
@@ -171,7 +171,7 @@
       when: not ansible_check_mode
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn2
       failed_when: >
         'data' not in opn2 or

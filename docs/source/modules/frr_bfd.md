@@ -33,14 +33,14 @@ You can also install it using the [package module](https://ansible-opnsense.oxl.
 
 For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basic.html)
 
-### oxlorg.opnsense.frr_bfd_general
+### fyrastack.opnsense.frr_bfd_general
 
 | Parameter   | Type   | Required | Default value | Aliases | Comment                               |
 |:------------|:-------|:---------|:--------------|:--------|:--------------------------------------|
 | enabled     | bool   | false     | true          | -       | En- or disable BFD                    |
 
 
-### oxlorg.opnsense.frr_bfd_neighbor
+### fyrastack.opnsense.frr_bfd_neighbor
 
 | Parameter    | Type            | Required | Default value         | Aliases                          | Comment                                                                                                            |
 |:-------------|:----------------|:---------|:----------------------|:---------------------------------|:-------------------------------------------------------------------------------------------------------------------|
@@ -50,48 +50,48 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
 
 ## Examples
 
-### oxlorg.opnsense.frr_bfd_general
+### fyrastack.opnsense.frr_bfd_general
 
 ```yaml
 - hosts: firewalls
   connection: local
   gather_facts: false
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: 'opnsense.template.opnsense.oxl.app'
       api_credential_file: '/home/guy/.secret/opn.key'
 
   tasks:
     - name: Example
-      oxlorg.opnsense.frr_bfd_general:
+      fyrastack.opnsense.frr_bfd_general:
         # enabled: true
 
     - name: Enabling BFD
-      oxlorg.opnsense.frr_bfd_general:
+      fyrastack.opnsense.frr_bfd_general:
         enabled: true
 
     - name: Disabling BFD
-      oxlorg.opnsense.frr_bfd_general:
+      fyrastack.opnsense.frr_bfd_general:
         enabled: false
 ```
 
-### oxlorg.opnsense.frr_bfd_neighbor
+### fyrastack.opnsense.frr_bfd_neighbor
 
 ```yaml
 - hosts: firewalls
   connection: local
   gather_facts: false
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: 'opnsense.template.opnsense.oxl.app'
       api_credential_file: '/home/guy/.secret/opn.key'
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'frr_bfd_neighbor'
 
   tasks:
     - name: Example
-      oxlorg.opnsense.frr_bfd_neighbor:
+      fyrastack.opnsense.frr_bfd_neighbor:
         ip: '10.0.0.1'
         # description: 'test1'
         # enabled: true
@@ -100,18 +100,18 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
         # reload: true
 
     - name: Adding neighbor
-      oxlorg.opnsense.frr_bfd_neighbor:
+      fyrastack.opnsense.frr_bfd_neighbor:
         ip: '10.0.0.1'
         description: 'test2'
 
     - name: Disabling neighbor
-      oxlorg.opnsense.frr_bfd_neighbor:
+      fyrastack.opnsense.frr_bfd_neighbor:
         ip: '10.0.0.1'
         description: 'test2'
         enabled: false
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       #  target: 'frr_bfd_neighbor'
       register: existing_entries
 
@@ -120,7 +120,7 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
         var: existing_entries.data
 
     - name: Removing neighbor 'test3'
-      oxlorg.opnsense.frr_bfd_neighbor:
+      fyrastack.opnsense.frr_bfd_neighbor:
         ip: '10.0.0.1'
         state: 'absent'
 ```

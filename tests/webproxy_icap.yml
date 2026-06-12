@@ -4,12 +4,12 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'webproxy_icap'
 
   environment:
@@ -17,20 +17,20 @@
 
   tasks:
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn_pre1
       failed_when: >
         opn_pre1.failed or
         'data' not in opn_pre1
 
     - name: Configuring - failing because of invalid user-header
-      oxlorg.opnsense.webproxy_parent:
+      fyrastack.opnsense.webproxy_parent:
         header_username: '!INVALID-'
       register: opn_fail1
       failed_when: not opn_fail1.failed
 
     - name: Configuring
-      oxlorg.opnsense.webproxy_icap:
+      fyrastack.opnsense.webproxy_icap:
         response_url: 'icap://av.lan:1344/avscan'
         ttl: 70
         send_username: true
@@ -44,7 +44,7 @@
         not opn1.changed
 
     - name: Changing 1
-      oxlorg.opnsense.webproxy_icap:
+      fyrastack.opnsense.webproxy_icap:
         response_url: 'icap://av.lan:1345/avscan'
         ttl: 50
         send_username: false
@@ -59,7 +59,7 @@
       when: not ansible_check_mode
 
     - name: Changing 1 - nothing changed
-      oxlorg.opnsense.webproxy_icap:
+      fyrastack.opnsense.webproxy_icap:
         response_url: 'icap://av.lan:1345/avscan'
         ttl: 50
         send_username: false
@@ -74,7 +74,7 @@
       when: not ansible_check_mode
 
     - name: Disabling 1
-      oxlorg.opnsense.webproxy_icap:
+      fyrastack.opnsense.webproxy_icap:
         response_url: 'icap://av.lan:1345/avscan'
         ttl: 50
         send_username: false
@@ -90,7 +90,7 @@
       when: not ansible_check_mode
 
     - name: Disabling 1 - nothing changed
-      oxlorg.opnsense.webproxy_icap:
+      fyrastack.opnsense.webproxy_icap:
         response_url: 'icap://av.lan:1345/avscan'
         ttl: 50
         send_username: false
@@ -106,7 +106,7 @@
       when: not ansible_check_mode
 
     - name: Enabling 1
-      oxlorg.opnsense.webproxy_icap:
+      fyrastack.opnsense.webproxy_icap:
         response_url: 'icap://av.lan:1345/avscan'
         ttl: 50
         send_username: false
@@ -121,6 +121,6 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.webproxy_icap:
+      fyrastack.opnsense.webproxy_icap:
         enabled: false
       when: not ansible_check_mode

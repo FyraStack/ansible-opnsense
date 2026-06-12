@@ -43,13 +43,13 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
       tasks:
         - name: Pulling aliases
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
             target: 'alias'
           register: existing_aliases
 
@@ -58,7 +58,7 @@ Examples
             var: existing_aliases.data
 
         - name: Pulling routes
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
             target: 'route'
           register: existing_routes
 

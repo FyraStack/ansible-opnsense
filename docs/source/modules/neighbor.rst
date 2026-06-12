@@ -43,16 +43,16 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'neighbor'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.neighbor:
+          fyrastack.opnsense.neighbor:
             description: 'MyNeighbor'
             ethernet_address: 00:11:22:33:44:55
             ip_address: 192.168.100.100
@@ -60,19 +60,19 @@ Examples
             # debug: false
 
         - name: Adding a neighbor
-          oxlorg.opnsense.neighbor:
+          fyrastack.opnsense.neighbor:
             description: 'MyNeighbor'
             ethernet_address: 00:11:22:33:44:55
             ip_address: 192.168.100.100
 
         - name: Changing a neighbor
-          oxlorg.opnsense.neighbor:
+          fyrastack.opnsense.neighbor:
             description: 'MyNeighbor'
             ethernet_address: 00:11:22:33:44:55
             ip_address: 192.168.100.101
 
         - name: Listing neighbors
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'neighbor'
           register: existing_neighbors
 

@@ -8,19 +8,19 @@
 
 from ansible.module_utils.basic import AnsibleModule
 
-from ansible_collections.oxlorg.opnsense.plugins.module_utils.base.handler import \
+from ansible_collections.fyrastack.opnsense.plugins.module_utils.base.handler import \
     module_dependency_error, MODULE_EXCEPTIONS
 
 try:
-    from ansible_collections.oxlorg.opnsense.plugins.module_utils.base.wrapper import \
+    from ansible_collections.fyrastack.opnsense.plugins.module_utils.base.wrapper import \
         module_multi_wrapper
-    from ansible_collections.oxlorg.opnsense.plugins.module_utils.base.multi import \
+    from ansible_collections.fyrastack.opnsense.plugins.module_utils.base.multi import \
         build_multi_mod_args, MultiModuleCallbacks
-    from ansible_collections.oxlorg.opnsense.plugins.module_utils.defaults.main import \
+    from ansible_collections.fyrastack.opnsense.plugins.module_utils.defaults.main import \
         OPN_MOD_ARGS, RELOAD_MOD_ARG
-    from ansible_collections.oxlorg.opnsense.plugins.module_utils.defaults.bind import \
+    from ansible_collections.fyrastack.opnsense.plugins.module_utils.defaults.bind import \
         BIND_REC_MOD_ARGS, BIND_REC_MATCH_FIELDS
-    from ansible_collections.oxlorg.opnsense.plugins.module_utils.main.bind_record import \
+    from ansible_collections.fyrastack.opnsense.plugins.module_utils.main.bind_record import \
         Record
 
 except MODULE_EXCEPTIONS:

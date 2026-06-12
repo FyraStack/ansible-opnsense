@@ -29,7 +29,7 @@ Savepoint
 
 You can prevent lockout-situations using the savepoint systems:
 
-- :ref:`oxlorg.opnsense.savepoint <modules_savepoint>`
+- :ref:`fyrastack.opnsense.savepoint <modules_savepoint>`
 
 
 Definition
@@ -76,11 +76,11 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'nat_one_to_one'
 
       tasks:
@@ -88,7 +88,7 @@ Examples
         # required ones normally
         # add their default values to get a brief overview of how the module works
         - name: Example
-          oxlorg.opnsense.nat_one_to_one:
+          fyrastack.opnsense.nat_one_to_one:
             #sequence: 1
             interface: 'lan'
             #type: binnat
@@ -104,7 +104,7 @@ Examples
             # debug: false
 
         - name: Listing jobs
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'nat_one_to_one'
           register: existing_one_to_one
 

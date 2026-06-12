@@ -2,7 +2,7 @@ link
 `Desc <url>`_
 
 reload ref
-:ref:`oxlorg.opnsense.reload <modules_reload>`
+:ref:`fyrastack.opnsense.reload <modules_reload>`
 
 test url
 **TESTS**: `Playbook <https://github.com/O-X-L/ansible-opnsense/blob/latest/tests/alias.yml>`_

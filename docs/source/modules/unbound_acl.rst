@@ -62,16 +62,16 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'unbound_acl'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.unbound_acl:
+          fyrastack.opnsense.unbound_acl:
             name: 'example'
             # action: ''
             # networks: []
@@ -80,26 +80,26 @@ Examples
             # enabled: true
 
         - name: Adding
-          oxlorg.opnsense.unbound_acl:
+          fyrastack.opnsense.unbound_acl:
             name: 'test1'
             action: 'allow'
             networks: ['192.168.0.0/24']
 
         - name: Changing
-          oxlorg.opnsense.unbound_acl:
+          fyrastack.opnsense.unbound_acl:
             name: 'test1'
             action: 'deny'
             networks: ['192.168.1.0/25']
 
         - name: Disabling
-          oxlorg.opnsense.unbound_acl:
+          fyrastack.opnsense.unbound_acl:
             name: 'test1'
             action: 'deny'
             networks: ['192.168.1.0/25']
             enabled: false
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
             # target: 'unbound_acl'
           register: existing_entries
 
@@ -108,6 +108,6 @@ Examples
             var: existing_entries.data
 
         - name: Removing
-          oxlorg.opnsense.unbound_acl:
+          fyrastack.opnsense.unbound_acl:
             name: 'test1'
             state: 'absent'

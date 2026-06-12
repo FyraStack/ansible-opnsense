@@ -4,7 +4,7 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
@@ -16,7 +16,7 @@
     # Testing only if not faild, and not change enthing
     # We can't test output without real UPS device
     - name: Read UPS status
-      oxlorg.opnsense.nut_diagnostics:
+      fyrastack.opnsense.nut_diagnostics:
       register: opn1
       failed_when: >
         opn1.failed or

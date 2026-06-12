@@ -4,15 +4,15 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'alias'
 
-    oxlorg.opnsense.alias_multi:
+    fyrastack.opnsense.alias_multi:
       multi_control:
         fail_verify: true
         fail_process: true
@@ -22,12 +22,12 @@
 
   tasks:
     - name: Purge ALL
-      oxlorg.opnsense.alias_multi:
+      fyrastack.opnsense.alias_multi:
         multi_control:
           purge_all: true
 
     - name: Adding 1
-      oxlorg.opnsense.alias_multi:
+      fyrastack.opnsense.alias_multi:
         multi:
           - name: 'ANSIBLE_TEST_4_1'
             content: ['192.168.1.1', '192.168.1.2']
@@ -42,7 +42,7 @@
       when: not ansible_check_mode
 
     - name: Simple purge
-      oxlorg.opnsense.alias_multi:
+      fyrastack.opnsense.alias_multi:
         multi_purge:
           - name: 'ANSIBLE_TEST_4_1'
       when: not ansible_check_mode
@@ -52,7 +52,7 @@
         not opn2.changed
 
     - name: Listing aliases
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn3
       failed_when: >
         'data' not in opn3 or
@@ -60,7 +60,7 @@
       when: not ansible_check_mode
 
     - name: Simple disable-purge
-      oxlorg.opnsense.alias_multi:
+      fyrastack.opnsense.alias_multi:
         multi_purge:
           - name: 'ANSIBLE_TEST_4_2'
         multi_control:
@@ -72,7 +72,7 @@
       when: not ansible_check_mode
 
     - name: Simple disable-purge - nothing changed
-      oxlorg.opnsense.alias_multi:
+      fyrastack.opnsense.alias_multi:
         multi_purge:
           - name: 'ANSIBLE_TEST_4_2'
         multi_control:
@@ -81,7 +81,7 @@
       when: not ansible_check_mode
 
     - name: Adding 2
-      oxlorg.opnsense.alias_multi:
+      fyrastack.opnsense.alias_multi:
         multi:
           - name: 'ANSIBLE_TEST_4_1'
             content: ['192.168.1.1', '192.168.1.2']
@@ -96,7 +96,7 @@
       when: not ansible_check_mode
 
     - name: Filtered purge (single)
-      oxlorg.opnsense.alias_multi:
+      fyrastack.opnsense.alias_multi:
         multi_control:
           purge_filter:
             type: 'port'
@@ -104,7 +104,7 @@
       register: opn4
 
     - name: Listing aliases
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn5
       failed_when: >
         'data' not in opn5 or
@@ -112,7 +112,7 @@
       when: not ansible_check_mode
 
     - name: Adding 3
-      oxlorg.opnsense.alias_multi:
+      fyrastack.opnsense.alias_multi:
         multi:
           - name: 'ANSIBLE_TEST_4_1'
             content: ['192.168.1.1', '192.168.1.2']
@@ -127,7 +127,7 @@
       when: not ansible_check_mode
 
     - name: Filtered purge (single inverted)
-      oxlorg.opnsense.alias_multi:
+      fyrastack.opnsense.alias_multi:
         multi_control:
           purge_filter:
             type: 'port'
@@ -139,7 +139,7 @@
         not opn6.changed
 
     - name: Listing aliases
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn7
       failed_when: >
         'data' not in opn7 or
@@ -147,7 +147,7 @@
       when: not ansible_check_mode
 
     - name: Adding 4
-      oxlorg.opnsense.alias_multi:
+      fyrastack.opnsense.alias_multi:
         multi:
           - name: 'ANSIBLE_TEST_4_1'
             content: ['192.168.1.1', '192.168.1.2']
@@ -157,7 +157,7 @@
       when: not ansible_check_mode
 
     - name: Purge used alias
-      oxlorg.opnsense.alias_multi:
+      fyrastack.opnsense.alias_multi:
         multi_purge:
           - name: 'ANSIBLE_TEST_4_1'
         multi_control:
@@ -169,7 +169,7 @@
         'currently referenced' not in opn11.msg
 
     - name: Purge ALL (except referenced by other)
-      oxlorg.opnsense.alias_multi:
+      fyrastack.opnsense.alias_multi:
         multi_control:
           purge_all: true
       when: not ansible_check_mode
@@ -179,7 +179,7 @@
         not opn9.changed
 
     - name: Purge ALL (previously referenced)
-      oxlorg.opnsense.alias_multi:
+      fyrastack.opnsense.alias_multi:
         multi_control:
           purge_all: true
       when: not ansible_check_mode
@@ -189,7 +189,7 @@
         not opn12.changed
 
     - name: Checking cleanup
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn10
       failed_when: >
         'data' not in opn10 or

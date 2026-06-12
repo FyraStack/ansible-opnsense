@@ -29,7 +29,7 @@ Definition
 
 .. include:: ../_include/param_basic.rst
 
-oxlorg.opnsense.dhcp_general
+fyrastack.opnsense.dhcp_general
 ================================
 
 ..  csv-table:: Definition
@@ -41,7 +41,7 @@ oxlorg.opnsense.dhcp_general
     "fw_rules","boolean","false","true","fwrules, rules","Automatically add a basic set of firewall rules to allow DHCP traffic"
     "lifetime","int","false","4000","valid_lifetime","Defines how long the addresses (leases) given out by the server are valid (in seconds)"
 
-oxlorg.opnsense.dhcp_reservation
+fyrastack.opnsense.dhcp_reservation
 ====================================
 
 ..  csv-table:: Definition
@@ -55,7 +55,7 @@ oxlorg.opnsense.dhcp_reservation
     "description","string","false","","\-","Optional description"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.dhcp_controlagent
+fyrastack.opnsense.dhcp_controlagent
 =====================================
 
 ..  csv-table:: Definition
@@ -67,7 +67,7 @@ oxlorg.opnsense.dhcp_controlagent
     "http_port","int","false","8000","","MAC/Ether address of the client in question"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.dhcp_subnet
+fyrastack.opnsense.dhcp_subnet
 ===============================
 
 ..  csv-table:: Definition
@@ -96,7 +96,7 @@ oxlorg.opnsense.dhcp_subnet
 Examples
 ********
 
-oxlorg.opnsense.dhcp_general
+fyrastack.opnsense.dhcp_general
 ================================
 
 .. code-block:: yaml
@@ -105,13 +105,13 @@ oxlorg.opnsense.dhcp_general
       connection: local
         gather_facts: no
         module_defaults:
-          group/oxlorg.opnsense.all:
+          group/fyrastack.opnsense.all:
             firewall: 'opnsense.template.opnsense.oxl.app'
             api_credentials_file: '/home/guy/.secret/opn.key'
 
         tasks:
           - name: Listen to network interfaces
-            oxlorg.opnsense.dhcp_general:
+            fyrastack.opnsense.dhcp_general:
               enabled: true
               interfaces: 'lan,opt1,opt2,vlan0.10'
               # socket_type: 'raw'
@@ -120,7 +120,7 @@ oxlorg.opnsense.dhcp_general
 
 ----
 
-oxlorg.opnsense.dhcp_reservation
+fyrastack.opnsense.dhcp_reservation
 ====================================
 
 .. code-block:: yaml
@@ -129,16 +129,16 @@ oxlorg.opnsense.dhcp_reservation
       connection: local
       gather_facts: no
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'dhcp_reservation'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.dhcp_reservation:
+          fyrastack.opnsense.dhcp_reservation:
             ip: '192.168.0.1'
             subnet: '192.168.0.0/24'
             mac: 'aa:aa:aa:bb:bb:bb'
@@ -149,18 +149,18 @@ oxlorg.opnsense.dhcp_reservation
             # debug: false
 
         - name: Adding
-          oxlorg.opnsense.dhcp_reservation:
+          fyrastack.opnsense.dhcp_reservation:
             subnet: '192.168.0.0/24'
             ip: '192.168.0.1'
             mac: 'aa:aa:aa:bb:bb:bb'
 
         - name: Removing
-          oxlorg.opnsense.dhcp_reservation:
+          fyrastack.opnsense.dhcp_reservation:
             ip: '192.168.0.1'
             state: 'absent'
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'dhcp_reservation'
           register: existing_entries
 
@@ -170,7 +170,7 @@ oxlorg.opnsense.dhcp_reservation
 
 ----
 
-oxlorg.opnsense.dhcp_controlagent
+fyrastack.opnsense.dhcp_controlagent
 =====================================
 
 .. code-block:: yaml
@@ -179,13 +179,13 @@ oxlorg.opnsense.dhcp_controlagent
       connection: local
       gather_facts: no
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.dhcp_controlagent:
+          fyrastack.opnsense.dhcp_controlagent:
             enabled: true
             http_host: 127.0.0.1
             http_port: 8000
@@ -193,13 +193,13 @@ oxlorg.opnsense.dhcp_controlagent
             # debug: false
 
         - name: Stopping
-          oxlorg.opnsense.dhcp_controlagent:
+          fyrastack.opnsense.dhcp_controlagent:
             enabled: false
             reload: true
 
 ----
 
-oxlorg.opnsense.dhcp_subnet
+fyrastack.opnsense.dhcp_subnet
 ===============================
 
 .. code-block:: yaml
@@ -208,16 +208,16 @@ oxlorg.opnsense.dhcp_subnet
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'dhcp_reservation'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.dhcp_subnet:
+          fyrastack.opnsense.dhcp_subnet:
             subnet: '192.168.89.0/24'
             # description: ''
             # pools: []
@@ -237,7 +237,7 @@ oxlorg.opnsense.dhcp_subnet
             # match_fields: ['subnet']
 
         - name: Add subnet
-          oxlorg.opnsense.dhcp_subnet:
+          fyrastack.opnsense.dhcp_subnet:
             subnet: '10.0.100.0/24'
             pools:
               - '10.0.100.1-10.0.100.99'
@@ -248,6 +248,6 @@ oxlorg.opnsense.dhcp_subnet
             domain: 'test.lan'
 
         - name: Remove subnet
-          oxlorg.opnsense.dhcp_subnet:
+          fyrastack.opnsense.dhcp_subnet:
             subnet: '10.0.100.0/24'
             state: absent

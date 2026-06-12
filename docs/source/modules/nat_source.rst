@@ -49,7 +49,7 @@ Savepoint
 
 You can prevent lockout-situations using the savepoint systems:
 
-- :ref:`oxlorg.opnsense.savepoint <modules_savepoint>`
+- :ref:`fyrastack.opnsense.savepoint <modules_savepoint>`
 
 Web-UI
 ======
@@ -61,7 +61,7 @@ Menu: 'Firewall - Automation - Source NAT'
 Definition
 **********
 
-Module alias: oxlorg.opnsense.snat
+Module alias: fyrastack.opnsense.snat
 
 ..  csv-table:: Definition
     :header: "Parameter", "Type", "Required", "Default", "Aliases", "Comment"
@@ -115,19 +115,19 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.nat_source:
+        fyrastack.opnsense.nat_source:
           match_fields: ['description']
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'nat_source'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.nat_source:
+          fyrastack.opnsense.nat_source:
             description: 'example'
             match_fields: ['description']
             target: '192.168.0.1'
@@ -151,7 +151,7 @@ Examples
             # reload: true
 
         - name: Adding rule
-          oxlorg.opnsense.nat_source:
+          fyrastack.opnsense.nat_source:
             description: 'test1'
             source: '192.168.0.0/24'
             destination: '10.0.0.0/24'
@@ -160,7 +160,7 @@ Examples
             # match_fields: ['description']
 
         - name: Disabling rule
-          oxlorg.opnsense.nat_source:
+          fyrastack.opnsense.nat_source:
             description: 'test1'
             source: '192.168.0.0/24'
             destination: '10.0.0.0/24'
@@ -170,7 +170,7 @@ Examples
             # match_fields: ['description']
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'nat_source'
           register: existing_entries
 
@@ -179,7 +179,7 @@ Examples
             var: existing_entries.data
 
         - name: Removing rule
-          oxlorg.opnsense.nat_source:
+          fyrastack.opnsense.nat_source:
             description: 'test1'
             state: 'absent'
             # match_fields: ['description']

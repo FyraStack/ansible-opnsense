@@ -1,4 +1,4 @@
-from ansible_collections.oxlorg.opnsense.plugins.module_utils.defaults.main import \
+from ansible_collections.fyrastack.opnsense.plugins.module_utils.defaults.main import \
     STATE_MOD_ARG
 
 

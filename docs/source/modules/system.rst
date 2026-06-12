@@ -53,34 +53,34 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
       tasks:
         - name: Reboot the box - will wait until finished
-          oxlorg.opnsense.system:
+          fyrastack.opnsense.system:
             action: 'reboot'
 
         - name: Reboot the box - don't wait
-          oxlorg.opnsense.system:
+          fyrastack.opnsense.system:
             action: 'reboot'
             wait: false
 
         - name: Shutdown the box
-          oxlorg.opnsense.system:
+          fyrastack.opnsense.system:
             action: 'poweroff'
 
         - name: Pull updates
-          oxlorg.opnsense.system:
+          fyrastack.opnsense.system:
             action: 'update'
 
         - name: Start upgrade - will wait until finished (WARNING: ONLY USE IN TEST-ENVIRONMENTS)
-          oxlorg.opnsense.system:
+          fyrastack.opnsense.system:
             action: 'upgrade'
             timeout: 120  # depends on your download speed and firmware-version
             force_upgrade: true
 
         - name: Run audit
-          oxlorg.opnsense.system:
+          fyrastack.opnsense.system:
             action: 'audit'

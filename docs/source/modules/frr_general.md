@@ -35,7 +35,7 @@ You can also install it using the [package module](https://ansible-opnsense.oxl.
 
 For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basic.html)
 
-### oxlorg.opnsense.frr_general
+### fyrastack.opnsense.frr_general
 
 | Parameter | Type   | Required | Default value               | Aliases       | Comment                                                                                                                                      |
 |:----------|:-------|:---------|:----------------------------|:--------------|:---------------------------------------------------------------------------------------------------------------------------------------------|
@@ -50,20 +50,20 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
 
 ## Examples
 
-### oxlorg.opnsense.frr_general
+### fyrastack.opnsense.frr_general
 
 ```yaml
 - hosts: firewalls
   connection: local
   gather_facts: false
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: 'opnsense.template.opnsense.oxl.app'
       api_credential_file: '/home/guy/.secret/opn.key'
 
   tasks:
     - name: Example
-      oxlorg.opnsense.frr_general:
+      fyrastack.opnsense.frr_general:
         # enabled: true
         # profile: 'traditional'
         # log: true
@@ -72,7 +72,7 @@ For basic parameters see: [Basics](https://ansible-opnsense.oxl.app/usage/2_basi
         # carp: false
 
     - name: Enabling FRR
-      oxlorg.opnsense.frr_general:
+      fyrastack.opnsense.frr_general:
         enabled: true
         profile: 'traditional'
         log: true

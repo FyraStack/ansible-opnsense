@@ -29,7 +29,7 @@ If:
 - the package cache is too old, it will take some time - as OPNsense automatically checks for updates beforehand
 - the target firewall runs an outdated version, the actions 'install' and 'reinstall' will fail as OPNsense prevents it
 
-  - in that case - you should run :ref:`oxlorg.opnsense.system <modules_system>` with action 'upgrade'
+  - in that case - you should run :ref:`fyrastack.opnsense.system <modules_system>` with action 'upgrade'
 
 
 Be aware that the list-module with target 'package' will return installed plugins AND base-packages.
@@ -59,46 +59,46 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'package'
 
       tasks:
         - name: Installing
-          oxlorg.opnsense.package:
+          fyrastack.opnsense.package:
             name: 'os-api-backup'
             action: 'install'
 
         - name: Installing - multiple packages at once
-          oxlorg.opnsense.package:
+          fyrastack.opnsense.package:
             name: ['os-api-backup', 'os-dmidecode']
             action: 'install'
 
         - name: Removing
-          oxlorg.opnsense.package:
+          fyrastack.opnsense.package:
             name: 'os-api-backup'
             action: 'remove'
 
         - name: Re-installing
-          oxlorg.opnsense.package:
+          fyrastack.opnsense.package:
             name: 'os-api-backup'
             action: 'reinstall'
 
         - name: Locking
-          oxlorg.opnsense.package:
+          fyrastack.opnsense.package:
             name: 'os-api-backup'
             action: 'lock'
 
         - name: Unlocking
-          oxlorg.opnsense.package:
+          fyrastack.opnsense.package:
             name: 'os-api-backup'
             action: 'unlock'
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'package'
           register: existing_entries
 

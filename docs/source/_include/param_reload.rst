@@ -1,1 +1,1 @@
-If the running config should be reloaded on change - this may take some time. For mass-managing items you might want to reload it 'manually' after all changes are done => using the :ref:`oxlorg.opnsense.reload <modules_reload>` module.
+If the running config should be reloaded on change - this may take some time. For mass-managing items you might want to reload it 'manually' after all changes are done => using the :ref:`fyrastack.opnsense.reload <modules_reload>` module.

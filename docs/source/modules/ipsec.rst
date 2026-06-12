@@ -37,10 +37,10 @@ Definition
 
 .. include:: ../_include/param_basic.rst
 
-oxlorg.opnsense.ipsec_connection
+fyrastack.opnsense.ipsec_connection
 ================================
 
-Module alias: oxlorg.opnsense.ipsec_tunnel
+Module alias: fyrastack.opnsense.ipsec_tunnel
 
 ..  csv-table:: Definition
     :header: "Parameter", "Type", "Required", "Default", "Aliases", "Comment"
@@ -68,10 +68,10 @@ Module alias: oxlorg.opnsense.ipsec_tunnel
     "keying_tries","integer","false","\-","keyingtries","Number of retransmission sequences to perform during initial connect. Instead of giving up initiation after the first retransmission sequence with the default value of 1, additional sequences may be started according to the configured value. A value of 0 initiates a new sequence until the connection establishes or fails with a permanent error"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.ipsec_pool
+fyrastack.opnsense.ipsec_pool
 ==========================
 
-Module alias: oxlorg.opnsense.ipsec_network
+Module alias: fyrastack.opnsense.ipsec_network
 
 ..  csv-table:: Definition
     :header: "Parameter", "Type", "Required", "Default", "Aliases", "Comment"
@@ -82,7 +82,7 @@ Module alias: oxlorg.opnsense.ipsec_network
     "dns","list of strings","false","\-","\-","DNS servers to push as configuration payload. Accepts multiple IPv4/IPv6 addresses"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.ipsec_child
+fyrastack.opnsense.ipsec_child
 ===========================
 
 ..  csv-table:: Definition
@@ -104,7 +104,7 @@ oxlorg.opnsense.ipsec_child
     "rekey_seconds","integer","false","3600","rekey_time, rekey","Time to schedule CHILD_SA rekeying. CHILD_SA rekeying refreshes key material, optionally using a Diffie-Hellman exchange if a group is specified in the proposal. To avoid rekey collisions initiated by both ends simultaneously, a value in the range of rand_time gets subtracted to form the effective soft lifetime. By default CHILD_SA rekeying is scheduled every hour, minus rand_time"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.ipsec_vti
+fyrastack.opnsense.ipsec_vti
 =========================
 
 ..  csv-table:: Definition
@@ -122,7 +122,7 @@ oxlorg.opnsense.ipsec_vti
     "skip_firewall","boolean","false","false","skip_fw","Skip this  interface in our firewall rules which removes this inconsistencies"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.ipsec_auth_local
+fyrastack.opnsense.ipsec_auth_local
 ================================
 
 ..  csv-table:: Definition
@@ -139,7 +139,7 @@ oxlorg.opnsense.ipsec_auth_local
     "public_keys","list","false","\-","pubkeys","Certificate or public-key must be defined if authentication is set to 'pubkey'; List of raw public key candidates to use for authentication"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.ipsec_auth_remote
+fyrastack.opnsense.ipsec_auth_remote
 =================================
 
 ..  csv-table:: Definition
@@ -158,7 +158,7 @@ oxlorg.opnsense.ipsec_auth_remote
     "eap_radius_groups","list","false","\-","radius_groups, groups","List of group memberships to require. The client must prove membership to at least one of the specified groups"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.ipsec_cert
+fyrastack.opnsense.ipsec_cert
 ==========================
 
 ..  csv-table:: Definition
@@ -171,7 +171,7 @@ oxlorg.opnsense.ipsec_cert
     "type","string","false","rsa","\-","Type of the key. One of: 'rsa' or 'ecdsa'"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.ipsec_psk
+fyrastack.opnsense.ipsec_psk
 =========================
 
 ..  csv-table:: Definition
@@ -184,7 +184,7 @@ oxlorg.opnsense.ipsec_psk
     "type","string","false","\-","kind","One of: 'PSK', 'EAP'"
     "match_fields","list of strings","false","identity_local","\-","At least one of: 'identity_local', 'identity_remote'. Fields that are used to match configured routes with the running config - if any of those fields are changed, the module will think it's a new route"
 
-oxlorg.opnsense.ipsec_manual_spd
+fyrastack.opnsense.ipsec_manual_spd
 ================================
 
 ..  csv-table:: Definition
@@ -197,7 +197,7 @@ oxlorg.opnsense.ipsec_manual_spd
     "source","string","false for deletion, else true","\-","s, src, source_net","Source network, usually the networks you would like to accept using network address translation."
     "destination","string","false","\-","d, dest, destination_net","Destination network, leave empty to use the networks propagated in the child sa."
 
-oxlorg.opnsense.ipsec_general
+fyrastack.opnsense.ipsec_general
 =============================
 
 ..  csv-table:: Definition
@@ -263,7 +263,7 @@ oxlorg.opnsense.ipsec_general
 Usage
 *****
 
-To apply changes to the keys, you need to set 'reload: true' on each call or use the :ref:`oxlorg.opnsense.reload <modules_reload>` module to apply it once you finished modifying all entries!
+To apply changes to the keys, you need to set 'reload: true' on each call or use the :ref:`fyrastack.opnsense.reload <modules_reload>` module to apply it once you finished modifying all entries!
 
 As far as I can tell - the IPSec service gets restarted one you do so - be aware of that.
 
@@ -284,7 +284,7 @@ You may want to use '**ansible-vault**' to **encrypt** your 'private_key' conten
 Examples
 ********
 
-oxlorg.opnsense.ipsec_connection
+fyrastack.opnsense.ipsec_connection
 ================================
 
 .. code-block:: yaml
@@ -293,16 +293,16 @@ oxlorg.opnsense.ipsec_connection
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.oxlorg.net'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'ipsec_connection'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.ipsec_connection:
+          fyrastack.opnsense.ipsec_connection:
             name: IPSec Connection
             # state: 'absent'
             # local_addresses: []
@@ -327,20 +327,20 @@ oxlorg.opnsense.ipsec_connection
             # debug: false
 
         - name: Adding IPSec Site A
-          oxlorg.opnsense.ipsec_connection:
+          fyrastack.opnsense.ipsec_connection:
             name: IPSec Example Siet2Site
             local_addresses: 10.10.1.1
             remote_addresses: 10.10.1.2
 
         - name: Changing IPSec Site A
-          oxlorg.opnsense.ipsec_connection:
+          fyrastack.opnsense.ipsec_connection:
             name: IPSec Example Siet2Site
             version: ike2
             local_addresses: 10.10.1.1
             remote_addresses: 10.10.1.2
 
         - name: Listing IPSec connections
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'ipsec_connection'
           register: existing_ipsec_connections
 
@@ -350,7 +350,7 @@ oxlorg.opnsense.ipsec_connection
 
 ----
 
-oxlorg.opnsense.ipsec_pool
+fyrastack.opnsense.ipsec_pool
 ==========================
 
 .. code-block:: yaml
@@ -359,16 +359,16 @@ oxlorg.opnsense.ipsec_pool
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.oxlorg.net'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'ipsec_pool'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.ipsec_pool:
+          fyrastack.opnsense.ipsec_pool:
             name: IPSec POOL
             network: 192.168.1.0/28
             # dns:
@@ -376,7 +376,7 @@ oxlorg.opnsense.ipsec_pool
             # debug: false
 
         - name: Listing IPSec pools
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'ipsec_pool'
           register: existing_ipsec_pool
 
@@ -386,7 +386,7 @@ oxlorg.opnsense.ipsec_pool
 
 ----
 
-oxlorg.opnsense.ipsec_cert
+fyrastack.opnsense.ipsec_cert
 ==========================
 
 .. code-block:: yaml
@@ -395,16 +395,16 @@ oxlorg.opnsense.ipsec_cert
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'ipsec_cert'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.ipsec_cert:
+          fyrastack.opnsense.ipsec_cert:
             name: 'example'
             public_key: |
               -----BEGIN PUBLIC KEY-----
@@ -418,7 +418,7 @@ oxlorg.opnsense.ipsec_cert
             # reload: false
 
         - name: Adding key-pair and applying it
-          oxlorg.opnsense.ipsec_cert:
+          fyrastack.opnsense.ipsec_cert:
             name: 'test1'
             public_key: |
               -----BEGIN PUBLIC KEY-----
@@ -428,7 +428,7 @@ oxlorg.opnsense.ipsec_cert
             reload: true
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'ipsec_cert'
           no_log: true  # could log private keys
           register: existing_entries
@@ -438,12 +438,12 @@ oxlorg.opnsense.ipsec_cert
             var: existing_entries.data
 
         - name: Manually reloading/applying config
-          oxlorg.opnsense.reload:
+          fyrastack.opnsense.reload:
             target: 'ipsec'
 
 ----
 
-oxlorg.opnsense.ipsec_psk
+fyrastack.opnsense.ipsec_psk
 =========================
 
 .. code-block:: yaml
@@ -452,34 +452,34 @@ oxlorg.opnsense.ipsec_psk
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'ipsec_psk'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.ipsec_psk:
+          fyrastack.opnsense.ipsec_psk:
             identity: 'example'
             psk: 'secret'
             # type: 'PSK'
             # identity_remote: ''
 
         - name: Adding
-          oxlorg.opnsense.ipsec_psk:
+          fyrastack.opnsense.ipsec_psk:
             identity: 'test1'
             psk: 'my-super-secret'
 
         - name: Removing
-          oxlorg.opnsense.ipsec_psk:
+          fyrastack.opnsense.ipsec_psk:
             identity: 'test1'
             state: 'absent'
 
 ----
 
-oxlorg.opnsense.ipsec_manual_spd
+fyrastack.opnsense.ipsec_manual_spd
 ================================
 
 .. code-block:: yaml
@@ -488,16 +488,16 @@ oxlorg.opnsense.ipsec_manual_spd
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'ipsec_manual_spd'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.ipsec_manual_spd:
+          fyrastack.opnsense.ipsec_manual_spd:
             name: 'example'
             # request_id: 42
             connection_child: 'Connection Name - Child Name'
@@ -507,24 +507,24 @@ oxlorg.opnsense.ipsec_manual_spd
             # debug: false
 
         - name: Adding Manual SPD
-          oxlorg.opnsense.ipsec_manual_spd:
+          fyrastack.opnsense.ipsec_manual_spd:
             name: 'example'
             request_id: 100
             source: 10.0.99.0/24
 
         - name: Change Manual SPD
-          oxlorg.opnsense.ipsec_manual_spd:
+          fyrastack.opnsense.ipsec_manual_spd:
             name: 'example'
             connection_child: 'Connection Name - Child Name'
             source: 10.0.99.0/24
 
         - name: Removing Manual SPD
-          oxlorg.opnsense.ipsec_manual_spd:
+          fyrastack.opnsense.ipsec_manual_spd:
             name: 'example'
             state: 'absent'
 
         - name: Listing Manual SPD
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'ipsec_manual_spd'
           register: existing_manual_spd
 
@@ -534,7 +534,7 @@ oxlorg.opnsense.ipsec_manual_spd
 
 ----
 
-oxlorg.opnsense.ipsec_general
+fyrastack.opnsense.ipsec_general
 =============================
 
 .. code-block:: yaml
@@ -544,13 +544,13 @@ oxlorg.opnsense.ipsec_general
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.oxlorg.net'
           api_credential_file: '/home/guy/.secret/opn.key'
 
       tasks:
         - name: Example - General
-          oxlorg.opnsense.ipsec_general:
+          fyrastack.opnsense.ipsec_general:
             # prefer_old_sa: false
             # disable_vpn_rules: false
             # passthrough_networks: []
@@ -605,7 +605,7 @@ oxlorg.opnsense.ipsec_general
             # unity_save_password: false
 
         - name: Setup Syslog
-          oxlorg.opnsense.ipsec_general:
+          fyrastack.opnsense.ipsec_general:
             syslog_log_name: true
             syslog_log_level: true
             syslog_chd: 2

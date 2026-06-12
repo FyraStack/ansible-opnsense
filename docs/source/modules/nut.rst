@@ -31,7 +31,7 @@ You need to install the NUT plugin:
 ```
 os-nut
 ```
-You can also install it using the :ref:`oxlorg.opnsense.package <modules_package>` module.
+You can also install it using the :ref:`fyrastack.opnsense.package <modules_package>` module.
 
 ----
 
@@ -104,23 +104,23 @@ Examples
      connection: local
      gather_facts: false
      module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
             firewall: 'opnsense.template.oxlorg.net'
             api_credential_file: '/home/guy/.secret/opn.key'
-        oxlorg.opnsense.nut:
+        fyrastack.opnsense.nut:
             # repalce defaults password 'Password' with something random
             admin_password: some random password here
             monitor_password: some random password here
 
     tasks:
         - name: Configure NUT service with USBHID driver
-          oxlorg.opnsense.nut:
+          fyrastack.opnsense.nut:
             enabled: True
             mode: standalone
             usbhid_enable: True
 
         - name: Configure NUT service with SNMP driver
-          oxlorg.opnsense.nut:
+          fyrastack.opnsense.nut:
             enabled: True
             mode: standalone
             snmp_enable: True
@@ -130,7 +130,7 @@ Examples
               - snmp_version=v2c
 
         - name: Configure NUT service in Netclient mode
-          oxlorg.opnsense.nut:
+          fyrastack.opnsense.nut:
             enabled: Ture
             mode: netclient
             netclient_enable: True
@@ -145,4 +145,4 @@ Troubleshooting
 
 Check Service -> Nut -> Diagnostics view to check UPS status.
 
-You can use :ref:`oxlorg.opnsense.nut_diagnostics <modules_nut>` to acces status from ansible.
+You can use :ref:`fyrastack.opnsense.nut_diagnostics <modules_nut>` to acces status from ansible.

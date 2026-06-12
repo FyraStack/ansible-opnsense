@@ -4,12 +4,12 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
 
-    oxlorg.opnsense.list:
+    fyrastack.opnsense.list:
       target: 'bind_domain'
 
   environment:
@@ -17,7 +17,7 @@
 
   tasks:
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn_pre1
       failed_when: >
         opn_pre1.failed or
@@ -25,7 +25,7 @@
         opn_pre1.data | length > 0
 
     - name: Adding - failing because of invalid integer values
-      oxlorg.opnsense.bind_domain:
+      fyrastack.opnsense.bind_domain:
         name: 'test1.oxlorg'
         ttl: "{{ item.ttl | default(omit) }}"
         refresh: "{{ item.refresh | default(omit) }}"
@@ -43,7 +43,7 @@
         - {'negative': 90000}
 
     - name: Adding - failing because invalid ips were provided
-      oxlorg.opnsense.bind_domain:
+      fyrastack.opnsense.bind_domain:
         name: 'test1.oxlorg'
         allow_notify: "{{ item.a | default(omit) }}"
         primary: "{{ item.m | default(omit) }}"
@@ -55,7 +55,7 @@
         - {'m': ['NOT-VALID']}
 
     - name: Adding 1
-      oxlorg.opnsense.bind_domain:
+      fyrastack.opnsense.bind_domain:
         name: 'test1.oxlorg'
       register: opn1
       failed_when: >
@@ -63,7 +63,7 @@
         not opn1.changed
 
     - name: Changing 1
-      oxlorg.opnsense.bind_domain:
+      fyrastack.opnsense.bind_domain:
         name: 'test1.oxlorg'
         server: 'dns.oxlorg.net'
         admin_mail: 'primary@oxlorg.net'
@@ -75,7 +75,7 @@
         not opn9.changed
 
     - name: Disabling 1
-      oxlorg.opnsense.bind_domain:
+      fyrastack.opnsense.bind_domain:
         name: 'test1.oxlorg'
         server: 'dns.oxlorg.net'
         admin_mail: 'primary@oxlorg.net'
@@ -89,7 +89,7 @@
       when: not ansible_check_mode
 
     - name: Disabling 1 - nothing changed
-      oxlorg.opnsense.bind_domain:
+      fyrastack.opnsense.bind_domain:
         name: 'test1.oxlorg'
         server: 'dns.oxlorg.net'
         admin_mail: 'primary@oxlorg.net'
@@ -103,7 +103,7 @@
       when: not ansible_check_mode
 
     - name: Enabling 1
-      oxlorg.opnsense.bind_domain:
+      fyrastack.opnsense.bind_domain:
         name: 'test1.oxlorg'
       register: opn4
       failed_when: >
@@ -112,7 +112,7 @@
       when: not ansible_check_mode
 
     - name: Adding 2
-      oxlorg.opnsense.bind_domain:
+      fyrastack.opnsense.bind_domain:
         name: 'test2.oxlorg'
         mode: 'secondary'
         primary: ['192.168.0.1']
@@ -128,7 +128,7 @@
       when: not ansible_check_mode
 
     - name: Adding 2 - Nothing changed
-      oxlorg.opnsense.bind_domain:
+      fyrastack.opnsense.bind_domain:
         name: 'test2.oxlorg'
         mode: 'secondary'
         primary: ['192.168.0.1']
@@ -144,7 +144,7 @@
       when: not ansible_check_mode
 
     - name: Removing 2
-      oxlorg.opnsense.bind_domain:
+      fyrastack.opnsense.bind_domain:
         name: 'test2.oxlorg'
         state: 'absent'
       register: opn7
@@ -154,7 +154,7 @@
       when: not ansible_check_mode
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn8
       failed_when: >
         'data' not in opn8 or
@@ -162,7 +162,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.bind_domain:
+      fyrastack.opnsense.bind_domain:
         name: "{{ item }}"
         state: 'absent'
       loop:
@@ -171,7 +171,7 @@
       when: not ansible_check_mode
 
     - name: Listing
-      oxlorg.opnsense.list:
+      fyrastack.opnsense.list:
       register: opn_clean1
       failed_when: >
         'data' not in opn_clean1 or
@@ -182,7 +182,7 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
@@ -192,7 +192,7 @@
 
   tasks:
     - name: Adding dummy acl's
-      oxlorg.opnsense.bind_acl:
+      fyrastack.opnsense.bind_acl:
         name: "{{ item.name }}"
         networks: "{{ item.net }}"
       loop:
@@ -201,7 +201,7 @@
       when: not ansible_check_mode
 
     - name: Adding - setting ACLs
-      oxlorg.opnsense.bind_domain:
+      fyrastack.opnsense.bind_domain:
         name: 'test3.oxlorg'
         query_acl: 'ANSIBLE_TEST_3_1'
         transfer_acl: 'ANSIBLE_TEST_3_2'
@@ -212,7 +212,7 @@
       when: not ansible_check_mode
 
     - name: Configuring - nothing changed
-      oxlorg.opnsense.bind_domain:
+      fyrastack.opnsense.bind_domain:
         name: 'test3.oxlorg'
         query_acl: 'ANSIBLE_TEST_3_1'
         transfer_acl: 'ANSIBLE_TEST_3_2'
@@ -223,13 +223,13 @@
       when: not ansible_check_mode
 
     - name: Cleanup
-      oxlorg.opnsense.bind_domain:
+      fyrastack.opnsense.bind_domain:
         name: 'test3.oxlorg'
         state: 'absent'
       when: not ansible_check_mode
 
     - name: Cleanup ACLs
-      oxlorg.opnsense.bind_acl:
+      fyrastack.opnsense.bind_acl:
         name: "{{ item }}"
         state: 'absent'
       loop:

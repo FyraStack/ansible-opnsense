@@ -57,16 +57,16 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'cron'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.cron:
+          fyrastack.opnsense.cron:
             description: 'test1'
             command: 'system remote backup'
             # parameters
@@ -80,7 +80,7 @@ Examples
             # debug: false
 
         - name: Adding daily firmware update check
-          oxlorg.opnsense.cron:
+          fyrastack.opnsense.cron:
             description: 'test2'
             command: 'firmware poll'
             minutes: '0'
@@ -88,12 +88,12 @@ Examples
             days: '*'
 
         - name: Removing some job
-          oxlorg.opnsense.cron:
+          fyrastack.opnsense.cron:
             description: 'test3'
             state: 'absent'
 
         - name: Adding monthly firmware upgrade
-          oxlorg.opnsense.cron:
+          fyrastack.opnsense.cron:
             description: 'test4'
             command: 'firmware auto-update'
             minutes: '0'
@@ -102,7 +102,7 @@ Examples
             months: '*'
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'cron'
           register: existing_jobs
 

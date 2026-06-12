@@ -4,7 +4,7 @@
   hosts: localhost
   gather_facts: no
   module_defaults:
-    group/oxlorg.opnsense.all:
+    group/fyrastack.opnsense.all:
       firewall: "{{ lookup('ansible.builtin.env', 'TEST_FIREWALL') }}"
       api_credential_file: "{{ lookup('ansible.builtin.env', 'TEST_API_KEY') }}"
       ssl_verify: false
@@ -14,13 +14,13 @@
 
   tasks:
     - name: Querying OpenVPN Sessions
-      oxlorg.opnsense.openvpn_status:
+      fyrastack.opnsense.openvpn_status:
         target: 'sessions'
       register: opn1
       failed_when: "'data' not in opn1"
 
     - name: Querying OpenVPN Routes
-      oxlorg.opnsense.openvpn_status:
+      fyrastack.opnsense.openvpn_status:
         target: 'routes'
       register: opn2
       failed_when: "'data' not in opn2"

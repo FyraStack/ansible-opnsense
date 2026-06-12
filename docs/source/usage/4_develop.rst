@@ -12,7 +12,7 @@
 4 - Develop
 ===========
 
-The basic API interaction is handled in :code:`oxlorg.opnsense.plugins.module_utils.base.api`.
+The basic API interaction is handled in :code:`fyrastack.opnsense.plugins.module_utils.base.api`.
 
 It is a generic abstraction layer for interacting with the api - therefore all plugins should be able to function with it!
 
@@ -431,19 +431,19 @@ Adding new module
 - Add the module to :code:`<COLLECTION>/meta/runtime.yml`
 
 
-- Add the module as option to the :code:`oxlorg.opnsense.list` module:
+- Add the module as option to the :code:`fyrastack.opnsense.list` module:
 
   :code:`<COLLECTION>/plugins/modules/list.py`
 
 
-- Add the module as option to the :code:`oxlorg.opnsense.reload` module:
+- Add the module as option to the :code:`fyrastack.opnsense.reload` module:
 
   :code:`<COLLECTION>/plugins/modules/reload.py`
 
 
 - If you are implementing a new service:
 
-  Add the service as option to the :code:`oxlorg.opnsense.service` module:
+  Add the service as option to the :code:`fyrastack.opnsense.service` module:
 
   :code:`<COLLECTION>/plugins/modules/service.py`
 
@@ -558,7 +558,7 @@ There are some mock-components you should know about:
 
   .. code-block:: python3
 
-      from ansible_collections.oxlorg.opnsense.plugins.module_utils.test.testdata.<module>_testdata import Testdata_25_7_3
+      from ansible_collections.fyrastack.opnsense.plugins.module_utils.test.testdata.<module>_testdata import Testdata_25_7_3
 
       def test_multi_validate_entry(mocker, entry, entry_args, fail_verify, raises):
           testdata = Testdata_25_7_3()
@@ -601,7 +601,7 @@ Most modules will use a session to perform multiple API calls:
 
 .. code-block:: python3
 
-    from ansible_collections.oxlorg.opnsense.plugins.module_utils.base.api import Session
+    from ansible_collections.fyrastack.opnsense.plugins.module_utils.base.api import Session
 
     session = Session(module=module)
     session.get(cnf={'controller': 'alias', 'command': 'addItem', 'data': {'name': 'dummy', ...}})
@@ -615,7 +615,7 @@ Most modules will use a session to perform multiple API calls:
 
     # only perform a single API call
 
-    from ansible_collections.oxlorg.opnsense.plugins.module_utils.base.api import single_get, single_post
+    from ansible_collections.fyrastack.opnsense.plugins.module_utils.base.api import single_get, single_post
     single_get(module=module, cnf={'module': 'wireguard', 'controller': 'service', 'command': 'show'})
 
 For the controller/command/params/data definition - check the `OPNsense API Docs <https://docs.opnsense.org/development/api.html#core-api>`_!
@@ -643,16 +643,16 @@ You can also use the :code:`debug` argument to enable verbose output of the api 
 .. code-block:: yaml
 
     - name: Example
-      oxlorg.opnsense.alias:
+      fyrastack.opnsense.alias:
         debug: true
 
 'Multi' modules also support the :code:`debug` parameter on a per-item basis - so you don't get flooded.
 
-When the debug-mode is enabled some useful log files are created in the directory :code:`/tmp/oxlorg.opnsense`
+When the debug-mode is enabled some useful log files are created in the directory :code:`/tmp/fyrastack.opnsense`
 
 .. code-block:: bash
 
-    guy$ ls -l /tmp/oxlorg.opnsense/
+    guy$ ls -l /tmp/fyrastack.opnsense/
     alias.log  # time consumption profiling for the executed module: https://docs.python.org/3/library/profile.html
     api_calls.log  # a list api calls that were executed by the debugged module
 
@@ -669,8 +669,8 @@ The profiler will wrap around this function call and analyze it.
 
 .. code-block:: python3
 
-    from ansible_collections.oxlorg.opnsense.plugins.module_utils.utils import profiler
-    from ansible_collections.oxlorg.opnsense.plugins.module_utils.target_module import process
+    from ansible_collections.fyrastack.opnsense.plugins.module_utils.utils import profiler
+    from ansible_collections.fyrastack.opnsense.plugins.module_utils.target_module import process
 
     if module.params['profiling']:
         profiler(

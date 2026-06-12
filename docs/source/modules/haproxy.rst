@@ -39,7 +39,7 @@ You need to install the following plugin:
 
     os-haproxy
 
-You can also install it using the :ref:`oxlorg.opnsense.package <modules_package>` module.
+You can also install it using the :ref:`fyrastack.opnsense.package <modules_package>` module.
 
 Function
 ********
@@ -110,7 +110,7 @@ Usage examples
       tasks:
         # Create authentication users
         - name: Create HAProxy users
-          oxlorg.opnsense.haproxy_user:
+          fyrastack.opnsense.haproxy_user:
             name: "{{ item.name }}"
             description: "{{ item.description }}"
             password: "{{ item.password }}"
@@ -121,7 +121,7 @@ Usage examples
 
         # Create groups
         - name: Create HAProxy groups
-          oxlorg.opnsense.haproxy_group:
+          fyrastack.opnsense.haproxy_group:
             name: "{{ item.name }}"
             description: "{{ item.description }}"
             members: "{{ item.members }}"
@@ -132,7 +132,7 @@ Usage examples
 
         # Configure basic settings
         - name: Configure HAProxy general settings
-          oxlorg.opnsense.haproxy_general_settings:
+          fyrastack.opnsense.haproxy_general_settings:
             enabled: true
             graceful_stop: true
             hard_stop_after: 60
@@ -140,7 +140,7 @@ Usage examples
 
         # Configure monitoring with name resolution
         - name: Configure HAProxy statistics
-          oxlorg.opnsense.haproxy_general_stats:
+          fyrastack.opnsense.haproxy_general_stats:
             enabled: true
             port: 8822
             auth_enabled: true
@@ -150,14 +150,14 @@ Usage examples
 
         # Configure performance
         - name: Configure HAProxy performance tuning
-          oxlorg.opnsense.haproxy_general_tuning:
+          fyrastack.opnsense.haproxy_general_tuning:
             max_connections: 2000
             nbthread: 4
             buffer_size: 32768
 
         # Configure CPU affinity
         - name: Configure HAProxy CPU affinity
-          oxlorg.opnsense.haproxy_cpu:
+          fyrastack.opnsense.haproxy_cpu:
             name: 'web_threads'
             thread_id: 'x1'
             cpu_id: ['x0', 'x1']
@@ -165,7 +165,7 @@ Usage examples
 
         # Configure maintenance
         - name: Configure HAProxy maintenance
-          oxlorg.opnsense.haproxy_maintenance:
+          fyrastack.opnsense.haproxy_maintenance:
             sync_certs: true
             reload_service: false
             restart_service: false
@@ -179,7 +179,7 @@ Usage examples
       tasks:
         # Create ACLs for traffic filtering
         - name: Create HAProxy ACL for URL path matching
-          oxlorg.opnsense.haproxy_acl:
+          fyrastack.opnsense.haproxy_acl:
             name: 'acl_api_path'
             description: 'Match API paths'
             expression: 'path_beg'
@@ -187,7 +187,7 @@ Usage examples
             enabled: true
 
         - name: Create HAProxy ACL for header matching
-          oxlorg.opnsense.haproxy_acl:
+          fyrastack.opnsense.haproxy_acl:
             name: 'acl_mobile_user'
             description: 'Match mobile user agents'
             expression: 'hdr_sub(user-agent)'
@@ -196,7 +196,7 @@ Usage examples
 
         # Create Actions based on ACL conditions
         - name: Create HAProxy Action for custom header
-          oxlorg.opnsense.haproxy_action:
+          fyrastack.opnsense.haproxy_action:
             name: 'action_add_api_header'
             description: 'Add custom header for API traffic'
             operator: 'http-request'
@@ -208,7 +208,7 @@ Usage examples
 
         # Add Lua scripts for custom logic
         - name: Add HAProxy Lua script
-          oxlorg.opnsense.haproxy_lua:
+          fyrastack.opnsense.haproxy_lua:
             name: 'custom_routing'
             description: 'Custom routing logic'
             script: "{{ lookup('file', 'haproxy_scripts/routing.lua') }}"
@@ -216,7 +216,7 @@ Usage examples
 
         # Configure FastCGI application
         - name: Configure HAProxy FastCGI application
-          oxlorg.opnsense.haproxy_fcgi:
+          fyrastack.opnsense.haproxy_fcgi:
             name: 'php_app'
             description: 'PHP FastCGI application'
             docroot: '/var/www/html'
@@ -225,7 +225,7 @@ Usage examples
 
         # Add custom error pages
         - name: Add HAProxy custom error page
-          oxlorg.opnsense.haproxy_errorfile:
+          fyrastack.opnsense.haproxy_errorfile:
             name: 'custom_503'
             description: 'Custom 503 error page'
             code: '503'

@@ -8,11 +8,11 @@ OpenVPN
 
 **STATE**: stable
 
-**TESTS**: `oxlorg.opnsense.openvpn_client <https://github.com/O-X-L/ansible-opnsense/blob/latest/tests/openvpn_client.yml>`_ |
-`oxlorg.opnsense.openvpn_server <https://github.com/O-X-L/ansible-opnsense/blob/latest/tests/openvpn_server.yml>`_ |
-`oxlorg.opnsense.openvpn_static_key <https://github.com/O-X-L/ansible-opnsense/blob/latest/tests/openvpn_static_key.yml>`_ |
-`oxlorg.opnsense.openvpn_client_override <https://github.com/O-X-L/ansible-opnsense/blob/latest/tests/openvpn_client_override.yml>`_ |
-`oxlorg.opnsense.openvpn_status <https://github.com/O-X-L/ansible-opnsense/blob/latest/tests/openvpn_status.yml>`_
+**TESTS**: `fyrastack.opnsense.openvpn_client <https://github.com/O-X-L/ansible-opnsense/blob/latest/tests/openvpn_client.yml>`_ |
+`fyrastack.opnsense.openvpn_server <https://github.com/O-X-L/ansible-opnsense/blob/latest/tests/openvpn_server.yml>`_ |
+`fyrastack.opnsense.openvpn_static_key <https://github.com/O-X-L/ansible-opnsense/blob/latest/tests/openvpn_static_key.yml>`_ |
+`fyrastack.opnsense.openvpn_client_override <https://github.com/O-X-L/ansible-opnsense/blob/latest/tests/openvpn_client_override.yml>`_ |
+`fyrastack.opnsense.openvpn_status <https://github.com/O-X-L/ansible-opnsense/blob/latest/tests/openvpn_status.yml>`_
 
 **API Docs**: `Core - OpenVPN <https://docs.opnsense.org/development/api/core/openvpn.html>`_
 
@@ -28,7 +28,7 @@ Thanks to `@Rath <https://github.com/superstes>`_ for developing these modules!
 Info
 ****
 
-You can use the :ref:`oxlorg.opnsense.service <modules_service>` module to interact with the OpenVPN service.
+You can use the :ref:`fyrastack.opnsense.service <modules_service>` module to interact with the OpenVPN service.
 
 ----
 
@@ -37,7 +37,7 @@ Definition
 
 .. include:: ../_include/param_basic.rst
 
-oxlorg.opnsense.openvpn_server
+fyrastack.opnsense.openvpn_server
 ==================================
 
 ..  csv-table:: Definition
@@ -95,7 +95,7 @@ oxlorg.opnsense.openvpn_server
     "persist_address_pool","boolean","false","false","\-","Save ip address pool to disk."
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.openvpn_client
+fyrastack.opnsense.openvpn_client
 ==================================
 
 ..  csv-table:: Definition
@@ -129,7 +129,7 @@ oxlorg.opnsense.openvpn_client
     "http_proxy","string","false","\-","proxy","Use a http proxy to connect to the selected server, define as host:port."
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.openvpn_static_key
+fyrastack.opnsense.openvpn_static_key
 ======================================
 
 ..  csv-table:: Definition
@@ -141,7 +141,7 @@ oxlorg.opnsense.openvpn_static_key
     "key","string","false","\-","\-","OpenVPN Static key. If empty - it will be auto-generated."
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.openvpn_client_override
+fyrastack.opnsense.openvpn_client_override
 ===========================================
 
 ..  csv-table:: Definition
@@ -167,7 +167,7 @@ oxlorg.opnsense.openvpn_client_override
     "wins_servers","list","false","\-","wins","Set primary WINS server address (NetBIOS over TCP/IP Name Server). Repeat this option to set secondary WINS server addresses."
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.openvpn_status
+fyrastack.opnsense.openvpn_status
 ==================================
 
 ..  csv-table:: Definition
@@ -193,7 +193,7 @@ Use can create an manage certificates `using the OPNsense WebUI <https://docs.op
 Examples
 ********
 
-oxlorg.opnsense.openvpn_server
+fyrastack.opnsense.openvpn_server
 ==================================
 
 .. code-block:: yaml
@@ -202,16 +202,16 @@ oxlorg.opnsense.openvpn_server
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'openvpn_instance'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.openvpn_server:
+          fyrastack.opnsense.openvpn_server:
             name: 'example'
             server_ip4: ''
             server_ip6: ''
@@ -264,7 +264,7 @@ oxlorg.opnsense.openvpn_server
             # enabled: true
 
         - name: Adding
-          oxlorg.opnsense.openvpn_server:
+          fyrastack.opnsense.openvpn_server:
             name: 'ANSIBLE_TEST_1_1'
             port: 20000
             protocol: 'udp'
@@ -275,7 +275,7 @@ oxlorg.opnsense.openvpn_server
             certificate: 'OpenVPN Server'
 
         - name: Changing
-          oxlorg.opnsense.openvpn_server:
+          fyrastack.opnsense.openvpn_server:
             name: 'ANSIBLE_TEST_1_1'
             port: 20000
             protocol: 'udp'
@@ -293,7 +293,7 @@ oxlorg.opnsense.openvpn_server
             mtu: 1420
 
         - name: Disabling
-          oxlorg.opnsense.openvpn_server:
+          fyrastack.opnsense.openvpn_server:
             name: 'ANSIBLE_TEST_1_1'
             port: 20000
             protocol: 'udp'
@@ -312,7 +312,7 @@ oxlorg.opnsense.openvpn_server
             enabled: false
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
             # target: 'openvpn_instance'
           register: existing_entries
 
@@ -321,13 +321,13 @@ oxlorg.opnsense.openvpn_server
             var: existing_entries.data
 
         - name: Removing
-          oxlorg.opnsense.openvpn_server:
+          fyrastack.opnsense.openvpn_server:
             name: 'test1'
             state: 'absent'
 
 ----
 
-oxlorg.opnsense.openvpn_client
+fyrastack.opnsense.openvpn_client
 ==================================
 
 .. code-block:: yaml
@@ -336,16 +336,16 @@ oxlorg.opnsense.openvpn_client
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'openvpn_instance'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.openvpn_client:
+          fyrastack.opnsense.openvpn_client:
             name: 'example'
             remote: 'example.ovpn.opnsense.oxl.app:10000'
             certificate: ''
@@ -375,7 +375,7 @@ oxlorg.opnsense.openvpn_client
             # enabled: true
 
         - name: Adding
-          oxlorg.opnsense.openvpn_client:
+          fyrastack.opnsense.openvpn_client:
             name: 'test1'
             remote: 'openvpn.test.opnsense.oxl.app:20000'
             protocol: 'udp'
@@ -387,7 +387,7 @@ oxlorg.opnsense.openvpn_client
             mtu: 1400
 
         - name: Changing
-          oxlorg.opnsense.openvpn_client:
+          fyrastack.opnsense.openvpn_client:
             name: 'test1'
             remote: 'openvpn.test.opnsense.oxl.app:10000'
             protocol: 'tcp'
@@ -399,7 +399,7 @@ oxlorg.opnsense.openvpn_client
             mtu: 1400
 
         - name: Disabling
-          oxlorg.opnsense.openvpn_client:
+          fyrastack.opnsense.openvpn_client:
             name: 'test1'
             remote: 'openvpn.test.opnsense.oxl.app:10000'
             protocol: 'tcp'
@@ -412,7 +412,7 @@ oxlorg.opnsense.openvpn_client
             enabled: false
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
             # target: 'openvpn_instance'
           register: existing_entries
 
@@ -421,13 +421,13 @@ oxlorg.opnsense.openvpn_client
             var: existing_entries.data
 
         - name: Removing
-          oxlorg.opnsense.openvpn_client:
+          fyrastack.opnsense.openvpn_client:
             name: 'test1'
             state: 'absent'
 
 ----
 
-oxlorg.opnsense.openvpn_static_key
+fyrastack.opnsense.openvpn_static_key
 ======================================
 
 .. code-block:: yaml
@@ -436,27 +436,27 @@ oxlorg.opnsense.openvpn_static_key
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'openvpn_static_key'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.openvpn_static_key:
+          fyrastack.opnsense.openvpn_static_key:
             name: 'example'
             # mode: 'crypt'
             # key: ''
 
         - name: Adding
-          oxlorg.opnsense.openvpn_static_key:
+          fyrastack.opnsense.openvpn_static_key:
             name: 'test1'
             # key: => will be auto-generated
 
         - name: Changing
-          oxlorg.opnsense.openvpn_static_key:
+          fyrastack.opnsense.openvpn_static_key:
             name: 'test1'
             key: '#\n# 2048 bit OpenVPN static key\n#\n
               -----BEGIN OpenVPN Static key V1-----\n
@@ -479,7 +479,7 @@ oxlorg.opnsense.openvpn_static_key
               -----END OpenVPN Static key V1-----'
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
             # target: 'openvpn_static_key'
           register: existing_entries
 
@@ -488,12 +488,12 @@ oxlorg.opnsense.openvpn_static_key
             var: existing_entries.data
 
         - name: Removing
-          oxlorg.opnsense.openvpn_static_key:
+          fyrastack.opnsense.openvpn_static_key:
             name: 'test1'
             state: 'absent'
 
         - name: Linking key to OpenVPN-client
-          oxlorg.opnsense.openvpn_client:
+          fyrastack.opnsense.openvpn_client:
             name: 'test-client'
             remote: 'openvpn.test.opnsense.oxl.app'
             ca: 'OpenVPN'
@@ -501,7 +501,7 @@ oxlorg.opnsense.openvpn_static_key
 
 ----
 
-oxlorg.opnsense.openvpn_client_override
+fyrastack.opnsense.openvpn_client_override
 ===========================================
 
 .. code-block:: yaml
@@ -510,13 +510,13 @@ oxlorg.opnsense.openvpn_client_override
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.openvpn_client_override:
+          fyrastack.opnsense.openvpn_client_override:
             name: 'example'
             # servers: []
             # description: ''
@@ -538,7 +538,7 @@ oxlorg.opnsense.openvpn_client_override
             # enabled: true
 
         - name: Adding
-          oxlorg.opnsense.openvpn_client_override:
+          fyrastack.opnsense.openvpn_client_override:
             name: 'test1'
             servers: 'test-server'
             network_tunnel_ip4: '192.168.77.3/29'
@@ -547,12 +547,12 @@ oxlorg.opnsense.openvpn_client_override
             dns_servers: ['1.1.1.1', '8.8.8.8']
 
         - name: Blocking client
-          oxlorg.opnsense.openvpn_client_override:
+          fyrastack.opnsense.openvpn_client_override:
             name: 'test2'
             block: true
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
             # target: 'openvpn_client_override'
           register: existing_entries
 
@@ -561,13 +561,13 @@ oxlorg.opnsense.openvpn_client_override
             var: existing_entries.data
 
         - name: Removing
-          oxlorg.opnsense.openvpn_client_override:
+          fyrastack.opnsense.openvpn_client_override:
             name: 'test1'
             state: 'absent'
 
 ----
 
-oxlorg.opnsense.openvpn_status
+fyrastack.opnsense.openvpn_status
 ==================================
 
 .. code-block:: yaml
@@ -576,13 +576,13 @@ oxlorg.opnsense.openvpn_status
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
       tasks:
         - name: Querying OpenVPN Sessions
-          oxlorg.opnsense.openvpn_status:
+          fyrastack.opnsense.openvpn_status:
             target: 'sessions'
           register: ovpn_sessions
 
@@ -591,7 +591,7 @@ oxlorg.opnsense.openvpn_status
             var: ovpn_sessions.data
 
         - name: Querying OpenVPN Routes
-          oxlorg.opnsense.openvpn_status:
+          fyrastack.opnsense.openvpn_status:
             target: 'routes'
           register: ovpn_routes
 

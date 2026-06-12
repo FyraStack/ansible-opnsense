@@ -40,7 +40,7 @@ Definition
 
 .. include:: ../_include/param_basic.rst
 
-oxlorg.opnsense.dnsmasq_general
+fyrastack.opnsense.dnsmasq_general
 ===================================
 
 ..  csv-table:: Definition
@@ -82,7 +82,7 @@ oxlorg.opnsense.dnsmasq_general
     "dhcpfirst","boolean","false","false","\-","DHCP Mappings resolved before manual list. Affects PTR records"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.dnsmasq_domain
+fyrastack.opnsense.dnsmasq_domain
 ==================================
 
 ..  csv-table:: Definition
@@ -98,7 +98,7 @@ oxlorg.opnsense.dnsmasq_domain
     "description","string","false","\-","desc","A description for your reference (not parsed)."
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.dnsmasq_host
+fyrastack.opnsense.dnsmasq_host
 ================================
 
 ..  csv-table:: Definition
@@ -120,7 +120,7 @@ oxlorg.opnsense.dnsmasq_host
     "comments","string","false","\-","\-","A comment for your reference (not parsed)."
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.dnsmasq_range
+fyrastack.opnsense.dnsmasq_range
 =================================
 
 ..  csv-table:: Definition
@@ -147,7 +147,7 @@ oxlorg.opnsense.dnsmasq_range
     "ra_router_lifetime","int","false","1200","\-","The lifetime of the route may be changed or set to zero, which allows a router to advertise prefixes but not a route via itself."
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.dnsmasq_option
+fyrastack.opnsense.dnsmasq_option
 ==================================
 
 ..  csv-table:: Definition
@@ -165,7 +165,7 @@ oxlorg.opnsense.dnsmasq_option
     "force","boolean","false","false","\-","Always send the option, also when the client does not ask for it in the parameter request list."
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.dnsmasq_boot
+fyrastack.opnsense.dnsmasq_boot
 ================================
 
 ..  csv-table:: Definition
@@ -180,7 +180,7 @@ oxlorg.opnsense.dnsmasq_boot
     "address","string","false","\-","\-","DHCP boot server address."
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.dnsmasq_tag
+fyrastack.opnsense.dnsmasq_tag
 ===============================
 
 ..  csv-table:: Definition
@@ -200,7 +200,7 @@ Work in progress - you should make sure that your interfaces are already created
 Examples
 ********
 
-oxlorg.opnsense.dnsmasq_general
+fyrastack.opnsense.dnsmasq_general
 ===================================
 
 .. code-block:: yaml
@@ -209,20 +209,20 @@ oxlorg.opnsense.dnsmasq_general
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'dnsmasq'
 
-        oxlorg.opnsense.reload:
+        fyrastack.opnsense.reload:
           target: 'dnsmasq'
 
 
       tasks:
         - name: Example
-          oxlorg.opnsense.dnsmasq_general:
+          fyrastack.opnsense.dnsmasq_general:
             # enabled: true
             # interfaces: ['wan','opt1']
             # strictbind: true
@@ -256,7 +256,7 @@ oxlorg.opnsense.dnsmasq_general
             # dhcpfirst: true
 
         - name: Configuring General settings for dnsmasq
-          oxlorg.opnsense.dnsmasq_general:
+          fyrastack.opnsense.dnsmasq_general:
             enabled: true
             interfaces: ['wan','opt1']
             strictbind: true
@@ -273,7 +273,7 @@ oxlorg.opnsense.dnsmasq_general
             dhcpfirst: true
 
         - name: Listing dnsmasq settings
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
             target: 'dnsmasq_general'
           register: dnsmasq_general_settings
 
@@ -283,7 +283,7 @@ oxlorg.opnsense.dnsmasq_general
 
 ----
 
-oxlorg.opnsense.dnsmasq_domain
+fyrastack.opnsense.dnsmasq_domain
 ==================================
 
 .. code-block:: yaml
@@ -292,16 +292,16 @@ oxlorg.opnsense.dnsmasq_domain
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.oxlorg.net'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'dnsmasq_domain'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.dnsmasq_domain:
+          fyrastack.opnsense.dnsmasq_domain:
             domain: 'template.oxlorg'
             # sequence: 1
             # ip:
@@ -313,18 +313,18 @@ oxlorg.opnsense.dnsmasq_domain
             # debug: false
 
         - name: Adding Domain
-          oxlorg.opnsense.dnsmasq_domain:
+          fyrastack.opnsense.dnsmasq_domain:
             domain: 'template.oxlorg'
             ip: 192.168.0.1
 
         - name: Change Domain
-          oxlorg.opnsense.dnsmasq_domain:
+          fyrastack.opnsense.dnsmasq_domain:
             domain: 'template.oxlorg'
             ip: 192.168.0.1
             port: 5353
 
         - name: Listing Domain
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'dnsmasq_domain'
           register: existing_domain
 
@@ -334,7 +334,7 @@ oxlorg.opnsense.dnsmasq_domain
 
 ----
 
-oxlorg.opnsense.dnsmasq_host
+fyrastack.opnsense.dnsmasq_host
 ================================
 
 .. code-block:: yaml
@@ -343,16 +343,16 @@ oxlorg.opnsense.dnsmasq_host
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.oxlorg.net'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'dnsmasq_host'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.dnsmasq_host:
+          fyrastack.opnsense.dnsmasq_host:
             description: Host Description
             host: 'example'
             domain: 'template.oxlorg'
@@ -370,20 +370,20 @@ oxlorg.opnsense.dnsmasq_host
             # debug: false
 
         - name: Adding DNS entry
-          oxlorg.opnsense.dnsmasq_host:
+          fyrastack.opnsense.dnsmasq_host:
             description: DNS example.template.oxlorg
             host: 'example'
             domain: 'template.oxlorg'
             ip: 192.168.0.1
 
         - name: Adding DHCP entry
-          oxlorg.opnsense.dnsmasq_host:
+          fyrastack.opnsense.dnsmasq_host:
             description: DHCP example.template.oxlorg
             ip: '192.168.0.2'
             hardware_addr: 'aa:aa:aa:bb:bb:bb'
 
         - name: Listing Host
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'dnsmasq_host'
           register: existing_host
 
@@ -393,7 +393,7 @@ oxlorg.opnsense.dnsmasq_host
 
 ----
 
-oxlorg.opnsense.dnsmasq_range
+fyrastack.opnsense.dnsmasq_range
 =================================
 
 .. code-block:: yaml
@@ -402,16 +402,16 @@ oxlorg.opnsense.dnsmasq_range
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.oxlorg.net'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'dnsmasq_range'
 
       tasks:
         - name: Example v4
-          oxlorg.opnsense.dnsmasq_range:
+          fyrastack.opnsense.dnsmasq_range:
             description: IPv4 Range
             # interface:
             # set_tag:
@@ -426,7 +426,7 @@ oxlorg.opnsense.dnsmasq_range
             # debug: false
 
         - name: Example v6
-          oxlorg.opnsense.dnsmasq_range:
+          fyrastack.opnsense.dnsmasq_range:
             description: IPv6 Range
             # interface:
             # set_tag:
@@ -448,20 +448,20 @@ oxlorg.opnsense.dnsmasq_range
             # debug: false
 
         - name: Adding range
-          oxlorg.opnsense.dnsmasq_range:
+          fyrastack.opnsense.dnsmasq_range:
             description: IPv4 Range
             start_addr: 192.168.1.100
             end_addr: 192.168.1.200
 
         - name: Changing range
-          oxlorg.opnsense.dnsmasq_range:
+          fyrastack.opnsense.dnsmasq_range:
             description: IPv4 Range
             start_addr: 192.168.1.100
             end_addr: 192.168.1.150
             domain: opn.local
 
         - name: Listing Range
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'dnsmasq_range'
           register: existing_range
 
@@ -471,7 +471,7 @@ oxlorg.opnsense.dnsmasq_range
 
 ----
 
-oxlorg.opnsense.dnsmasq_option
+fyrastack.opnsense.dnsmasq_option
 ==================================
 
 .. code-block:: yaml
@@ -480,16 +480,16 @@ oxlorg.opnsense.dnsmasq_option
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.oxlorg.net'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'dnsmasq_option'
 
       tasks:
         - name: Example Set
-          oxlorg.opnsense.dnsmasq_option:
+          fyrastack.opnsense.dnsmasq_option:
             # type: 'set'
             option: 4 # time-server
             # option6:
@@ -501,7 +501,7 @@ oxlorg.opnsense.dnsmasq_option
             # debug: false
 
         - name: Example Match
-          oxlorg.opnsense.dnsmasq_option:
+          fyrastack.opnsense.dnsmasq_option:
             type: 'match'
             option: 60 # vendor-class
             # option6:
@@ -511,20 +511,20 @@ oxlorg.opnsense.dnsmasq_option
             # debug: false
 
         - name: Adding Match Vendor-Class SIPPhone
-          oxlorg.opnsense.dnsmasq_option:
+          fyrastack.opnsense.dnsmasq_option:
             type: 'match'
             option: 60 # vendor-class
             value: SIPPhone
             set_tag: voip
 
         - name: Adding Set time-server for SIPPhone
-          oxlorg.opnsense.dnsmasq_option:
+          fyrastack.opnsense.dnsmasq_option:
             option: 4 # time-server
             value: pool.ntp.org
             tag: voip
 
         - name: Listing Option
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'dnsmasq_option'
           register: existing_option
 
@@ -534,7 +534,7 @@ oxlorg.opnsense.dnsmasq_option
 
 ----
 
-oxlorg.opnsense.dnsmasq_boot
+fyrastack.opnsense.dnsmasq_boot
 ================================
 
 .. code-block:: yaml
@@ -543,16 +543,16 @@ oxlorg.opnsense.dnsmasq_boot
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.oxlorg.net'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'dnsmasq_boot'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.dnsmasq_boot:
+          fyrastack.opnsense.dnsmasq_boot:
             description: 'Boot PXELinux'
             # interface:
             # tag:
@@ -563,18 +563,18 @@ oxlorg.opnsense.dnsmasq_boot
             # debug: false
 
         - name: Adding something
-          oxlorg.opnsense.dnsmasq_boot:
+          fyrastack.opnsense.dnsmasq_boot:
             description: 'Boot PXELinux'
             filename: '/tftpboot/pxelinux.0'
 
         - name: Changing something
-          oxlorg.opnsense.dnsmasq_boot:
+          fyrastack.opnsense.dnsmasq_boot:
             description: 'Boot PXELinux'
             filename: '/tftpboot/pxelinux.0'
             address: '192.168.1.1'
 
         - name: Listing Boot
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'dnsmasq_boot'
           register: existing_boot
 
@@ -584,7 +584,7 @@ oxlorg.opnsense.dnsmasq_boot
 
 ----
 
-oxlorg.opnsense.dnsmasq_tag
+fyrastack.opnsense.dnsmasq_tag
 ===============================
 
 .. code-block:: yaml
@@ -593,26 +593,26 @@ oxlorg.opnsense.dnsmasq_tag
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.oxlorg.net'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'dnsmasq_tag'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.dnsmasq_tag:
+          fyrastack.opnsense.dnsmasq_tag:
             tag: 'test1'
             # state: 'absent'
             # debug: false
 
         - name: Adding a tag
-          oxlorg.opnsense.dnsmasq_tag:
+          fyrastack.opnsense.dnsmasq_tag:
             tag: 'Tag1'
 
         - name: Listing tags
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'dnsmasq_tag'
           register: existing_tags
 

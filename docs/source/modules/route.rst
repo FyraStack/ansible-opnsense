@@ -40,7 +40,7 @@ Definition
 
 .. include:: ../_include/param_basic.rst
 
-oxlorg.opnsense.route
+fyrastack.opnsense.route
 =========================
 
 ..  csv-table:: Definition
@@ -53,7 +53,7 @@ oxlorg.opnsense.route
     "match_fields","list of strings","false","['network', 'gateway']","\-","Fields that are used to match configured routes with the running config - if any of those fields are changed, the module will think it's a new route"
     "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
 
-oxlorg.opnsense.gateway
+fyrastack.opnsense.gateway
 ===========================
 
 ..  csv-table:: Definition
@@ -104,7 +104,7 @@ However - it is **recommended** to use/set 'description' as **unique identifier*
 Examples
 ********
 
-oxlorg.opnsense.route
+fyrastack.opnsense.route
 =========================
 
 .. code-block:: yaml
@@ -113,19 +113,19 @@ oxlorg.opnsense.route
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.route:
+        fyrastack.opnsense.route:
           match_fields: ['description']
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'route'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.route:
+          fyrastack.opnsense.route:
             description: 'test1'
             network: '172.16.0.0/12'
             gateway: 'LAN_GW'
@@ -135,14 +135,14 @@ oxlorg.opnsense.route
             # state: 'present'
 
         - name: Adding route
-          oxlorg.opnsense.route:
+          fyrastack.opnsense.route:
             description: 'test2'
             network: '10.206.0.0/16'
             gateway: 'VPN_GW'
             # match_fields: ['description']
 
         - name: Disabling route
-          oxlorg.opnsense.route:
+          fyrastack.opnsense.route:
             description: 'test3'
             network: '10.55.0.0/16'
             gateway: 'VPN_GW'
@@ -150,7 +150,7 @@ oxlorg.opnsense.route
             # match_fields: ['description']
 
         - name: Listing
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'route'
           register: existing_entries
 
@@ -159,14 +159,14 @@ oxlorg.opnsense.route
             var: existing_entries.data
 
         - name: Removing route 'test3'
-          oxlorg.opnsense.route:
+          fyrastack.opnsense.route:
             description: 'test3'
             network: '10.55.0.0/16'
             gateway: 'VPN_GW'
             state: 'absent'
             match_fields: ['description']
 
-oxlorg.opnsense.gateway
+fyrastack.opnsense.gateway
 ===========================
 
 .. code-block:: yaml
@@ -175,35 +175,35 @@ oxlorg.opnsense.gateway
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.gateway:
+        fyrastack.opnsense.gateway:
           match_fields: ['description']
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'gateway'
 
       tasks:
         - name: List Gateways
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           register: existing_entries
 
         - name: Add Gateway
-          oxlorg.opnsense.gateway:
+          fyrastack.opnsense.gateway:
             name: 'Test_GW'
             interface: 'wg1'
             gateway: '10.255.255.16'
 
         - name: Set Gateway Monitor IP
-          oxlorg.opnsense.gateway:
+          fyrastack.opnsense.gateway:
             name: 'Test_GW'
             interface: 'wg1'
             gateway: '10.255.255.16'
             monitor: '1.1.1.1'
 
         - name: Delete Gateway
-          oxlorg.opnsense.gateway:
+          fyrastack.opnsense.gateway:
             name: 'Test_GW'
             state: absent

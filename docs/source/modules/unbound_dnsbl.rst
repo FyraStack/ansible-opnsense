@@ -59,11 +59,11 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.opnsense.oxl.app'
           api_credential_file: '/home/guy/.secret/opn.key'
 
-        oxlorg.opnsense.list:
+        fyrastack.opnsense.list:
           target: 'unbound_dnsbl'
 
       tasks:
@@ -71,7 +71,7 @@ Examples
         # required ones normally
         # add their default values to get a brief overview of how the module works
         - name: Example
-          oxlorg.opnsense.unbound_dnsbl:
+          fyrastack.opnsense.unbound_dnsbl:
             name: 'example DNS-BL'
             providers: ['atf']
             # download_urls: ['https://example.com/dns.blocklist']
@@ -86,19 +86,19 @@ Examples
             # debug: false
 
         - name: Adding DNS Blocklists
-          oxlorg.opnsense.unbound_dnsbl:
+          fyrastack.opnsense.unbound_dnsbl:
             name: 'Provider DNS-BLs'
             providers: ['atf', 'atl']
             domains_allow: ['site-to-exclude.com']
 
         - name: Blocking some social media for client-networks
-          oxlorg.opnsense.unbound_dnsbl:
+          fyrastack.opnsense.unbound_dnsbl:
             name: 'Social Media'
             wildcard_domains_block: ['facebook.com', 'meta.com', 'tiktok.com']
             source_networks: ['192.168.0.0/16']
 
         - name: Listing current config
-          oxlorg.opnsense.list:
+          fyrastack.opnsense.list:
           #  target: 'unbound_dnsbl'
           register: dnsbl_config
 

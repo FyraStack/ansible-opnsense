@@ -30,7 +30,7 @@ Collection
 .. code-block:: bash
 
     # stable version:
-    ansible-galaxy collection install oxlorg.opnsense
+    ansible-galaxy collection install fyrastack.opnsense
 
     # latest version:
     ansible-galaxy collection install git+https://github.com/O-X-L/ansible-opnsense.git

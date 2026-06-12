@@ -33,7 +33,7 @@ You need to install the Wazuh agent plugin:
 os-wazuh-agent
 ```
 
-You can also install it using the :ref:`oxlorg.opnsense.package <modules_package>` module.
+You can also install it using the :ref:`fyrastack.opnsense.package <modules_package>` module.
 
 ----
 
@@ -99,13 +99,13 @@ Examples
       connection: local
       gather_facts: false
       module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
           firewall: 'opnsense.template.oxlorg.net'
           api_credential_file: '/home/guy/.secret/opn.key'
 
       tasks:
         - name: Example
-          oxlorg.opnsense.wazuh_agent:
+          fyrastack.opnsense.wazuh_agent:
             server_address: '192.168.1.100'
             # agent_name: ''
             # protocol: 'tcp'
@@ -126,12 +126,12 @@ Examples
             # enabled: true
 
         - name: Configure basic Wazuh agent
-          oxlorg.opnsense.wazuh_agent:
+          fyrastack.opnsense.wazuh_agent:
             server_address: '192.168.1.100'
             agent_name: 'opnsense-fw'
 
         - name: Configure Wazuh agent with authentication
-          oxlorg.opnsense.wazuh_agent:
+          fyrastack.opnsense.wazuh_agent:
             server_address: 'wazuh.example.com'
             agent_name: 'firewall-01'
             protocol: 'tcp'
@@ -140,7 +140,7 @@ Examples
             auth_port: 1515
 
         - name: Configure Wazuh agent with custom logging
-          oxlorg.opnsense.wazuh_agent:
+          fyrastack.opnsense.wazuh_agent:
             server_address: '10.0.0.100'
             remote_commands: true
             syslog_programs:
@@ -150,14 +150,14 @@ Examples
             suricata_eve_log: true
 
         - name: Disable Wazuh agent modules selectively
-          oxlorg.opnsense.wazuh_agent:
+          fyrastack.opnsense.wazuh_agent:
             server_address: '192.168.1.100'
             rootcheck_enabled: false
             syscheck_enabled: false
             active_response_enabled: false
 
         - name: Configure with debug output
-          oxlorg.opnsense.wazuh_agent:
+          fyrastack.opnsense.wazuh_agent:
             server_address: '192.168.1.100'
             debug_level: 2
             debug: true

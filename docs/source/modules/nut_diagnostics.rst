@@ -31,7 +31,7 @@ You need to install the NUT plugin:
 ```
 os-nut
 ```
-You can also install it using the :ref:`oxlorg.opnsense.package <modules_package>` module.
+You can also install it using the :ref:`fyrastack.opnsense.package <modules_package>` module.
 
 ----
 
@@ -58,13 +58,13 @@ Examples
      connection: local
      gather_facts: false
      module_defaults:
-        group/oxlorg.opnsense.all:
+        group/fyrastack.opnsense.all:
             firewall: 'opnsense.template.oxlorg.net'
             api_credential_file: '/home/guy/.secret/opn.key'
 
     tasks:
         - name: Read UPS status
-          oxlorg.opnsense.nut_diagnostics:
+          fyrastack.opnsense.nut_diagnostics:
           register: ups_status
 
         - name: Display UPS status
