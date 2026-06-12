@@ -45,6 +45,11 @@ def run_module():
             description='802.1Q VLAN PCP (priority code point)'
         ),
         description=dict(type='str', required=True, aliases=['desc', 'name']),
+        match_fields=dict(
+            type='list', elements='str', required=False, default=['description'],
+            choices=['description', 'interface', 'vlan', 'device'],
+            description='Fields used to match an existing VLAN before reconciling it',
+        ),
         **RELOAD_MOD_ARG,
         **STATE_ONLY_MOD_ARG,
         **OPN_MOD_ARGS,

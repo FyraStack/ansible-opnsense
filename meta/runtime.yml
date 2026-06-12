@@ -45,6 +45,7 @@ action_groups:
     - fyrastack.opnsense.wireguard_show
     - fyrastack.opnsense.wireguard_general
   interface:
+    - fyrastack.opnsense.interface_assignment
     - fyrastack.opnsense.interface_vlan
     - fyrastack.opnsense.interface_vxlan
     - fyrastack.opnsense.interface_vip

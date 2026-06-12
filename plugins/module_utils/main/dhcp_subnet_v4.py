@@ -22,6 +22,9 @@ class SubnetV4(BaseModule):
     API_CONT_REL = 'service'
     FIELDS_CHANGE = [
         'subnet', 'description', 'pools', 'auto_options',
+        'gateway', 'routes', 'dns', 'domain', 'domain_search',
+        'ntp_servers', 'time_servers', 'next_server', 'tftp_server',
+        'tftp_file', 'v6_only_preferred',
     ]
     FIELDS_ALL = FIELDS_CHANGE
     FIELDS_TYPING = {
