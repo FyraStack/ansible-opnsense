@@ -61,6 +61,18 @@ options:
     required: false
     type: int
     aliases: [prefix, cidr]
+  ipaddrv6:
+    description:
+      - IPv6 address to configure on the interface.
+    required: false
+    type: str
+    aliases: [ip6, ipv6, address6]
+  subnetv6:
+    description:
+      - IPv6 prefix length to configure on the interface.
+    required: false
+    type: int
+    aliases: [prefix6, cidr6]
   spoofmac:
     description:
       - Spoofed MAC address.
@@ -109,6 +121,16 @@ EXAMPLES = r'''
     description: COLO_33
     ipaddr: 144.225.81.129
     subnet: 29
+
+- name: Assign WAN with IPv4 and IPv6 addresses
+  fyrastack.opnsense.interface_assignment:
+    name: opt10
+    device: ixl0
+    description: WAN_HE
+    ipaddr: 184.105.54.114
+    subnet: 29
+    ipaddrv6: 2001:470:496:1::2
+    subnetv6: 124
 
 - name: Adopt an already-existing assignment by description
   fyrastack.opnsense.interface_assignment:
@@ -254,6 +276,8 @@ def _desired_payload(params):
         'enabled',
         'ipaddr',
         'subnet',
+        'ipaddrv6',
+        'subnetv6',
         'gateway_interface',
     )
     for field in optional_fields:
@@ -288,6 +312,8 @@ def _entry_changed(entry, detail, payload, params):
         'descr': ('descr', payload.get('descr')),
         'ipaddr': ('ipaddr', payload.get('ipaddr')),
         'subnet': ('subnet', payload.get('subnet')),
+        'ipaddrv6': ('ipaddrv6', payload.get('ipaddrv6')),
+        'subnetv6': ('subnetv6', payload.get('subnetv6')),
     }
     for entry_field, (_, desired) in comparisons.items():
         if desired is not None and _as_str(entry.get(entry_field)) != _as_str(desired):
@@ -311,6 +337,8 @@ def _validate_current_state(module, name, entry, payload):
         ('descr', payload.get('descr')),
         ('ipaddr', payload.get('ipaddr')),
         ('subnet', payload.get('subnet')),
+        ('ipaddrv6', payload.get('ipaddrv6')),
+        ('subnetv6', payload.get('subnetv6')),
     ):
         if desired is not None and _as_str(entry.get(field)) != _as_str(desired):
             mismatches[field] = {
@@ -360,6 +388,8 @@ def run_module():
         enabled=dict(type='bool', required=False, aliases=['enable']),
         ipaddr=dict(type='str', required=False, aliases=['ip', 'address']),
         subnet=dict(type='int', required=False, aliases=['prefix', 'cidr']),
+        ipaddrv6=dict(type='str', required=False, aliases=['ip6', 'ipv6', 'address6']),
+        subnetv6=dict(type='int', required=False, aliases=['prefix6', 'cidr6']),
         spoofmac=dict(type='str', required=False, default='', no_log=False),
         gateway_interface=dict(type='bool', required=False),
         match_by=dict(

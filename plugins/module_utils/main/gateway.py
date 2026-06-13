@@ -24,9 +24,7 @@ class Gw(BaseModule):
     API_MOD = 'routing'
     API_CONT = 'settings'
     FIELDS_CHANGE = [
-        'name', 'interface', 'gateway', 'default_gw', 'far_gw', 'monitor_disable', 'monitor_noroute', 'monitor',
-        'force_down', 'priority', 'weight', 'latency_low', 'latency_high', 'loss_low', 'loss_high', 'interval',
-        'time_period', 'loss_interval', 'data_length', 'description', 'ip_protocol',
+        'name', 'interface', 'gateway', 'default_gw', 'monitor_disable', 'description', 'ip_protocol',
     ]
     FIELDS_ALL = ['enabled']
     FIELDS_ALL.extend(FIELDS_CHANGE)
@@ -43,11 +41,8 @@ class Gw(BaseModule):
         'loss_high': 'losshigh',
     }
     FIELDS_TYPING = {
-        'bool': ['enabled', 'default_gw', 'far_gw', 'monitor_disable', 'monitor_noroute', 'force_down'],
-        'int': [
-            'priority', 'weight', 'latency_low', 'latency_high', 'loss_low', 'loss_high', 'interval', 'time_period',
-            'loss_interval', 'data_length',
-        ],
+        'bool': ['enabled', 'default_gw', 'monitor_disable'],
+        'int': ['priority', 'weight'],
         'select': ['interface', 'ip_protocol'],
     }
     INT_VALIDATIONS = {
