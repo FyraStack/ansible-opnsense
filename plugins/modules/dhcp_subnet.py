@@ -16,6 +16,7 @@ try:
     from ansible_collections.fyrastack.opnsense.plugins.module_utils.defaults.main import \
         OPN_MOD_ARGS, STATE_MOD_ARG, RELOAD_MOD_ARG
     from ansible_collections.fyrastack.opnsense.plugins.module_utils.main.dhcp_subnet_v4 import SubnetV4
+    from ansible_collections.fyrastack.opnsense.plugins.module_utils.main.dhcp_subnet_v6 import SubnetV6
 
 except MODULE_EXCEPTIONS:
     module_dependency_error()
@@ -33,6 +34,10 @@ def run_module():
         ),
         description=dict(
             type='str', required=False, aliases=['desc'], default='',
+        ),
+        interface=dict(
+            type='str', required=False, default='',
+            description='Interface this subnet belongs to. Required for DHCPv6 subnets.',
         ),
         pools=dict(
             type='list', elements='str', required=False, default=[],
@@ -65,6 +70,14 @@ def run_module():
             type='list', elements='str', required=False, aliases=['dom_search'], default=[],
             description="Specifies a ´search list´ of Domain Names to be used by the client to locate "
                         'not-fully-qualified domain names.',
+        ),
+        v6_dnr=dict(
+            type='str', required=False, default='',
+            description='IPv6 Discovery of Network-designated Resolvers option data.',
+        ),
+        valid_lifetime=dict(
+            type='int', required=False,
+            description='Defines how long the addresses (leases) given out by the server are valid (in seconds).',
         ),
         ntp_servers=dict(
             type='list', elements='str', required=False, aliases=['ntp_srv', 'ntp'], default=[],
@@ -118,9 +131,11 @@ def run_module():
     )
 
     if module.params['ipv'] == 6:
-        module.fail_json('DHCPv6 is not yet supported!')
+        if module.params['interface'] == '':
+            module.fail_json("'interface' is required for DHCPv6 subnets")
 
-    module_wrapper(SubnetV4(module=module, result=result))
+    module_cls = SubnetV6 if module.params['ipv'] == 6 else SubnetV4
+    module_wrapper(module_cls(module=module, result=result))
     module.exit_json(**result)
 
 

@@ -70,31 +70,33 @@ class SubnetV4(BaseModule):
             opts = entry[self.API_ATTR_OPTIONS]
             return {
                 **simple,
-                'dns': get_selected_list(opts[self.FIELDS_TRANSLATE_SPECIAL['dns']]),
-                'domain_search': get_selected_list(opts['domain_search']),
-                'gateway': get_selected_list(opts[self.FIELDS_TRANSLATE_SPECIAL['gateway']]),
-                'routes': opts[self.FIELDS_TRANSLATE_SPECIAL['routes']],
-                'domain': opts[self.FIELDS_TRANSLATE_SPECIAL['domain']],
-                'ntp_servers': get_selected_list(opts['ntp_servers']),
-                'time_servers': get_selected_list(opts['time_servers']),
-                'tftp_server': opts[self.FIELDS_TRANSLATE_SPECIAL['tftp_server']],
-                'tftp_file': opts[self.FIELDS_TRANSLATE_SPECIAL['tftp_file']],
-                'v6_only_preferred': opts['v6_only_preferred'],
+                'dns': get_selected_list(opts.get(self.FIELDS_TRANSLATE_SPECIAL['dns'], ''), remove_empty=True),
+                'domain_search': get_selected_list(opts.get('domain_search', ''), remove_empty=True),
+                'gateway': get_selected_list(opts.get(self.FIELDS_TRANSLATE_SPECIAL['gateway'], ''), remove_empty=True),
+                'routes': opts.get(self.FIELDS_TRANSLATE_SPECIAL['routes'], ''),
+                'domain': opts.get(self.FIELDS_TRANSLATE_SPECIAL['domain'], ''),
+                'ntp_servers': get_selected_list(opts.get('ntp_servers', ''), remove_empty=True),
+                'time_servers': get_selected_list(opts.get('time_servers', ''), remove_empty=True),
+                'next_server': opts.get('next_server', ''),
+                'tftp_server': opts.get(self.FIELDS_TRANSLATE_SPECIAL['tftp_server'], ''),
+                'tftp_file': opts.get(self.FIELDS_TRANSLATE_SPECIAL['tftp_file'], ''),
+                'v6_only_preferred': opts.get('v6_only_preferred', ''),
             }
 
         # search-call :'(
         return {
             **simple,
-            'dns': entry[f"option_data.{self.FIELDS_TRANSLATE_SPECIAL['dns']}"],
-            'domain_search': entry['option_data.domain_search'],
-            'gateway': entry[f"option_data.{self.FIELDS_TRANSLATE_SPECIAL['gateway']}"],
-            'routes': entry[f"option_data.{self.FIELDS_TRANSLATE_SPECIAL['routes']}"],
-            'domain': entry[f"option_data.{self.FIELDS_TRANSLATE_SPECIAL['domain']}"],
-            'ntp_servers': entry['option_data.ntp_servers'],
-            'time_servers': entry['option_data.time_servers'],
-            'tftp_server': entry[f"option_data.{self.FIELDS_TRANSLATE_SPECIAL['tftp_server']}"],
-            'tftp_file': entry[f"option_data.{self.FIELDS_TRANSLATE_SPECIAL['tftp_file']}"],
-            'v6_only_preferred': entry['option_data.v6_only_preferred'],
+            'dns': get_selected_list(entry.get(f"option_data.{self.FIELDS_TRANSLATE_SPECIAL['dns']}", ''), remove_empty=True),
+            'domain_search': get_selected_list(entry.get('option_data.domain_search', ''), remove_empty=True),
+            'gateway': get_selected_list(entry.get(f"option_data.{self.FIELDS_TRANSLATE_SPECIAL['gateway']}", ''), remove_empty=True),
+            'routes': entry.get(f"option_data.{self.FIELDS_TRANSLATE_SPECIAL['routes']}", ''),
+            'domain': entry.get(f"option_data.{self.FIELDS_TRANSLATE_SPECIAL['domain']}", ''),
+            'ntp_servers': get_selected_list(entry.get('option_data.ntp_servers', ''), remove_empty=True),
+            'time_servers': get_selected_list(entry.get('option_data.time_servers', ''), remove_empty=True),
+            'next_server': entry.get('option_data.next_server', ''),
+            'tftp_server': entry.get(f"option_data.{self.FIELDS_TRANSLATE_SPECIAL['tftp_server']}", ''),
+            'tftp_file': entry.get(f"option_data.{self.FIELDS_TRANSLATE_SPECIAL['tftp_file']}", ''),
+            'v6_only_preferred': entry.get('option_data.v6_only_preferred', ''),
         }
 
     def _build_request(self) -> dict:

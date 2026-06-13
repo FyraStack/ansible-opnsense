@@ -153,6 +153,7 @@ action_groups:
     - fyrastack.opnsense.dhcp_controlagent
     - fyrastack.opnsense.dhcp_general
     - fyrastack.opnsense.dhcp_subnet
+    - fyrastack.opnsense.dhcp_pd_pool
   acme:
     - fyrastack.opnsense.acme_general
     - fyrastack.opnsense.acme_account
@@ -193,6 +194,8 @@ action_groups:
     - fyrastack.opnsense.wazuh_agent
   raw:
     - fyrastack.opnsense.raw
+  radvd:
+    - fyrastack.opnsense.radvd
   access:
     - fyrastack.opnsense.user
     - fyrastack.opnsense.group
@@ -228,6 +231,7 @@ action_groups:
           - fyrastack.opnsense.hasync
           - fyrastack.opnsense.wazuh
           - fyrastack.opnsense.raw
+          - fyrastack.opnsense.radvd
           - fyrastack.opnsense.access
           - fyrastack.opnsense.dnsmasq
           - fyrastack.opnsense.haproxy

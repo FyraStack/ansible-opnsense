@@ -16,6 +16,7 @@ try:
     from ansible_collections.fyrastack.opnsense.plugins.module_utils.defaults.main import \
         EN_ONLY_MOD_ARG, OPN_MOD_ARGS, RELOAD_MOD_ARG
     from ansible_collections.fyrastack.opnsense.plugins.module_utils.main.dhcp_general import General
+    from ansible_collections.fyrastack.opnsense.plugins.module_utils.main.dhcp_general_v6 import GeneralV6
 
 
 except MODULE_EXCEPTIONS:
@@ -44,6 +45,7 @@ def run_module():
             type='int', required=False, default=4000, aliases=['valid_lifetime'],
             description='Defines how long the addresses (leases) given out by the server are valid (in seconds)',
         ),
+        ipv=dict(type='int', required=False, default=4, choices=[4, 6], aliases=['ip_version']),
         **EN_ONLY_MOD_ARG,
         **RELOAD_MOD_ARG,
         **OPN_MOD_ARGS,
@@ -62,7 +64,8 @@ def run_module():
         }
     )
 
-    module_wrapper(General(module=module, result=result))
+    module_cls = GeneralV6 if module.params['ipv'] == 6 else General
+    module_wrapper(module_cls(module=module, result=result))
     module.exit_json(**result)
 
 
