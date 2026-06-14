@@ -354,10 +354,13 @@ def _validate_current_state(module, name, entry, payload):
         )
 
 
-def _validate_conflicts(module, name, interfaces, payload):
+def _validate_conflicts(module, name, interfaces, payload, ignore_names=None):
+    ignore_names = set(ignore_names or [])
+    ignore_names.add(name)
+
     conflicts = {}
     for field, value in (('device', payload.get('device')), ('descr', payload.get('descr'))):
-        matches = [match for match in _find_by_field(interfaces, field, value) if match != name]
+        matches = [match for match in _find_by_field(interfaces, field, value) if match not in ignore_names]
         if len(matches) > 0:
             conflicts[field] = matches
 
@@ -464,6 +467,23 @@ def run_module():
             module.exit_json(**result)
 
         payload = _desired_payload(params)
+        target_name = requested_name
+        rename_assignment = (
+            name != requested_name and
+            matched_by in ('description', 'device') and
+            requested_name not in interfaces
+        )
+
+        if name != requested_name and requested_name in interfaces:
+            module.fail_json(
+                msg=(
+                    f"Refusing to rename interface assignment {name} to {requested_name}: "
+                    f"{requested_name} already exists."
+                ),
+                assignment=name,
+                requested_name=requested_name,
+                existing=interfaces[requested_name],
+            )
 
         # Refuse to apply if the desired identity already exists on another
         # assignment name. This prevents set_item from accidentally mutating
@@ -473,6 +493,7 @@ def run_module():
             name=name,
             interfaces=interfaces,
             payload=payload,
+            ignore_names=[name] if rename_assignment else None,
         )
 
         changed = _entry_changed(
@@ -480,33 +501,44 @@ def run_module():
             detail=existing_detail,
             payload=payload,
             params=params,
-        )
+        ) or rename_assignment
 
         result['changed'] = changed
+        result['assignment_name'] = target_name if rename_assignment else name
         result['assignment'] = existing_entry
         result['diff']['before'] = existing_entry
         result['diff']['after'] = payload
 
         if changed and not module.check_mode:
-            response = _apply_assignment(session=session, name=name, payload=payload)
+            if rename_assignment:
+                response = session.post(_assign_cnf('del_item', params=[name]))
+                if response.get('result') != 'deleted':
+                    module.fail_json(
+                        msg=f"Failed to delete old interface assignment {name} while renaming to {target_name}",
+                        response=response,
+                        assignment=name,
+                        requested_name=target_name,
+                    )
+
+            response = _apply_assignment(session=session, name=target_name, payload=payload)
             if response.get('result') != 'saved':
                 module.fail_json(
-                    msg=f"Failed to configure interface assignment {name}",
+                    msg=f"Failed to configure interface assignment {target_name}",
                     response=response,
-                    assignment=name,
+                    assignment=target_name,
                     payload=payload,
                 )
 
-            interfaces, reconciled_entry = _refresh_assignment(session, name)
-            if name not in interfaces:
+            interfaces, reconciled_entry = _refresh_assignment(session, target_name)
+            if target_name not in interfaces:
                 module.fail_json(
-                    msg=f"Interface assignment {name} was not returned after applying changes",
-                    assignment=name,
+                    msg=f"Interface assignment {target_name} was not returned after applying changes",
+                    assignment=target_name,
                     payload=payload,
                 )
             _validate_current_state(
                 module=module,
-                name=name,
+                name=target_name,
                 entry=reconciled_entry,
                 payload=payload,
             )
