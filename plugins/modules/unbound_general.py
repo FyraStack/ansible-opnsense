@@ -46,7 +46,7 @@ def run_module():
         ),
         # IPv6 netmask
         dns64_prefix=dict(
-            type='str', required=False, default='64:ff9b::/96',
+            type='str', required=False, default='',
             description='The DNS64 prefix'
         ),
         aaaa_only_mode=dict(
